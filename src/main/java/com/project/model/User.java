@@ -4,6 +4,7 @@ import javax.management.relation.Role;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Users")
 public class User {
 
     @Id
