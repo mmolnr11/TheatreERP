@@ -4,11 +4,11 @@ import javax.management.relation.Role;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "TheaterUser")
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "first_name")
     private String firstName;
@@ -20,15 +20,21 @@ public class User {
     private String password;
     @Column (nullable = false)
     private String role;
-    @Column(nullable = true)
+    @Column()
     private String postion;
+
 
     public User(String firstName, String secondName, String emailAddress, String password, String role, String postion) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.emailAddress = emailAddress;
         this.password = password;
-        this.role = role;
+        if(role == "admin"){
+
+            this.role = "ROLE_ADMIN";
+        }else {
+            this.role = "ROLE_USER";
+        }
         this.postion = postion;
     }
 
@@ -37,7 +43,12 @@ public class User {
         this.secondName = secondName;
         this.emailAddress = emailAddress;
         this.password = password;
-        this.role = role;
+        if(role == "admin"){
+
+            this.role = "ROLE_ADMIN";
+        }else {
+            this.role = "ROLE_USER";
+        }
     }
 
     public long getId() {

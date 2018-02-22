@@ -8,5 +8,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Override
     User findOne(Long aLong);
 
-
 }
