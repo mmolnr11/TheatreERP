@@ -14,13 +14,13 @@ public class Employee {
     @Column(nullable = false)
     private int age;
     @Column(nullable = false)
-    private String postion;
+    private String position;
 
-    public Employee(String firstName, String secondName, int age, String postion) {
+    public Employee(String firstName, String secondName, int age, String position) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.age = age;
-        this.postion = postion;
+        this.position = position;
     }
 
     public long getId() {
@@ -55,11 +55,11 @@ public class Employee {
         this.age = age;
     }
 
-    public String getPostion() {
-        return postion;
+    public String getPosition() {
+        return position;
     }
 
-    public void setPostion(String postion) {
-        this.postion = postion;
+    public void setPosition(String postion) {
+        this.position = postion;
     }
 }
