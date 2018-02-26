@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>add user</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<h1>Add new User </h1>
+<form id="save-bike" th:action="@{/add-new-user}" method="post">
+
+    <div class="col-md-4" id="userfileds">
+        <div class="form-group">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                <input class="mdl-textfield__input" type="text" id="firstname"  name="firstname"/>
+                <label class="mdl-textfield__label" for="firstname" >Firstname of the user</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="secondname" name="secondname"/>
+                <label class="mdl-textfield__label" for="secondname">Secondname of the user</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="email" name="email"/>
+                <label class="mdl-textfield__label" for="email">Enter email</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="password" name="password"/>
+                <label class="mdl-textfield__label" for="password">Give password</label>
+            </div>
+
+            <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class = "mdl-textfield__input" type="text" rows ="3" id ="role" name="role"/>
+                <label class = "mdl-textfield__label" for = "role">Role</label>
+            </div>
+            <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class = "mdl-textfield__input" type="text" rows ="3" id ="position" name="position"/>
+                <label class = "mdl-textfield__label" for = "position">Position</label>
+            </div>
+
+        </div>
+        <!--<div class="form-group">-->
+            <!--<div class="mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label getmdl-select">-->
+                <!--<input class="mdl-textfield__input" id="type" name="bikeType"  type="text" tabIndex="-1" data-val="" readonly="true"/>-->
+                <!--<label class="mdl-textfield__label" for="biketype">Type of bike</label>-->
+                <!--<ul class="mdl-menu mdl-menu&#45;&#45;bottom-left mdl-js-menu" for="type" name="biketype">-->
+                    <!--<li class="mdl-menu__item" value="CITY" data-val="CITY">CITY</li>-->
+                    <!--<li class="mdl-menu__item" value="TANDEM" data-val="TANDEM">TANDEM</li>-->
+                    <!--<li class="mdl-menu__item" value="CARGO" data-val="CARGO">CARGO</li>-->
+                    <!--<li class="mdl-menu__item" value="MTB" data-val="MTB">MTB</li>-->
+                    <!--<li class="mdl-menu__item" value="ROAD" data-val="ROAD">ROAD</li>-->
+                    <!--<li class="mdl-menu__item" value="FIXEDGEAR" data-val="FIXEDGEAR">FIXEDGEAR</li>-->
+                    <!--<li class="mdl-menu__item" value="BEERBIKE" data-val="BEERBIKE">BEERBIKE</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+        <button type="submit" id="save-bike-to-db" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Add User</button>
+    </div>
+
+</form>
+
+</body>
+</html>

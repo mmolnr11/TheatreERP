@@ -61,12 +61,12 @@ public class GoogleCalController {
 		this.events = events;
 	}
 
-	@RequestMapping(value = "/andris/google", method = RequestMethod.GET)
+	@RequestMapping(value = "/login/google", method = RequestMethod.GET)
 	public RedirectView googleConnectionStatus(HttpServletRequest request) throws Exception {
 		return new RedirectView(authorize());
 	}
 
-	@RequestMapping(value = "/andris/google", method = RequestMethod.GET, params = "code")
+	@RequestMapping(value = "/login/google", method = RequestMethod.GET, params = "code")
 	public ResponseEntity<String> oauth2Callback(@RequestParam(value = "code") String code) {
 		com.google.api.services.calendar.model.Events eventList;
 		String message;

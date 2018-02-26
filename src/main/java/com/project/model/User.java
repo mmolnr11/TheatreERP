@@ -21,10 +21,10 @@ public class User {
     @Column (nullable = false)
     private String role;
     @Column()
-    private String postion;
+    private String position;
 
 
-    public User(String firstName, String secondName, String emailAddress, String password, String role, String postion) {
+    public User(String firstName, String secondName, String emailAddress, String password, String role, String position) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.emailAddress = emailAddress;
@@ -35,7 +35,7 @@ public class User {
         }else {
             this.role = "ROLE_USER";
         }
-        this.postion = postion;
+        this.position = position;
     }
 
     public User(String firstName, String secondName, String emailAddress, String password, String role) {
@@ -49,6 +49,9 @@ public class User {
         }else {
             this.role = "ROLE_USER";
         }
+    }
+
+    public User() {
     }
 
     public long getId() {
@@ -102,11 +105,11 @@ public class User {
         this.role = "ROLE_USER";
     }
 
-    public String getPostion() {
-        return postion;
+    public String getPosition() {
+        return position;
     }
 
-    public void setPostion(String postion) {
-        this.postion = postion;
+    public void setPosition(String position) {
+        this.position = position;
     }
 }
