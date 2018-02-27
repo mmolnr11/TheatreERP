@@ -1,26 +1,41 @@
 package com.project.model;
 
+
+
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
-
+@MappedSuperclass
 public class ThEvent {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column
     private String description;
+    @Column
     private String titel;
-    private String startDate;
-    private String endDate;
+    @Column
+//    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+    private LocalDateTime startDateTime;
+    @Column
+//    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+    private LocalDateTime endDateTime;
+    @Column
     private String location;
 //    private EventType eventType;
 
     public ThEvent() {
     }
 
-    public ThEvent(String description, String titel, String startDate, String endDate, String location) {
+    public ThEvent(String description, String titel, LocalDateTime startDateTime, LocalDateTime endDateTime, String location) {
         this.description = description;
         this.titel = titel;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
         this.location = location;
 //        this.eventType = eventType;
     }
@@ -41,20 +56,20 @@ public class ThEvent {
         this.titel = titel;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public void setStartDateTime(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
     }
 
-    public String getEndDate() {
-        return endDate;
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setEndDateTime(LocalDateTime endDateTime) {
+        this.endDateTime = endDateTime;
     }
 
     public String getLocation() {

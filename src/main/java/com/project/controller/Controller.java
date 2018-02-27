@@ -1,20 +1,34 @@
 package com.project.controller;
 
+import com.project.dao.EventDao;
 import com.project.dao.UserDao;
+import com.project.model.LiveShow;
 import com.project.model.User;
 import com.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 
 @org.springframework.stereotype.Controller
 public class Controller {
     @Autowired
     UserDao userDao;
+    @Autowired
+    EventDao eventDao;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderLoginPage(Model model) {
@@ -65,5 +79,23 @@ public class Controller {
         model.addAttribute("userDetails", user);
         return "user-details";
 
+    }
+    @PostMapping(value = "/event-detail")
+    public String vlami (Model model, @RequestParam("startdate") String date) throws ParseException {
+        String formatted = date.substring(0,10);
+        System.out.println(formatted);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
+        LocalDate dt = LocalDate.parse(formatted, formatter);
+        LocalDateTime searchStartTime = LocalDateTime.of(dt, LocalTime.of(0,0));
+        LocalDateTime searchEndTime = LocalDateTime.of(dt, LocalTime.of(23,59));
+//        List <LiveShow> liveShows= eventDao.findByDate(searchStartTime,searchEndTime );
+        System.out.println(formatter);
+        System.out.println(dt.toString());
+        System.out.println(searchStartTime.toString());
+
+        model.addAttribute("proba",formatter);
+        return "proba";
     }
 }
