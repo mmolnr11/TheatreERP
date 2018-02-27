@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class ThEvent {
 
     private int id;
-    private String description;
+    protected String description;
     private String titel;
     private String startDate;
     private String endDate;
