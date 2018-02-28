@@ -14,8 +14,10 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<p th:text="${proba}"></p>
+<div th:each="liveshow : ${proba}">
 
+<p th:text="${liveshow.getTitel()}"></p>
+</div>
 
 </body>
 </html>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,9 +30,9 @@ public class EventDao {
 //    public List<ThEvent> eventsPerSameDay(String date){
 //        String formattedDate = date.substring(0,9);
 ////    }
-//    public List<LiveShow> findByDate(LocalDateTime start, LocalDateTime end){
-//       List<LiveShow> events = eventRepository.findLiveShowByEndDateBetween( start, end);
-//       return events;
-//    }
+    public List<LiveShow> findByDate(Date start, Date end){
+        List<LiveShow> events = eventRepository.findLiveShowByEndDateTimeBetween(start, end);
+        return events;
+    }
 }
 

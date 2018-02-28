@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @MappedSuperclass
 public class ThEvent {
@@ -19,11 +20,13 @@ public class ThEvent {
     @Column
     private String titel;
     @Column
-//    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
-    private LocalDateTime startDateTime;
+    @Temporal(value= TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "EEE, d MMM yyyy HH:mm")
+    private Date startDateTime;
     @Column
-//    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
-    private LocalDateTime endDateTime;
+    @Temporal(value= TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "EEE, d MMM yyyy HH:mm")
+    private Date endDateTime;
     @Column
     private String location;
 //    private EventType eventType;
@@ -31,7 +34,7 @@ public class ThEvent {
     public ThEvent() {
     }
 
-    public ThEvent(String description, String titel, LocalDateTime startDateTime, LocalDateTime endDateTime, String location) {
+    public ThEvent(String description, String titel, Date startDateTime, Date endDateTime, String location) {
         this.description = description;
         this.titel = titel;
         this.startDateTime = startDateTime;
@@ -56,19 +59,19 @@ public class ThEvent {
         this.titel = titel;
     }
 
-    public LocalDateTime getStartDateTime() {
+    public Date getStartDateTime() {
         return startDateTime;
     }
 
-    public void setStartDateTime(LocalDateTime startDateTime) {
+    public void setStartDateTime(Date startDateTime) {
         this.startDateTime = startDateTime;
     }
 
-    public LocalDateTime getEndDateTime() {
+    public Date getEndDateTime() {
         return endDateTime;
     }
 
-    public void setEndDateTime(LocalDateTime endDateTime) {
+    public void setEndDateTime(Date endDateTime) {
         this.endDateTime = endDateTime;
     }
 

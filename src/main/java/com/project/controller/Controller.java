@@ -83,19 +83,23 @@ public class Controller {
     @PostMapping(value = "/event-detail")
     public String vlami (Model model, @RequestParam("startdate") String date) throws ParseException {
         String formatted = date.substring(0,10);
-        System.out.println(formatted);
+        System.out.println("input " +date);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-        LocalDate dt = LocalDate.parse(formatted, formatter);
-        LocalDateTime searchStartTime = LocalDateTime.of(dt, LocalTime.of(0,0));
-        LocalDateTime searchEndTime = LocalDateTime.of(dt, LocalTime.of(23,59));
-//        List <LiveShow> liveShows= eventDao.findByDate(searchStartTime,searchEndTime );
-        System.out.println(formatter);
-        System.out.println(dt.toString());
-        System.out.println(searchStartTime.toString());
 
-        model.addAttribute("proba",formatter);
+        Date mdate = new SimpleDateFormat("MM/dd/yyyy HH:mm").parse(date);
+
+        String formattedDate1 = new SimpleDateFormat("dd/MM/yyyy 00:01").format(mdate);
+//        24/02/2018 00:01
+        String formattedDate2 = new SimpleDateFormat("dd/MM/yyyy 23:59").format(mdate);
+
+        System.out.println("mdate " + mdate);
+        Date te = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate1);
+        Date t2 = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate2);
+        System.out.println("ujra date "  + te);
+       List<LiveShow> liveShowList =  eventDao.findByDate(te,t2);
+        System.out.println(liveShowList.size());
+        model.addAttribute("proba",liveShowList);
         return "proba";
     }
 }
