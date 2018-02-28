@@ -1,20 +1,34 @@
 package com.project.controller;
 
+import com.project.dao.EventDao;
 import com.project.dao.UserDao;
+import com.project.model.LiveShow;
 import com.project.model.User;
 import com.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 
 @org.springframework.stereotype.Controller
 public class Controller {
     @Autowired
     UserDao userDao;
+    @Autowired
+    EventDao eventDao;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderLoginPage(Model model) {
@@ -65,5 +79,27 @@ public class Controller {
         model.addAttribute("userDetails", user);
         return "user-details";
 
+    }
+    @PostMapping(value = "/event-detail")
+    public String vlami (Model model, @RequestParam("startdate") String date) throws ParseException {
+        String formatted = date.substring(0,10);
+        System.out.println("input " +date);
+
+
+
+        Date mdate = new SimpleDateFormat("MM/dd/yyyy HH:mm").parse(date);
+
+        String formattedDate1 = new SimpleDateFormat("dd/MM/yyyy 00:01").format(mdate);
+//        24/02/2018 00:01
+        String formattedDate2 = new SimpleDateFormat("dd/MM/yyyy 23:59").format(mdate);
+
+        System.out.println("mdate " + mdate);
+        Date te = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate1);
+        Date t2 = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate2);
+        System.out.println("ujra date "  + te);
+       List<LiveShow> liveShowList =  eventDao.findByDate(te,t2);
+        System.out.println(liveShowList.size());
+        model.addAttribute("proba",liveShowList);
+        return "proba";
     }
 }
