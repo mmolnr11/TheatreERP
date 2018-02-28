@@ -100,6 +100,26 @@ public class Controller {
        List<LiveShow> liveShowList =  eventDao.findByDate(te,t2);
         System.out.println(liveShowList.size());
         model.addAttribute("proba",liveShowList);
-        return "proba";
+        return "superadmin";
+    }
+
+    @GetMapping(value = "/liveshow/{id}/description")
+    public String renderEventDetailsPage(Model model, @PathVariable ("id") Long id){
+        LiveShow liveShow = eventDao.findOne(id);
+        model.addAttribute("liveshow", liveShow);
+        return "update-liveshow";
+    }
+    @PostMapping(value = "/liveshow/{id}/update")
+    public String saveChangesToLiveshow (@ModelAttribute("liveshow") LiveShow liveShow,
+                                         Model model, @PathVariable("id") Long id){
+        LiveShow liveShowOld = eventDao.findOne(id);
+        System.out.println(liveShow.getTitel());
+       liveShowOld.setTitel(liveShow.getTitel());
+       liveShowOld.setDescription(liveShow.getDescription());
+       liveShowOld.setStartDateTime(liveShow.getStartDateTime());
+       liveShowOld.setEndDateTime(liveShow.getEndDateTime());
+       eventDao.saveLiveshow(liveShowOld);
+       return "superadmin";
+
     }
 }

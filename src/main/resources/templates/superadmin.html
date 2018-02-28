@@ -64,11 +64,7 @@
                 </div>
                 <script type="text/javascript">
                     $(function () {
-                        $('#datetimepicker1').datetimepicker({
-//                            dateFormat: 'yyyy-mm-dd',
-//                            pick12HourFormat: false,
-//                            showMeridian:false
-                        });
+                        $('#datetimepicker1').datetimepicker();
                     });
                 </script>
             </div>
@@ -76,6 +72,23 @@
     </div>
     <button type="submit" class="btn btn-success">Submit</button>
 </form>
+
+<div th:if="${not #lists.isEmpty(proba)}">
+
+    <div th:each="liveshow : ${proba}">
+        <ul class="">
+            <li><a href="#" id="" th:href="@{'~/liveshow/' + ${liveshow.getId()} + '/description'}"
+                   th:text="${liveshow.getTitel()}+ ' ' + ${liveshow.getDescription()}+ ' '+ ${liveshow.getLocation()}" ></a></li>
+        </ul>
+
+    </div>
+</div>
+<div th:if="${ #lists.isEmpty(proba)}">
+    <p>kerlek addj meg egy napot</p>
+</div>
+
+
+
 
 </body>
 </html>

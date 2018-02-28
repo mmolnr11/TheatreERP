@@ -19,8 +19,12 @@ public class EventDao {
     @Autowired
     EventRepository eventRepository;
 
+    public LiveShow findOne(Long id){
+        LiveShow liveShow = eventRepository.findOne(id);
+        return liveShow;
+    }
 
-    public void saveUser(LiveShow liveShow){
+    public void saveLiveshow(LiveShow liveShow){
         eventRepository.save(liveShow);
     }
 
