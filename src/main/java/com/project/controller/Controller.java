@@ -80,50 +80,5 @@ public class Controller {
         return "user-details";
 
     }
-    @PostMapping(value = "/event-detail")
-    public String vlami (Model model, @RequestParam("startdate") String date) throws ParseException {
-        String formatted = date.substring(0,10);
-        System.out.println("input " +date);
 
-
-
-        Date mdate = new SimpleDateFormat("MM/dd/yyyy HH:mm").parse(date);
-
-        String formattedDate1 = new SimpleDateFormat("dd/MM/yyyy 00:01").format(mdate);
-//        24/02/2018 00:01
-        String formattedDate2 = new SimpleDateFormat("dd/MM/yyyy 23:59").format(mdate);
-
-        System.out.println("mdate " + mdate);
-        Date te = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate1);
-        Date t2 = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate2);
-        System.out.println("ujra date "  + te);
-       List<Event> liveShowList =  eventDao.findByDate(te,t2);
-        System.out.println(liveShowList.size());
-        model.addAttribute("proba",liveShowList);
-        return "superadmin";
-    }
-
-    @GetMapping(value = "/liveshow/{id}/description")
-    public String renderEventDetailsPage(Model model, @PathVariable ("id") Long id){
-        Event liveShow = eventDao.findOne(id);
-        model.addAttribute("liveshow", liveShow);
-        return "update-liveshow";
-    }
-    @PostMapping(value = "/liveshow/{id}/update")
-    public String saveChangesToLiveshow (@ModelAttribute("liveshow") Event liveShow,
-                                         Model model, @PathVariable("id") Long id){
-        Event liveShowOld = eventDao.findOne(id);
-        System.out.println(liveShow.getTitel());
-       liveShowOld.setTitel(liveShow.getTitel());
-       liveShowOld.setDescription(liveShow.getDescription());
-       liveShowOld.setStartDateTime(liveShow.getStartDateTime());
-       liveShowOld.setEndDateTime(liveShow.getEndDateTime());
-       eventDao.saveLiveshow(liveShowOld);
-       return "superadmin";
-    }
-    @GetMapping(value = "/liveshow/{id}/delete")
-    public String deleteEvent(@PathVariable("id") Long id){
-        eventDao.deleteOne(id);
-        return "superadmin";
-    }
 }

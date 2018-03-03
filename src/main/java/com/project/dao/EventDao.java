@@ -19,14 +19,14 @@ public class EventDao {
     EventRepository eventRepository;
 
     public Event findOne(Long id){
-        Event liveShow = eventRepository.findOne(id);
-        return liveShow;
+        Event event = eventRepository.findOne(id);
+        return event;
     }
     public void deleteOne(Long id){
         eventRepository.delete(id);
     }
 
-    public void saveLiveshow(Event event){
+    public void saveEvent(Event event){
         eventRepository.save(event);
     }
 
