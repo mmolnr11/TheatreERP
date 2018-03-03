@@ -120,6 +120,10 @@ public class Controller {
        liveShowOld.setEndDateTime(liveShow.getEndDateTime());
        eventDao.saveLiveshow(liveShowOld);
        return "superadmin";
-
+    }
+    @GetMapping(value = "/liveshow/{id}/delete")
+    public String deleteEvent(@PathVariable("id") Long id){
+        eventDao.deleteOne(id);
+        return "superadmin";
     }
 }

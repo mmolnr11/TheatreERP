@@ -23,6 +23,9 @@ public class EventDao {
         LiveShow liveShow = eventRepository.findOne(id);
         return liveShow;
     }
+    public void deleteOne(Long id){
+        eventRepository.delete(id);
+    }
 
     public void saveLiveshow(LiveShow liveShow){
         eventRepository.save(liveShow);
