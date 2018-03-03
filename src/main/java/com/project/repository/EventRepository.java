@@ -1,6 +1,6 @@
 package com.project.repository;
 
-import com.project.model.LiveShow;
+import com.project.model.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
@@ -8,11 +8,10 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-public interface EventRepository extends JpaRepository<LiveShow, Long> {
+public interface EventRepository extends JpaRepository<Event, Long> {
     @Override
-    LiveShow findOne(Long aLong);
-
-    List<LiveShow> findLiveShowByEndDateTimeBetween(Date endate1, Date endate2);
+    Event findOne(Long aLong);
+    List<Event> findEventByEndDateTimeBetween(Date start, Date end);
 
 
 }

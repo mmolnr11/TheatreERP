@@ -2,7 +2,7 @@ package com.project.controller;
 
 import com.project.dao.EventDao;
 import com.project.dao.UserDao;
-import com.project.model.LiveShow;
+import com.project.model.Event;
 import com.project.model.User;
 import com.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,7 +97,7 @@ public class Controller {
         Date te = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate1);
         Date t2 = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate2);
         System.out.println("ujra date "  + te);
-       List<LiveShow> liveShowList =  eventDao.findByDate(te,t2);
+       List<Event> liveShowList =  eventDao.findByDate(te,t2);
         System.out.println(liveShowList.size());
         model.addAttribute("proba",liveShowList);
         return "superadmin";
@@ -105,14 +105,14 @@ public class Controller {
 
     @GetMapping(value = "/liveshow/{id}/description")
     public String renderEventDetailsPage(Model model, @PathVariable ("id") Long id){
-        LiveShow liveShow = eventDao.findOne(id);
+        Event liveShow = eventDao.findOne(id);
         model.addAttribute("liveshow", liveShow);
         return "update-liveshow";
     }
     @PostMapping(value = "/liveshow/{id}/update")
-    public String saveChangesToLiveshow (@ModelAttribute("liveshow") LiveShow liveShow,
+    public String saveChangesToLiveshow (@ModelAttribute("liveshow") Event liveShow,
                                          Model model, @PathVariable("id") Long id){
-        LiveShow liveShowOld = eventDao.findOne(id);
+        Event liveShowOld = eventDao.findOne(id);
         System.out.println(liveShow.getTitel());
        liveShowOld.setTitel(liveShow.getTitel());
        liveShowOld.setDescription(liveShow.getDescription());

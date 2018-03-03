@@ -1,8 +1,11 @@
 package com.project.model;
 
 import javax.persistence.*;
+import java.util.List;
+
 @Entity
-@Table(name = "Employee")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "employee")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +18,8 @@ public class Employee {
     private int age;
     @Column(nullable = false)
     private String position;
+    @ManyToMany(mappedBy = "eventhezDolgozok")
+    private List<Event> events;
 
     public Employee(String firstName, String secondName, int age, String position) {
         this.firstName = firstName;

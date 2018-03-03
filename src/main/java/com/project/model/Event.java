@@ -8,9 +8,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
-@MappedSuperclass
-public class ThEvent {
+@Entity
+public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,18 +30,30 @@ public class ThEvent {
     private Date endDateTime;
     @Column
     private String location;
-//    private EventType eventType;
+    @Column
+    private String type;
+//    @Transient
+    @ManyToMany
+    private List<Employee> eventhezDolgozok;
 
-    public ThEvent() {
+    public Event() {
     }
 
-    public ThEvent(String description, String titel, Date startDateTime, Date endDateTime, String location) {
+    public Event(String description, String titel, Date startDateTime, Date endDateTime, String location, String type) {
         this.description = description;
         this.titel = titel;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.location = location;
-//        this.eventType = eventType;
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getDescription() {
@@ -87,11 +100,11 @@ public class ThEvent {
         return id;
     }
 
-    //    public EventType getEventType() {
-//        return eventType;
-//    }
-//
-//    public void setEventType(EventType eventType) {
-//        this.eventType = eventType;
-//    }
+    public List<Employee> getEventhezDolgozok() {
+        return eventhezDolgozok;
+    }
+
+    public void setEventhezDolgozok(List<Employee> eventhezDolgozok) {
+        this.eventhezDolgozok = eventhezDolgozok;
+    }
 }
