@@ -7,6 +7,9 @@ import com.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.List;
+
 
 @Service
 public class EmployeeDao {
@@ -16,4 +19,7 @@ public class EmployeeDao {
     public void saveEmployee(Employee employee){
         employeeRepository.save(employee);
     }
+    public HashSet<Employee> listPosition(){
+        return employeeRepository.findDistinctByPosition();
+     };
 }

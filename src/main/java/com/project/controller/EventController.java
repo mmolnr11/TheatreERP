@@ -1,6 +1,8 @@
 package com.project.controller;
 
+import com.project.dao.EmployeeDao;
 import com.project.dao.EventDao;
+import com.project.model.Employee;
 import com.project.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,14 +11,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class EventController {
     @Autowired
     EventDao eventDao;
+    @Autowired
+    EmployeeDao employeeDao;
 
     @PostMapping(value = "/event-detail")
     public String vlami (Model model, @RequestParam("startdate") String date) throws ParseException {
@@ -63,6 +65,10 @@ public class EventController {
     @GetMapping(value = "/event/create")
     public String renderCreateEventTemplate(Model model){
         model.addAttribute("event", new Event());
+        HashSet<Employee> list = employeeDao.listPosition();
+        System.out.println(list.toString()
+        );
+        model.addAttribute("roles",list );
         return "create-event";
     }
     @PostMapping(value = "/event/create")
