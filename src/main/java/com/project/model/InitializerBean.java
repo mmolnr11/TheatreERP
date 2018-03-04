@@ -21,10 +21,12 @@ public class InitializerBean {
         Berendezo berendezo = new Berendezo("Berendez", "ELek",32, "berendez");
         Berendezo berendezo2 = new Berendezo("Megrendez", "Nelli",32, "berendez");
 
-        Event liveShow = new Event("3 vilagosito", "Lion king", new Date(), new Date(),"terem", "lll");
+        Event event1 = new Event("3 vilagosito", "Lion king", new Date(), new Date(),"terem", "proba");
+        Event event2 = new Event("5 berendezo", "Songoku", new Date(), new Date(),"terem", "eloadas");
+        Event event3 = new Event("6 vilagosito", "Pinokkio", new Date(), new Date(),"terem", "proba");
 //        LiveShow liveShow2 = new LiveShow("3 vilagosito", "LionKing","Thu Feb 01 12:20:00 CET 2018","Thu Feb 01 20:00:00 CET 2018", "kozponti teem",true);
 
-
+        System.out.println(" ez a date formatum " + event1.getStartDateTime());
         employeeDao.saveEmployee(vilagosito);
         employeeDao.saveEmployee(vilagosito2);
         employeeDao.saveEmployee(berendezo);
@@ -34,8 +36,10 @@ public class InitializerBean {
         List<Employee> employeeList = new ArrayList<>();
         employeeList.add(vilagosito);
         employeeList.add(vilagosito2);
-        liveShow.setEventhezDolgozok(employeeList);
-        eventDao.saveLiveshow(liveShow);
+        event1.setEventhezDolgozok(employeeList);
+        eventDao.saveEvent(event1);
+        eventDao.saveEvent(event2);
+        eventDao.saveEvent(event3);
 
     }
 }

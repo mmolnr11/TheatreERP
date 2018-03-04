@@ -12,8 +12,8 @@ public class User {
     private long id;
     @Column(name = "first_name")
     private String firstName;
-    @Column(name = "second_name")
-    private String secondName;
+    @Column(name = "last_name")
+    private String lastName;
     @Column(name = "email_address",unique = true ,nullable = false)
     private String emailAddress;
     @Column(nullable = false)
@@ -24,9 +24,9 @@ public class User {
     private String position;
 
 
-    public User(String firstName, String secondName, String emailAddress, String password, String role, String position) {
+    public User(String firstName, String lastName, String emailAddress, String password, String role, String position) {
         this.firstName = firstName;
-        this.secondName = secondName;
+        this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.password = password;
         if(role == "admin"){
@@ -38,9 +38,9 @@ public class User {
         this.position = position;
     }
 
-    public User(String firstName, String secondName, String emailAddress, String password, String role) {
+    public User(String firstName, String lastName, String emailAddress, String password, String role) {
         this.firstName = firstName;
-        this.secondName = secondName;
+        this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.password = password;
         if(role == "admin"){
@@ -70,14 +70,6 @@ public class User {
         this.firstName = firstName;
     }
 
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
-    }
-
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -96,6 +88,14 @@ public class User {
 
     public String getRole() {
         return role;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public void setRole(String role) {

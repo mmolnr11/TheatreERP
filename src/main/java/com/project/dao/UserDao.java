@@ -27,15 +27,20 @@ public class UserDao {
         return userRepository.findOne(id);
     }
 
-    public User createUser(HashMap<String, String> user){
-        User newUser = new User(user.get("firstname"),user.get("secondname"),user.get("email"),
-                user.get("password"),user.get("role"), user.get("position"));
+    public User createUser(User user){
+        User newUser = new User();
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
+        newUser.setEmailAddress(user.getEmailAddress());
+        newUser.setRole(user.getRole());
+        newUser.setPosition(user.getPosition());
+        newUser.setPassword(user.getPassword());
         return newUser;
     }
     public User updateUser(HashMap<String, String> params, Long id){
         User user = findById(id);
         user.setFirstName(params.get("firstname"));
-        user.setSecondName(params.get("secondname"));
+        user.setLastName(params.get("secondname"));
         user.setEmailAddress(params.get("email"));
         user.setPassword(params.get("password"));
         user.setRole(params.get("role"));
@@ -43,5 +48,8 @@ public class UserDao {
 
         return user;
     }
+    public User getUserByEmailAddress(String email){
+        return userRepository.getUserByEmailAddress(email);
+    };
 
 }

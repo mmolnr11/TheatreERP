@@ -20,7 +20,7 @@
             <div class="thumbnail">
                 <!--<img class="pull-left bike-img" src="" th:attr="src=${bike.getPictureURL()}" alt="..."/>-->
                 <div>
-                    <h3 class="" th:text="${user.getFirstName() + ' ' + user.getSecondName()}"></h3>
+                    <h3 class="" th:text="${user.getFirstName() + ' ' + user.getLastName()}"></h3>
                     <p class="pull-right"><a href="#" th:href="@{'~/' + ${user.getId()} + '/modify'}" class="btn btn-success" role="button">Change User</a></p>
                 </div>
                 <!--<h3>Price:</h3>-->

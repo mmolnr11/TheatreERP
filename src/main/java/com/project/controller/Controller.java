@@ -5,6 +5,7 @@ import com.project.dao.UserDao;
 import com.project.model.Event;
 import com.project.model.User;
 import com.project.repository.UserRepository;
+import com.project.service.UserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.Model;
@@ -29,6 +30,8 @@ public class Controller {
     UserDao userDao;
     @Autowired
     EventDao eventDao;
+    @Autowired
+    UserValidation userValidation;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderLoginPage(Model model) {
@@ -49,13 +52,22 @@ public class Controller {
     public String renderIndex(){return "login";}
 
     @RequestMapping(value = "/add-new-user", method = RequestMethod.GET)
-    public String renderAddNewUserTemplate(Model model){return "addnewuser";}
+    public String renderAddNewUserTemplate(Model model){
+        model.addAttribute("user", new User());
+        return "addnewuser";}
 
     @RequestMapping(value = "/add-new-user", method = RequestMethod.POST)
-    public String saveNewUser(@RequestParam HashMap<String,String> allRequestParams, Model model) {
-        User user = userDao.createUser(allRequestParams);
-        userDao.saveUser(user);
+    public String saveNewUser(@ModelAttribute("user") User user, Model model) {
+        List<String> errorMessages = userValidation.validateRegistrationDatas(user,"majdPassword");
+        String savingTried = "nemsikeres a mentes probald ujra";
+        if (errorMessages.size() == 0){
+            savingTried = "Sikeresen mentette a kovetkezo Usert";
+            userDao.saveUser(userDao.createUser(user));
+        }
+
         model.addAttribute("userDetails", user);
+        model.addAttribute("errors", errorMessages);
+        model.addAttribute("savingTried", savingTried);
         return "user-details";}
 
     @RequestMapping(value = "/modify-user", method = RequestMethod.GET)

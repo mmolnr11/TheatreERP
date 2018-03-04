@@ -19,14 +19,14 @@ public class Event {
     @Column
     private String description;
     @Column
-    private String titel;
+    private String title;
     @Column
     @Temporal(value= TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "EEE, d MMM yyyy HH:mm")
+//    @DateTimeFormat(pattern = "d MMM yyyy HH:mm")
     private Date startDateTime;
     @Column
     @Temporal(value= TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "EEE, d MMM yyyy HH:mm")
+//    @DateTimeFormat(pattern = "EEE, d MMM yyyy HH:mm")
     private Date endDateTime;
     @Column
     private String location;
@@ -39,9 +39,9 @@ public class Event {
     public Event() {
     }
 
-    public Event(String description, String titel, Date startDateTime, Date endDateTime, String location, String type) {
+    public Event(String description, String title, Date startDateTime, Date endDateTime, String location, String type) {
         this.description = description;
-        this.titel = titel;
+        this.title = title;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.location = location;
@@ -64,12 +64,12 @@ public class Event {
         this.description = description;
     }
 
-    public String getTitel() {
-        return titel;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTitel(String titel) {
-        this.titel = titel;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Date getStartDateTime() {
