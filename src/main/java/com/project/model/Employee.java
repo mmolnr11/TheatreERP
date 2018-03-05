@@ -16,16 +16,27 @@ public class Employee {
     private String secondName;
     @Column(nullable = false)
     private int age;
-    @Column(nullable = false)
-    private String position;
     @ManyToMany(mappedBy = "eventhezDolgozok")
     private List<Event> events;
+    @ManyToOne
+    private Role role;
 
-    public Employee(String firstName, String secondName, int age, String position) {
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Employee() {
+    }
+
+    public Employee(String firstName, String secondName, int age,  Role role) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.age = age;
-        this.position = position;
+        this.role = role;
     }
 
     public long getId() {
@@ -60,11 +71,7 @@ public class Employee {
         this.age = age;
     }
 
-    public String getPosition() {
-        return position;
-    }
 
-    public void setPosition(String postion) {
-        this.position = postion;
-    }
+
+
 }

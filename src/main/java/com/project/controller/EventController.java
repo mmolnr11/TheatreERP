@@ -2,8 +2,10 @@ package com.project.controller;
 
 import com.project.dao.EmployeeDao;
 import com.project.dao.EventDao;
+import com.project.dao.RoleDao;
 import com.project.model.Employee;
 import com.project.model.Event;
+import com.project.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,8 @@ public class EventController {
     EventDao eventDao;
     @Autowired
     EmployeeDao employeeDao;
+    @Autowired
+    RoleDao roleDao;
 
     @PostMapping(value = "/event-detail")
     public String vlami (Model model, @RequestParam("startdate") String date) throws ParseException {
@@ -65,10 +69,12 @@ public class EventController {
     @GetMapping(value = "/event/create")
     public String renderCreateEventTemplate(Model model){
         model.addAttribute("event", new Event());
-        HashSet<Employee> list = employeeDao.listPosition();
-        System.out.println(list.toString()
-        );
-        model.addAttribute("roles",list );
+//        HashSet<Employee> list = employeeDao.listPosition();
+        List<Role> roles = roleDao.findAllRole();
+        System.out.println("anyuuu " + roles.toString());
+        int numberOfRole = 0;
+        model.addAttribute("roles",roles );
+        model.addAttribute("numberOfRole",numberOfRole );
         return "create-event";
     }
     @PostMapping(value = "/event/create")
@@ -89,7 +95,7 @@ public class EventController {
         Date eventEnd = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate2);
 
 
-
+        System.out.println("valami "+ allRequestParams.get("role"));
         Event newEvent = new Event(allRequestParams.get("description"),allRequestParams.get("title"),
                 eventStart,eventEnd,allRequestParams.get("location"),allRequestParams.get("type") );
         System.out.println(newEvent.toString());

@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @Override
     Employee findOne(Long aLong);
-    @Query("SELECT e.position FROM Employee e ")
-    HashSet<Employee> findDistinctByPosition();
+//    @Query("SELECT e.position FROM Employee e ")
+//    HashSet<Employee> findDistinctByPosition();
 
 }

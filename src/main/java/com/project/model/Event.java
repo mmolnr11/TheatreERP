@@ -22,11 +22,9 @@ public class Event {
     private String title;
     @Column
     @Temporal(value= TemporalType.TIMESTAMP)
-//    @DateTimeFormat(pattern = "d MMM yyyy HH:mm")
     private Date startDateTime;
     @Column
     @Temporal(value= TemporalType.TIMESTAMP)
-//    @DateTimeFormat(pattern = "EEE, d MMM yyyy HH:mm")
     private Date endDateTime;
     @Column
     private String location;

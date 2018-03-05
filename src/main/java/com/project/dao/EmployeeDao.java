@@ -19,7 +19,7 @@ public class EmployeeDao {
     public void saveEmployee(Employee employee){
         employeeRepository.save(employee);
     }
-    public HashSet<Employee> listPosition(){
-        return employeeRepository.findDistinctByPosition();
-     };
+//    public HashSet<Employee> listPosition(){
+//        return employeeRepository.findDistinctByPosition();
+//     };
 }

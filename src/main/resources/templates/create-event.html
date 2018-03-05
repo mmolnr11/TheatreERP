@@ -142,18 +142,11 @@
 
         <button type="submit" id="save-bike-to-db" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj esemeny hozzadasa</button>
     </div>
+    <div th:each="role : ${roles}" >
+       <p th:text="${role.getName()}"></p><p th:text="${numberOfRole}"></p>
+        <a href=""><i class="fa fa-plus" aria-hidden="true"></i></a>
+    </div>
 </form>
-
-<div class="form-group blu-margin">
-    <select class="form-control"  id="dropOperator">
-        <option value="0" th:text="valassz" ></option>
-        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
-    </select>
-</div>
-
-
-
-
 
 </body>
 </html>
