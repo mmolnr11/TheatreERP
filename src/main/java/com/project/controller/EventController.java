@@ -39,7 +39,7 @@ public class EventController {
         System.out.println("ujra date "  + te);
         List<Event> eventList =  eventDao.findByDate(te,t2);
         System.out.println(eventList.size());
-        model.addAttribute("proba",eventList);
+        model.addAttribute("eventList",eventList);
         return "superadmin";
     }
 
