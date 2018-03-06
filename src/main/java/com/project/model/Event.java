@@ -8,7 +8,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Event {
@@ -30,9 +32,13 @@ public class Event {
     private String location;
     @Column
     private String type;
-//    @Transient
-    @ManyToMany
-    private List<Employee> eventhezDolgozok;
+//    @ManyToOne
+//    private List<Employee> employeeList;
+    @ElementCollection
+    @MapKeyColumn(name="name")
+    @Column(name="value")
+//    @CollectionTable(name="example_attributes", joinColumns=@JoinColumn(name="example_id"))
+    private Map<String, Integer> eventhezDolgozok;
 
     public Event() {
     }
@@ -98,11 +104,11 @@ public class Event {
         return id;
     }
 
-    public List<Employee> getEventhezDolgozok() {
+    public Map<String, Integer> getEventhezDolgozok() {
         return eventhezDolgozok;
     }
 
-    public void setEventhezDolgozok(List<Employee> eventhezDolgozok) {
+    public void setEventhezDolgozok(HashMap<String, Integer> eventhezDolgozok) {
         this.eventhezDolgozok = eventhezDolgozok;
     }
 }

@@ -2,7 +2,11 @@ package com.project.model;
 
 import javax.persistence.*;
 import java.util.List;
-
+@NamedQueries(
+        {@NamedQuery(name = "Employee.getEmployeeRoles",
+                query = "SELECT DISTINCT role from Employee"
+        )
+        })
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "employee")
@@ -16,27 +20,26 @@ public class Employee {
     private String secondName;
     @Column(nullable = false)
     private int age;
-    @ManyToMany(mappedBy = "eventhezDolgozok")
-    private List<Event> events;
-    @ManyToOne
-    private Role role;
+//    @ManyToMany(mappedBy = "eventhezDolgozok")
+//    private List<Event> events;
+//    @ManyToOne
+    private String role;
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
     public Employee() {
     }
 
-    public Employee(String firstName, String secondName, int age,  Role role) {
+    public Employee(String firstName, String secondName, int age) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.age = age;
-        this.role = role;
     }
 
     public long getId() {

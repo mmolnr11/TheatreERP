@@ -137,16 +137,17 @@
         </div>
         <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <input class = "mdl-textfield__input" type="text" rows ="3" th:field ="*{type}" id ="type" name="type"/>
-            <label class = "mdl-textfield__label" for = "type">Position</label>
+            <label class = "mdl-textfield__label" for = "type">Tipus</label>
         </div>
 
         <button type="submit" id="save-bike-to-db" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj esemeny hozzadasa</button>
     </div>
     <div th:each="role : ${roles}" >
-       <p th:text="${role.getName()}"></p><p th:text="${numberOfRole}"></p>
-        <a href=""><i class="fa fa-plus" aria-hidden="true"></i></a>
+        <p th:text="${role}"></p>
+        <label th:for="movie"> </label><input th:id="${role}" th:name="${role}" type="number" value="0"/>
     </div>
 </form>
+
 
 </body>
 </html>

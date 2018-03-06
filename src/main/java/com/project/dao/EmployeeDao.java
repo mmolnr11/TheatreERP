@@ -22,4 +22,7 @@ public class EmployeeDao {
 //    public HashSet<Employee> listPosition(){
 //        return employeeRepository.findDistinctByPosition();
 //     };
+    public List<String> getEmployeeRoles (){
+      return employeeRepository.getEmployeeRoles();
+    }
 }
