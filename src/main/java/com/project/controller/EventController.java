@@ -6,6 +6,7 @@ import com.project.dao.EventDao;
 import com.project.model.Employee;
 import com.project.model.Event;
 //import com.project.model.Role;
+import com.project.service.DateValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,23 +22,16 @@ public class EventController {
     EventDao eventDao;
     @Autowired
     EmployeeDao employeeDao;
+    @Autowired
+    DateValidation dateValidation;
 //    @Autowired
 //    RoleDao roleDao;
 
     @PostMapping(value = "/event-detail")
     public String vlami (Model model, @RequestParam("startdate") String date) throws ParseException {
 //        String formatted = date.substring(0,10);
-        System.out.println("input " +date);
-        Date mdate = new SimpleDateFormat("MM/dd/yyyy HH:mm").parse(date);
-
-        String formattedDate1 = new SimpleDateFormat("dd/MM/yyyy 00:01").format(mdate);
-        String formattedDate2 = new SimpleDateFormat("dd/MM/yyyy 23:59").format(mdate);
-
-        System.out.println("mdate " + mdate);
-        Date te = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate1);
-        Date t2 = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate2);
-        System.out.println("ujra date "  + te);
-        List<Event> eventList =  eventDao.findByDate(te,t2);
+        List<Date> dates = dateValidation.createDate(date);
+        List<Event> eventList =  eventDao.findByDate(dates.get(0),dates.get(1));
         System.out.println(eventList.size());
         model.addAttribute("eventList",eventList);
         return "superadmin";
@@ -79,25 +73,9 @@ public class EventController {
     }
     @PostMapping(value = "/event/create")
     public String saveNewEvent (@RequestParam HashMap<String,String> allRequestParams) throws ParseException {
-
-        String eventDay = allRequestParams.get("startdate");
-        String startTime = allRequestParams.get("startDateTime");
-        Date newDate1 = new SimpleDateFormat("MM/dd/yyyy").parse(eventDay);
-
-        String formattedDate1 = new SimpleDateFormat("dd/MM/yyyy "+ startTime).format(newDate1);
-
-        Date eventStart = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate1);
-        String endTime = allRequestParams.get("endDateTime");
-        Date newDate2 = new SimpleDateFormat("MM/dd/yyyy").parse(eventDay);
-
-        String formattedDate2 = new SimpleDateFormat("dd/MM/yyyy "+ endTime).format(newDate2);
-
-        Date eventEnd = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate2);
-
-
+        List<Date> dates = dateValidation.createDateFromForm(allRequestParams);
         Event newEvent = new Event(allRequestParams.get("description"),allRequestParams.get("title"),
-                eventStart,eventEnd,allRequestParams.get("location"),allRequestParams.get("type") );
-        List<Employee> employeeList = new ArrayList<>();
+                dates.get(0),dates.get(1),allRequestParams.get("location"),allRequestParams.get("type") );
         List<String> roles = employeeDao.getEmployeeRoles();
         HashMap<String,Integer > hmap = new HashMap<String, Integer>();
 
@@ -106,7 +84,6 @@ public class EventController {
              hmap.put(roles.get(i),Integer.valueOf(allRequestParams.get(roles.get(i))));
         }
         newEvent.setEventhezDolgozok(hmap);
-
         eventDao.saveEvent(newEvent);
         return "superadmin";
     }
