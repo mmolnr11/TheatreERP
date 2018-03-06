@@ -12,11 +12,12 @@ import java.util.List;
 @Service
 public class DateValidation {
 
-    public List<Date> createDate(String date) throws ParseException {
-        Date mdate = new SimpleDateFormat("MM/dd/yyyy HH:mm").parse(date);
+    public List<Date> createDate(String startDate, String endDate) throws ParseException {
+        Date date1 = new SimpleDateFormat("MM/dd/yyyy HH:mm").parse(startDate);
+        Date date2 = new SimpleDateFormat("MM/dd/yyyy HH:mm").parse(endDate);
 
-        String formattedDate1 = new SimpleDateFormat("dd/MM/yyyy 00:01").format(mdate);
-        String formattedDate2 = new SimpleDateFormat("dd/MM/yyyy 23:59").format(mdate);
+        String formattedDate1 = new SimpleDateFormat("dd/MM/yyyy 00:01").format(date1);
+        String formattedDate2 = new SimpleDateFormat("dd/MM/yyyy 23:59").format(date2);
 
         Date start = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate1);
         Date end = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate2);

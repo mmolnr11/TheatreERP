@@ -43,10 +43,10 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
 
 
-    <title>Login</title>
+    <title>User</title>
 </head>
 <body>
-<form th:action="@{'~/event-detail'}" method="post">
+<form th:action="@{'~/user/event-detail'}" method="post">
     <div class="form-group">
         <label for="startdate">Start date:</label>
         <div class="container">
@@ -76,7 +76,7 @@
                 <div class='col-sm-6'>
                     <div class="form-group">
                         <div class='input-group date' id='datetimepicker2'>
-                            <input name="startdate" id="enddate" type='text' class="form-control" />
+                            <input name="enddate" id="enddate" type='text' class="form-control" />
                             <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -94,16 +94,33 @@
     <button type="submit" class="btn btn-success">Submit</button>
 </form>
 <p></p>
-<p>User vagyok </p>
+<p> User vagyok </p>
 <p></p>
 <div th:if="${not #lists.isEmpty(eventList)}">
-
     <div th:each="event : ${eventList}">
         <ul class="">
             <li><a href="#" id="" th:href="@{'~/event/' + ${event.getId()} + '/description'}"
                    th:text="${event.getTitle()}+ ' ' + ${event.getDescription()}+ ' '+ ${event.getLocation()} +' '+ ${event.getType()}" ></a>
                 <!--<a href="#" th:href="@{'~/event/' + ${event.getId()} + '/delete'}"><i class="fa fa-trash" ></i> Delete me</a>-->
             </li>
+            <form action="/addemployeetoevent" method="post">
+            <tr th:each="instance : ${event.getEventhezDolgozok()}">
+                <td th:text="${instance.key}">keyvalue</td>
+                <td th:text="${instance.value}">num</td>
+                <select name="janos" id="kk">
+                    <option>Kerlek valassz egyet</option>
+                    <option th:each="employee : ${employees}"
+                            th:text="${employee.getName()}" th:value="${employee.getId()}"
+                    ></option>
+                    <!--th:value="${employee.getId()}"-->
+                    <!--th:text="#{${'seedstarter.type.' + employee.getId()}}">Wireframe</option>-->
+                </select>
+                <a href=""></a>
+                <button type="submit" ><i class="fa fa-plus" aria-hidden="true"></i> Rendelj Hozza</button>
+                <br/>
+            </tr>
+
+            </form>
         </ul>
 
     </div>
@@ -111,6 +128,7 @@
 <div th:if="${ #lists.isEmpty(eventList)}">
     <p>kerlek addj meg egy napot</p>
 </div>
+    <ul></ul>
 
 </body>
 </html>

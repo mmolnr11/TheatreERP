@@ -15,6 +15,7 @@ import java.util.List;
 public class EmployeeDao {
     @Autowired
     EmployeeRepository employeeRepository;
+    public List<Employee> getAllEmployee(){return employeeRepository.findAll();}
 
     public void saveEmployee(Employee employee){
         employeeRepository.save(employee);

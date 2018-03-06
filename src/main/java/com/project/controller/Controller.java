@@ -45,7 +45,7 @@ public class Controller {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String simauser(Model model) {
-        return "simauser";
+        return "user";
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)

@@ -6,17 +6,19 @@ import com.project.dao.EventDao;
 //import com.project.dao.RoleDao;
 import com.project.dao.UserDao;
 //import com.project.repository.RoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 @Component
 public class InitializerBean {
-    public InitializerBean(EmployeeDao employeeDao, UserDao userDao, EventDao eventDao) {
+    public InitializerBean(EmployeeDao employeeDao, UserDao userDao, EventDao eventDao, BCryptPasswordEncoder bCryptPasswordEncoder) {
 
 
-        User user = new User("Szabo", "Andris", "andras.l.szabo@gmail.com", "pass", "ROLE_ADMIN");
-        User user2 = new User("Szabo", "Gyozo", "andras.gyogyo.szabo@gmail.com", "pass", "NEM_ADMIN");
+        User user1 = new User("Szabo", "Andris", "andras.l.szabo@gmail.com", "pass", "admin");
+        User user2 = new User("Szabo", "Gyozo", "andras.gyogyo.szabo@gmail.com", "pass", "user");
         Vilagosito vilagosito = new Vilagosito("NEmSzabo", "NemGyozo",32);
         Vilagosito vilagosito2 = new Vilagosito("NEmSzabo2", "NemGyozo2",32);
         Berendezo berendezo = new Berendezo("Berendez", "ELek",32);
@@ -27,6 +29,10 @@ public class InitializerBean {
         Event event2 = new Event("5 berendezo", "Songoku", new Date(), new Date(),"terem", "eloadas");
         Event event3 = new Event("6 vilagosito", "Pinokkio", new Date(), new Date(),"terem", "proba");
 
+
+
+        user1.setPassword(bCryptPasswordEncoder.encode(user1.getPassword()));
+        user2.setPassword(bCryptPasswordEncoder.encode(user2.getPassword()));
 
         HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
         hashMap.put("Berendezo", 4);
@@ -48,7 +54,7 @@ public class InitializerBean {
 
         eventDao.saveEvent(event2);
         eventDao.saveEvent(event3);
-        userDao.saveUser(user);
+        userDao.saveUser(user1);
         userDao.saveUser(user2);
 
 

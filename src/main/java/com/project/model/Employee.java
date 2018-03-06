@@ -5,7 +5,8 @@ import java.util.List;
 @NamedQueries(
         {@NamedQuery(name = "Employee.getEmployeeRoles",
                 query = "SELECT DISTINCT role from Employee"
-        )
+        ),@NamedQuery(name = "Employee.getAllEmployee",
+                query = "SELECT firstName, secondName from Employee")
         })
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -72,6 +73,10 @@ public class Employee {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getName(){
+        return getFirstName()+ " " + getSecondName();
     }
 
 

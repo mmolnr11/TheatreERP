@@ -28,9 +28,9 @@ public class EventController {
 //    RoleDao roleDao;
 
     @PostMapping(value = "/event-detail")
-    public String vlami (Model model, @RequestParam("startdate") String date) throws ParseException {
+    public String vlami (Model model, @RequestParam("startdate") String startDate, @RequestParam("startdate") String endDate) throws ParseException {
 //        String formatted = date.substring(0,10);
-        List<Date> dates = dateValidation.createDate(date);
+        List<Date> dates = dateValidation.createDate(startDate,endDate);
         List<Event> eventList =  eventDao.findByDate(dates.get(0),dates.get(1));
         System.out.println(eventList.size());
         model.addAttribute("eventList",eventList);
@@ -86,5 +86,24 @@ public class EventController {
         newEvent.setEventhezDolgozok(hmap);
         eventDao.saveEvent(newEvent);
         return "superadmin";
+    }
+
+    @PostMapping(value = "/user/event-detail")
+    public String renderUserEvents (Model model, @RequestParam("startdate") String startDate,@RequestParam("enddate") String endDate) throws ParseException {
+        List<Date> dates = dateValidation.createDate(startDate, endDate);
+        List<Event> eventList =  eventDao.findByDate(dates.get(0),dates.get(1));
+        System.out.println(eventList.size());
+        List<Employee> employees = employeeDao.getAllEmployee();
+        model.addAttribute("eventList",eventList);
+        model.addAttribute("employees",employees);
+        return "user";}
+
+    @PostMapping(value = "/addemployeetoevent")
+    public String addEmployeeToEvent(@RequestParam HashMap<String,String> allRequestParams){
+        List<Employee> employees = employeeDao.getAllEmployee();
+        String result = allRequestParams.get("janos");
+        System.out.println(result);
+
+        return "user";
     }
 }
