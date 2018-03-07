@@ -99,28 +99,10 @@
 <div th:if="${not #lists.isEmpty(eventList)}">
     <div th:each="event : ${eventList}">
         <ul class="">
-            <li><a href="#" id="" th:href="@{'~/event/' + ${event.getId()} + '/description'}"
+            <li><a href="#" id="" th:href="@{'~/event/user/' + ${event.getId()} + '/description'}"
                    th:text="${event.getTitle()}+ ' ' + ${event.getDescription()}+ ' '+ ${event.getLocation()} +' '+ ${event.getType()}" ></a>
-                <!--<a href="#" th:href="@{'~/event/' + ${event.getId()} + '/delete'}"><i class="fa fa-trash" ></i> Delete me</a>-->
             </li>
-            <form action="/addemployeetoevent" method="post">
-            <tr th:each="instance : ${event.getEventhezDolgozok()}">
-                <td th:text="${instance.key}">keyvalue</td>
-                <td th:text="${instance.value}">num</td>
-                <select name="janos" id="kk">
-                    <option>Kerlek valassz egyet</option>
-                    <option th:each="employee : ${employees}"
-                            th:text="${employee.getName()}" th:value="${employee.getId()}"
-                    ></option>
-                    <!--th:value="${employee.getId()}"-->
-                    <!--th:text="#{${'seedstarter.type.' + employee.getId()}}">Wireframe</option>-->
-                </select>
-                <a href=""></a>
-                <button type="submit" ><i class="fa fa-plus" aria-hidden="true"></i> Rendelj Hozza</button>
-                <br/>
-            </tr>
 
-            </form>
         </ul>
 
     </div>
