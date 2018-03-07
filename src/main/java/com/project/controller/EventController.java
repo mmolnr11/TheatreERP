@@ -98,12 +98,14 @@ public class EventController {
         model.addAttribute("employees",employees);
         return "user";}
 
-    @PostMapping(value = "/addemployeetoevent")
-    public String addEmployeeToEvent(@RequestParam HashMap<String,String> allRequestParams){
-        List<Employee> employees = employeeDao.getAllEmployee();
-        String result = allRequestParams.get("janos");
-        System.out.println(result);
 
-        return "user";
-    }
+
+    @GetMapping(value="event/user/{id}/description")
+    public String vvv(Model model, @PathVariable("id") Long id){
+        Event event = eventDao.findOne(id);
+        List<Employee> employees = employeeDao.getAllEmployee();
+
+        model.addAttribute("event", event);
+        model.addAttribute("employees", employees);
+        return "user-event-detail";}
 }

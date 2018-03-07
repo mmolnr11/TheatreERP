@@ -5,8 +5,8 @@
     <meta name="author" content="Codecool" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/js/postrequest.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 
@@ -76,7 +76,7 @@
 
     <button type="submit" id="save-bike-to-db" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Change Event</button>
 </div>
-    <form id="">
+    <form id="customerForm">
         <tr th:each="instance : ${event.getEventhezDolgozok()}">
             <td th:text="${instance.key}">keyvalue</td>
             <td th:text="${instance.value}">num</td>
@@ -95,6 +95,8 @@
         </tr>
 
     </form>
+<div id="postResultDiv">
+</div>
 <script>
     function myFunction() {
         var elemnt = document.getElementById("kk").value;
