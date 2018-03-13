@@ -24,6 +24,9 @@ public class Employee {
 //    @ManyToMany(mappedBy = "eventhezDolgozok")
 //    private List<Event> events;
 //    @ManyToOne
+//    @OneToMany
+//    private Employee employee;
+
     private String role;
 
     public String getRole() {

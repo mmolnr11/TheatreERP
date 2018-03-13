@@ -20,10 +20,11 @@ public class EmployeeDao {
     public void saveEmployee(Employee employee){
         employeeRepository.save(employee);
     }
-//    public HashSet<Employee> listPosition(){
-//        return employeeRepository.findDistinctByPosition();
-//     };
+    public Employee findEmployee(Long id){return employeeRepository.findOne(id);};
     public List<String> getEmployeeRoles (){
       return employeeRepository.getEmployeeRoles();
     }
+
+//    public Employee findByName(String name) {return employeeRepository.findByName(name);}
+
 }

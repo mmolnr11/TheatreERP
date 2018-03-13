@@ -18,6 +18,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @Override
     List<Employee> findAll();
 
-//    List<Employee> getAllEmployee();
+//    Employee findByName(String name);
+
+    //    List<Employee> getAllEmployee();
 }
 

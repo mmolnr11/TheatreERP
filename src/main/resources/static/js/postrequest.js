@@ -11,24 +11,29 @@ $( document ).ready(function() {
     
     
     function ajaxPost(){
-    	
-    	// PREPARE FORM DATA
+    	var userDropdown = $("#employee");
+    	var selectedUserId = userDropdown.val()
     	var formData = {
-    		firstname : $("#kk").val(),
+    		'employeeId' : selectedUserId
     	}
     	
     	// DO POST            console.log(result)
-        console.log('gyik');
+        console.log(formData);
         $.ajax({
-			type : "POST",
-			contentType : "application/json",
-			url : "/postcustomer",
-			data : JSON.stringify(formData),
-			dataType : 'json',
+            url : "/postcustomer",
+            method : "POST",
+            // contentType : "application/json",
+            data : formData,
+			// data : JSON.stringify(formData),
+			// dataType : 'json',
 			success : function(result) {
 				if(result.status == "Done"){
-					$("#postResultDiv").html("<strong>" + "Post Successfully! Customer's Info: FirstName = " 
-							+ result.data.firstname + " ,LastName = " + result.data.lastname + "</strong>");
+					$("#postResultDiv").html(
+						"<strong>" + "Post Successfully! Customer's Info: FirstName = "
+							+ result.data + "</strong>");
+                    userDropdown.find('option[value='+ selectedUserId +']').remove();
+                    userDropdown.find('option:first').attr('selected', 'selected');
+
 				}else{
 					$("#postResultDiv").html("<strong>Error</strong>");
 				}
@@ -46,7 +51,6 @@ $( document ).ready(function() {
     }
     
     function resetData(){
-    	$("#firstname").val("");
-    	$("#lastname").val("");
+    	$("#employee").val("");
     }
 })

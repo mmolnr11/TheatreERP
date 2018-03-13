@@ -2,13 +2,13 @@ package com.project.model;
 
 public class Response {
 	private String status;
-	private Object data;
+	private String data;
 	
 	public Response(){
 		
 	}
 	
-	public Response(String status, Object data){
+	public Response(String status, String data){
 		this.status = status;
 		this.data = data;
 	}
@@ -25,7 +25,7 @@ public class Response {
 		return data;
 	}
 
-	public void setData(Object data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 }

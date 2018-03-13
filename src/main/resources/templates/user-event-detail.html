@@ -76,35 +76,72 @@
 
     <button type="submit" id="save-bike-to-db" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Change Event</button>
 </div>
+
+<div th:each="instance : ${event.getEventhezDolgozok()}">
     <form id="customerForm">
-        <tr th:each="instance : ${event.getEventhezDolgozok()}">
+        <tr>
             <td th:text="${instance.key}">keyvalue</td>
             <td th:text="${instance.value}">num</td>
-            <select name="janos" id="kk">
-                <option>Kerlek valassz egyet</option>
-                <option th:each="employee : ${employees}" th:if="${employee.getRole()} == ${instance.key}"
-                        th:text="${employee.getName()}" th:value="${employee.getName()}"
+            <select name="" id="employee">
+                <option selected="true" disabled="disabled">Kerlek valassz egyet</option>
+                <option th:each="employee : ${employees}"
+                        th:if="${employee.getRole()} == ${instance.key}"
+                        th:text="${employee.getName()}" th:value="${employee.getId()}"
                 ></option>
                 <!--th:value="${employee.getId()}"-->
                 <!--th:text="#{${'seedstarter.type.' + employee.getId()}}">Wireframe</option>-->
             </select>
             <a href=""></a>
-            <button type="submit" ><i class="fa fa-plus" aria-hidden="true"></i> Rendelj Hozza</button>
-            <button onclick="myFunction(); return false;">Hozza ad</button>
+            <button type="submit" id="btn2" ><i class="fa fa-plus" aria-hidden="true"></i> Rendelj Hozza</button>
+            <!--<button >Hozza ad</button>-->
             <br/>
         </tr>
-
     </form>
+
+</div>
+
+
 <div id="postResultDiv">
 </div>
+<p></p>
 <script>
-    function myFunction() {
-        var elemnt = document.getElementById("kk").value;
-        var btn = document.createElement("BUTTON");
-        var t = document.createTextNode(elemnt);
-        btn.appendChild(t);
-        document.body.appendChild(btn);
-    }
+    $(document).ready(function(){
+
+        $(document).on("click",".teszVesz",function (){
+
+            var name = $( this ).attr("name");
+            console.log(name);
+
+            console.log(name);
+            var empId = $( this ).attr("id");
+            $.post("/restoreEmployee",
+                {
+                    name: $(this).attr("name"),
+                    "name": $(this).attr("name")
+                },
+                function(response){
+                    alert("Name: " + response);
+                });
+            $( this ).remove();
+
+
+            $('#employee').append(`<option value="${empId}">${name}</option>`)
+//                .append($("<option></option>")
+//                    .attr("value","kamnskasm")
+//                    .text("mkasmkasm"));
+        });
+
+        $("#btn2").click(function(){
+            debugger;
+            var option = $( "option" )[1].innerText;
+//            var option = $( this ).innerText;
+//            var id = $(this).getAttribute("value");
+            var id = $("option")[1].getAttribute("value");
+            console.log(option)
+
+            $("p").append(`<button name = "${option}" class="teszVesz" id="${id}"><i class="fa fa-minus-circle" aria-hidden="true"></i>${option}</button>`);
+        });
+    });
 </script>
 </body>
 

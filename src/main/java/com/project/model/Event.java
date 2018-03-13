@@ -111,4 +111,12 @@ public class Event {
     public void setEventhezDolgozok(HashMap<String, Integer> eventhezDolgozok) {
         this.eventhezDolgozok = eventhezDolgozok;
     }
+
+//    public List<Employee> getEmployeeList() {
+//        return employeeList;
+//    }
+//
+//    public void setEmployeeList(List<Employee> employeeList) {
+//        this.employeeList = employeeList;
+//    }
 }
