@@ -17,7 +17,7 @@
 <form id="" th:action="@{'~/event/'+ ${event.getId()} + '/update'}" th:object="${event}" method="post">
     <div class="form-group">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
-            <input class="mdl-textfield__input" type="text" id="firstname" th:field= "*{titlel}" th:value="${event.getTitle()}" name="title"/>
+            <input class="mdl-textfield__input" type="text" id="firstname" th:field= "*{title}" th:value="${event.getTitle()}" name="title"/>
             <label class="mdl-textfield__label" for="firstname" >Darab cime</label>
         </div>
 
