@@ -6,9 +6,9 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("Vilagosito ")
 public class Vilagosito extends Employee{
-    public Vilagosito(String firstName, String secondName, int age) {
-        super(firstName, secondName, age);
-        super.setRole("Vilagosito");
+    public Vilagosito(String firstName, String secondName, int age,String position) {
+        super(firstName, secondName, age, position);
+        super.setPosition("Vilagosito");
     }
 
     public Vilagosito() {

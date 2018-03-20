@@ -11,7 +11,7 @@ import java.util.Date;
 //public class LiveShow extends ThEvent{
 //    private boolean elo;
 //
-//    public LiveShow(String description, String titel, Date startDate, Date endDate, String location, boolean elo) {
+//    public LiveShow(String description, String title, Date startDate, Date endDate, String location, boolean elo) {
 //        super(description, titel, startDate, endDate, location);
 //        this.elo = elo;
 //    }

@@ -18,11 +18,11 @@ public class InitializerBean {
 
 
         User user1 = new User("Szabo", "Andris", "andras.l.szabo@gmail.com", "pass", "admin");
-        User user2 = new User("Szabo", "Gyozo", "andras.gyogyo.szabo@gmail.com", "pass", "user");
-        Vilagosito vilagosito = new Vilagosito("NEmSzabo", "NemGyozo",32);
-        Vilagosito vilagosito2 = new Vilagosito("NEmSzabo2", "NemGyozo2",32);
-        Berendezo berendezo = new Berendezo("Berendez", "ELek",32);
-        Berendezo berendezo2 = new Berendezo("Megrendez", "Nelli",32);
+        User user2 = new User("Szabo", "Gyozo", "andras.gyogyo.szabo@gmail.com", "pass", "user", "Berendezo");
+        Vilagosito vilagosito = new Vilagosito("NEmSzabo", "NemGyozo",32, "Vilagosito");
+        Vilagosito vilagosito2 = new Vilagosito("NEmSzabo2", "NemGyozo2",32, "Vilagosito");
+        Berendezo berendezo = new Berendezo("Berendez", "ELek",32, "Berendezo");
+        Berendezo berendezo2 = new Berendezo("Megrendez", "Nelli",32, "Berendezo");
 
 
         Event event1 = new Event("3 vilagosito", "Lion king", new Date(), new Date(),"terem", "proba");
