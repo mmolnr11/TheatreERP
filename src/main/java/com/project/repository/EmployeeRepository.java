@@ -13,10 +13,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Employee findOne(Long aLong);
 //    @Query("SELECT e.position FROM Employee e ")
 //    HashSet<Employee> findDistinctByPosition();
-    List<String> getEmployeeRoles();
+    List<String> getEmployeePositions();
 
     @Override
     List<Employee> findAll();
+
+    List<Employee> findAllByPosition(String role);
 
 //    Employee findByName(String name);
 

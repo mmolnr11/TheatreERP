@@ -1,10 +1,10 @@
 package com.project.model;
 
 import javax.persistence.*;
-import java.util.List;
+
 @NamedQueries(
-        {@NamedQuery(name = "Employee.getEmployeeRoles",
-                query = "SELECT DISTINCT role from Employee"
+        {@NamedQuery(name = "Employee.getEmployeePositions",
+                query = "SELECT DISTINCT position from Employee"
         ),@NamedQuery(name = "Employee.getAllEmployee",
                 query = "SELECT firstName, secondName from Employee")
         })
@@ -27,23 +27,24 @@ public class Employee {
 //    @OneToMany
 //    private Employee employee;
 
-    private String role;
+    private String position;
 
-    public String getRole() {
-        return role;
+    public String getPosition() {
+        return position;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public Employee() {
     }
 
-    public Employee(String firstName, String secondName, int age) {
+    public Employee(String firstName, String secondName, int age, String position) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.age = age;
+        this.position = position;
     }
 
     public long getId() {

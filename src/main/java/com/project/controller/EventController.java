@@ -3,17 +3,17 @@ package com.project.controller;
 import com.project.dao.EmployeeDao;
 import com.project.dao.EventDao;
 //import com.project.dao.RoleDao;
-import com.project.model.Customer;
-import com.project.model.Employee;
-import com.project.model.Event;
+import com.project.dao.UserDao;
+import com.project.model.*;
 //import com.project.model.Role;
-import com.project.model.Response;
 import com.project.service.DateValidation;
+import netscape.security.UserTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -26,6 +26,8 @@ public class EventController {
     EmployeeDao employeeDao;
     @Autowired
     DateValidation dateValidation;
+    @Autowired
+    UserDao userDao;
 //    @Autowired
 //    RoleDao roleDao;
 
@@ -107,9 +109,11 @@ public class EventController {
 
 
     @GetMapping(value="event/user/{id}/description")
-    public String vvv(Model model, @PathVariable("id") Long id){
+    public String vvv(Model model, @PathVariable("id") Long id, Principal principal){
         Event event = eventDao.findOne(id);
-        List<Employee> employees = employeeDao.getAllEmployee();
+//        List<Employee> employees = employeeDao.getAllEmployee();
+        String role = getPrincipalRole(principal);
+        List<Employee> employees = employeeDao.getEmmployessByRoles(role);
 
         cust = employees;
 
@@ -162,6 +166,12 @@ public class EventController {
         }
 
         return name;
+    }
+
+    public String getPrincipalRole(Principal principal){
+       User user = userDao.getUserByEmailAddress(principal.getName());
+       return user.getPosition();
+
     }
 
 }

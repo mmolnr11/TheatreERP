@@ -22,9 +22,12 @@ public class EmployeeDao {
     }
     public Employee findEmployee(Long id){return employeeRepository.findOne(id);};
     public List<String> getEmployeeRoles (){
-      return employeeRepository.getEmployeeRoles();
+      return employeeRepository.getEmployeePositions();
     }
-
-//    public Employee findByName(String name) {return employeeRepository.findByName(name);}
+    public List<Employee> getEmmployessByRoles(String role){
+        return employeeRepository.findAllByPosition(role);
+    }
+//
+//  public Employee findByName(String name) {return employeeRepository.findByName(name);}
 
 }

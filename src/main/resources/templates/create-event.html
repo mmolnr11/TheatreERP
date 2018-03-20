@@ -132,8 +132,8 @@
         </div>
 
         <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class = "mdl-textfield__input" type="text" rows ="3" id ="role" th:field ="*{endDateTime}" th:value="${event.getEndDateTime()}" name="endDateTime"/>
-            <label class = "mdl-textfield__label" for = "role">Vege</label>
+            <input class = "mdl-textfield__input" type="text" rows ="3" id ="position" th:field ="*{endDateTime}" th:value="${event.getEndDateTime()}" name="endDateTime"/>
+            <label class = "mdl-textfield__label" for = "position">Vege</label>
         </div>
         <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <input class = "mdl-textfield__input" type="text" rows ="3" th:field ="*{type}" id ="type" name="type"/>
@@ -142,9 +142,9 @@
 
         <button type="submit" id="save-bike-to-db" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj esemeny hozzadasa</button>
     </div>
-    <div th:each="role : ${roles}" >
-        <p th:text="${role}"></p>
-        <label th:for="movie"> </label><input th:id="${role}" th:name="${role}" type="number" value="0"/>
+    <div th:each="position : ${roles}" >
+        <p th:text="${position}"></p>
+        <label th:for="movie"> </label><input th:id="${position}" th:name="${position}" type="number" value="0"/>
     </div>
 </form>
 
