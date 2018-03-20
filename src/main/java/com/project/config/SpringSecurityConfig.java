@@ -30,10 +30,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll()
+//                .antMatchers("/**").permitAll()
 //                .antMatchers("/admin/**").access("hasRole('ADMIN')")
-//                .antMatchers("/user/**").hasRole("USER")
-//                .anyRequest().authenticated()
+                .antMatchers("/user/**").hasRole("USER")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
