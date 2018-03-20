@@ -111,13 +111,24 @@ public class EventController {
     @GetMapping(value="event/user/{id}/description")
     public String vvv(Model model, @PathVariable("id") Long id, Principal principal){
         Event event = eventDao.findOne(id);
-//        List<Employee> employees = employeeDao.getAllEmployee();
+        Map<String, Integer> eployeesMap =event.getEventhezDolgozok();
         String role = getPrincipalRole(principal);
+        String roleCorrect = "";
+        Integer roleInteger = 0;
+        for (Map.Entry<String,Integer> entry : eployeesMap.entrySet())
+            if(entry.getKey().equals(role)){
+                roleCorrect = entry.getKey();
+                roleInteger = entry.getValue();
+            }
+//        List<Employee> employees = employeeDao.getAllEmployee();
+
         List<Employee> employees = employeeDao.getEmmployessByRoles(role);
 
         cust = employees;
 
         model.addAttribute("event", event);
+        model.addAttribute("roleString", roleCorrect);
+        model.addAttribute("roleInteger", roleInteger);
         model.addAttribute("employees", cust);
         return "user-event-detail";
     }

@@ -79,16 +79,18 @@
 
         <button type="submit" id="save-bike-to-db" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Change Event</button>
     </div>
+</form>
 
-<div th:each="instance : ${event.getEventhezDolgozok()}">
+<!--<div th:each="instance : ${event.getEventhezDolgozok()}">-->
+<div>
     <form id="customerForm">
         <tr>
-            <td th:text="${instance.key}">keyvalue</td>
-            <td th:text="${instance.value}">num</td>
+            <td th:text="${roleString}">keyvalue</td>
+            <td th:text="${roleInteger}">num</td>
             <select name="" id="employee">
                 <option selected="true" disabled="disabled">Kerlek valassz egyet</option>
                 <option th:each="employee : ${employees}"
-                        th:if="${employee.getPosition()} == ${instance.key}"
+                        th:if="${employee.getPosition()} == ${roleString}"
                         th:text="${employee.getName()}" th:value="${employee.getId()}"
                 ></option>
                 <!--th:value="${employee.getId()}"-->
