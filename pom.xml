@@ -103,6 +103,15 @@
             <artifactId>google-api-services-calendar</artifactId>
             <version>v3-rev224-1.22.0</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.session</groupId>-->
+            <!--<artifactId>spring-session</artifactId>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-jdbc</artifactId>
+        </dependency>
+    </dependencies>
         <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
         <!--<dependency>-->
             <!--<groupId>joda-time</groupId>-->
