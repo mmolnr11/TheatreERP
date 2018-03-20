@@ -44,38 +44,41 @@
 
 </head>
 <body>
-<div class="form-group">
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
-        <input class="mdl-textfield__input" type="text" id="firstname"  th:value="${event.getTitle()}" name="title"/>
-        <label class="mdl-textfield__label" for="firstname" >Darab cime</label>
-    </div>
+<form action="/event/create">
+    <div class="form-group">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+            <p>Darab cime</p>
+            <p id = "title" th:text="${event.getTitle()}"></p>
+            <!--<label class="mdl-textfield__label" for="title" ></label>-->
+            <!--<input class="mdl-textfield__input" type="text" id="firstname"  th:value="${event.getTitle()}" name="title"/>-->
+        </div>
 
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="text" id="secondname"  th:value="${event.getDescription()}" name="description"/>
-        <label class="mdl-textfield__label" for="secondname">Leiras</label>
-    </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <p>Leiras</p>
+            <p th:text="${event.getDescription()}"></p>
+        </div>
 
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="text"  th:value="${event.getLocation()}" id="email" name="location"/>
-        <label class="mdl-textfield__label" for="email">Helyszin</label>
-    </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <p>Helyszin</p>
+            <p th:text="${event.getLocation()}"></p>
+        </div>
 
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="text"  th:value="${event.getStartDateTime()}" id="password" name="password"/>
-        <label class="mdl-textfield__label" for="password">Kezdes</label>
-    </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <p>Kezdes</p>
+            <p th:text="${event.getStartDateTime()}"></p>
+        </div>
 
-    <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class = "mdl-textfield__input" type="text" rows ="3" id ="position"  th:value="${event.getEndDateTime()}" name="position"/>
-        <label class = "mdl-textfield__label" for = "position">Vege</label>
-    </div>
-    <!--<div class = "mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
-    <!--<input class = "mdl-textfield__input" type="text" rows ="3" id ="position" th:value="${user.getPosition()}" name="position"/>-->
-    <!--<label class = "mdl-textfield__label" for = "position">Position</label>-->
-    <!--</div>-->
+        <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <p>Vege</p>
+            <p th:text="${event.getEndDateTime()}"></p>
+        </div>
+        <!--<div class = "mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
+        <!--<input class = "mdl-textfield__input" type="text" rows ="3" id ="position" th:value="${user.getPosition()}" name="position"/>-->
+        <!--<label class = "mdl-textfield__label" for = "position">Position</label>-->
+        <!--</div>-->
 
-    <button type="submit" id="save-bike-to-db" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Change Event</button>
-</div>
+        <button type="submit" id="save-bike-to-db" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Change Event</button>
+    </div>
 
 <div th:each="instance : ${event.getEventhezDolgozok()}">
     <form id="customerForm">
@@ -103,7 +106,7 @@
 
 <div id="postResultDiv">
 </div>
-<p></p>
+<p class="buttonpara"></p>
 <script>
     $(document).ready(function(){
 
@@ -139,7 +142,7 @@
             var id = $("option")[1].getAttribute("value");
             console.log(option)
 
-            $("p").append(`<button name = "${option}" class="teszVesz" id="${id}"><i class="fa fa-minus-circle" aria-hidden="true"></i>${option}</button>`);
+            $(".buttonpara").append(`<button name = "${option}" class="teszVesz" id="${id}"><i class="fa fa-minus-circle" aria-hidden="true"></i>${option}</button>`);
         });
     });
 </script>
