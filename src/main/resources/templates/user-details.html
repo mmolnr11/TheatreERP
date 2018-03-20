@@ -14,13 +14,24 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-    <p th:text="${userDetails.getFirstName()}"></p>
-    <p th:text="${userDetails.getSecondName()}"></p>
-    <p th:text="${userDetails.getEmailAddress()}"></p>
-    <form action="/admin">
-        <input type="submit" value="Go Home" />
-    </form>
-
+    <div th:if="${not #lists.isEmpty(errors)}">
+        <div class="container" th:each="error : ${errors}">
+            <p th:text="${error}"></p>
+        </div>
+        <p th:text="${savingTried}"></p>
+        <form action="/add-new-user">
+            <input type="submit" value="Ujrapobalom" />
+        </form>
+    </div>
+    <div th:if="${ #lists.isEmpty(errors)}">
+        <p th:text="${savingTried}"></p>
+        <p th:text="${userDetails.getFirstName()}"></p>
+        <p th:text="${userDetails.getLastName()}"></p>
+        <p th:text="${userDetails.getEmailAddress()}"></p>
+        <form action="/admin">
+            <input type="submit" value="Vissza a fomenuhoz" />
+        </form>
+    </div>
 </body>
 </html>
 

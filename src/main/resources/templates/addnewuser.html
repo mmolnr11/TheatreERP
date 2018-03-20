@@ -15,36 +15,36 @@
 </head>
 <body>
 <h1>Add new User </h1>
-<form id="save-bike" th:action="@{/add-new-user}" method="post">
+<form id="save-bike" th:action="@{/add-new-user}" th:object="${user}" method="post">
 
     <div class="col-md-4" id="userfileds">
         <div class="form-group">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
-                <input class="mdl-textfield__input" type="text" id="firstname"  name="firstname"/>
+                <input class="mdl-textfield__input" type="text" id="firstname" th:field= "*{firstName}" name="firstname"/>
                 <label class="mdl-textfield__label" for="firstname" >Firstname of the user</label>
             </div>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="secondname" name="secondname"/>
+                <input class="mdl-textfield__input" type="text" id="secondname" th:field= "*{lastName}" name="secondname"/>
                 <label class="mdl-textfield__label" for="secondname">Secondname of the user</label>
             </div>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="email" name="email"/>
+                <input class="mdl-textfield__input" type="text" th:field= "*{emailAddress}" id="email" name="email"/>
                 <label class="mdl-textfield__label" for="email">Enter email</label>
             </div>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="password" name="password"/>
+                <input class="mdl-textfield__input" type="text" th:field= "*{password}" id="password" name="password"/>
                 <label class="mdl-textfield__label" for="password">Give password</label>
             </div>
 
             <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class = "mdl-textfield__input" type="text" rows ="3" id ="role" name="role"/>
-                <label class = "mdl-textfield__label" for = "role">Role</label>
+                <input class = "mdl-textfield__input" type="text"  th:field= "*{position}" rows ="3" id ="position" name="position"/>
+                <label class = "mdl-textfield__label" for = "position">Role</label>
             </div>
             <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class = "mdl-textfield__input" type="text" rows ="3" id ="position" name="position"/>
+                <input class = "mdl-textfield__input" type="text"  th:field= "*{position}" rows ="3" id ="position" name="position"/>
                 <label class = "mdl-textfield__label" for = "position">Position</label>
             </div>
 

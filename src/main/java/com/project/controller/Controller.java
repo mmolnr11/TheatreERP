@@ -2,9 +2,10 @@ package com.project.controller;
 
 import com.project.dao.EventDao;
 import com.project.dao.UserDao;
-import com.project.model.LiveShow;
+import com.project.model.Event;
 import com.project.model.User;
 import com.project.repository.UserRepository;
+import com.project.service.UserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.Model;
@@ -29,6 +30,8 @@ public class Controller {
     UserDao userDao;
     @Autowired
     EventDao eventDao;
+    @Autowired
+    UserValidation userValidation;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderLoginPage(Model model) {
@@ -42,20 +45,29 @@ public class Controller {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String simauser(Model model) {
-        return "simauser";
+        return "user";
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String renderIndex(){return "login";}
 
     @RequestMapping(value = "/add-new-user", method = RequestMethod.GET)
-    public String renderAddNewUserTemplate(Model model){return "addnewuser";}
+    public String renderAddNewUserTemplate(Model model){
+        model.addAttribute("user", new User());
+        return "addnewuser";}
 
     @RequestMapping(value = "/add-new-user", method = RequestMethod.POST)
-    public String saveNewUser(@RequestParam HashMap<String,String> allRequestParams, Model model) {
-        User user = userDao.createUser(allRequestParams);
-        userDao.saveUser(user);
+    public String saveNewUser(@ModelAttribute("user") User user, Model model) {
+        List<String> errorMessages = userValidation.validateRegistrationDatas(user,"majdPassword");
+        String savingTried = "nemsikeres a mentes probald ujra";
+        if (errorMessages.size() == 0){
+            savingTried = "Sikeresen mentette a kovetkezo Usert";
+            userDao.saveUser(userDao.createUser(user));
+        }
+
         model.addAttribute("userDetails", user);
+        model.addAttribute("errors", errorMessages);
+        model.addAttribute("savingTried", savingTried);
         return "user-details";}
 
     @RequestMapping(value = "/modify-user", method = RequestMethod.GET)
@@ -80,26 +92,5 @@ public class Controller {
         return "user-details";
 
     }
-    @PostMapping(value = "/event-detail")
-    public String vlami (Model model, @RequestParam("startdate") String date) throws ParseException {
-        String formatted = date.substring(0,10);
-        System.out.println("input " +date);
 
-
-
-        Date mdate = new SimpleDateFormat("MM/dd/yyyy HH:mm").parse(date);
-
-        String formattedDate1 = new SimpleDateFormat("dd/MM/yyyy 00:01").format(mdate);
-//        24/02/2018 00:01
-        String formattedDate2 = new SimpleDateFormat("dd/MM/yyyy 23:59").format(mdate);
-
-        System.out.println("mdate " + mdate);
-        Date te = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate1);
-        Date t2 = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate2);
-        System.out.println("ujra date "  + te);
-       List<LiveShow> liveShowList =  eventDao.findByDate(te,t2);
-        System.out.println(liveShowList.size());
-        model.addAttribute("proba",liveShowList);
-        return "proba";
-    }
 }

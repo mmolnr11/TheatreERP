@@ -1,8 +1,16 @@
 package com.project.model;
 
 import javax.persistence.*;
+
+@NamedQueries(
+        {@NamedQuery(name = "Employee.getEmployeePositions",
+                query = "SELECT DISTINCT position from Employee"
+        ),@NamedQuery(name = "Employee.getAllEmployee",
+                query = "SELECT firstName, secondName from Employee")
+        })
 @Entity
-@Table(name = "Employee")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "employee")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,8 +21,24 @@ public class Employee {
     private String secondName;
     @Column(nullable = false)
     private int age;
-    @Column(nullable = false)
+//    @ManyToMany(mappedBy = "eventhezDolgozok")
+//    private List<Event> events;
+//    @ManyToOne
+//    @OneToMany
+//    private Employee employee;
+
     private String position;
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public Employee() {
+    }
 
     public Employee(String firstName, String secondName, int age, String position) {
         this.firstName = firstName;
@@ -55,11 +79,11 @@ public class Employee {
         this.age = age;
     }
 
-    public String getPosition() {
-        return position;
+    public String getName(){
+        return getFirstName()+ " " + getSecondName();
     }
 
-    public void setPosition(String postion) {
-        this.position = postion;
-    }
+
+
+
 }
