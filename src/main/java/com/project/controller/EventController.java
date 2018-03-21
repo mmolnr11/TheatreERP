@@ -1,5 +1,6 @@
 package com.project.controller;
 
+import com.project.dao.CommentDao;
 import com.project.dao.EmployeeDao;
 import com.project.dao.EventDao;
 //import com.project.dao.RoleDao;
@@ -28,6 +29,8 @@ public class EventController {
     DateValidation dateValidation;
     @Autowired
     UserDao userDao;
+    @Autowired
+    CommentDao commentDao;
 //    @Autowired
 //    RoleDao roleDao;
 
@@ -123,7 +126,7 @@ public class EventController {
 //        List<Employee> employees = employeeDao.getAllEmployee();
 
         List<Employee> employees = employeeDao.getEmmployessByRoles(role);
-
+        System.out.println("lista " + event.getComments().size());
         cust = employees;
 
         model.addAttribute("event", event);
@@ -164,7 +167,7 @@ public class EventController {
 
     @RequestMapping(value = "/restoreEmployee", method = RequestMethod.POST)
     @ResponseBody
-    public String post(@RequestParam Map<String,String> allRequestParam){
+    public String restoreEmployee(@RequestParam Map<String,String> allRequestParam){
         String name = allRequestParam.get("name");
         System.out.println("name "+ name);
         List<Employee> employees = employeeDao.getAllEmployee();
@@ -178,7 +181,18 @@ public class EventController {
 
         return name;
     }
+    @RequestMapping(value = "/addComment", method = RequestMethod.POST)
+    @ResponseBody
+    public String postComment (@RequestParam Map<String,String> allRequestParam) {
+        String comment = allRequestParam.get("comment");
+        String role = allRequestParam.get("role");
+        String eventid = allRequestParam.get("eventId");
+        Event event = eventDao.findOne(Long.valueOf(eventid));
+        User user = userDao.getUserByPosition(role);
+        commentDao.saveComment(new Comment(comment,user,event));
+        return comment;
 
+    }
     public String getPrincipalRole(Principal principal){
        User user = userDao.getUserByEmailAddress(principal.getName());
        return user.getPosition();

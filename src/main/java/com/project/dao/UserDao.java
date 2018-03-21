@@ -26,6 +26,9 @@ public class UserDao {
     public User findById(Long id) {
         return userRepository.findOne(id);
     }
+    public User getUserByPosition(String position) {
+        return userRepository.getUserByPosition(position);
+    }
 
     public User createUser(User user){
         User newUser = new User();

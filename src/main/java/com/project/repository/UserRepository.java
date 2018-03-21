@@ -10,6 +10,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Override
     User findOne(Long aLong);
     User getUserByEmailAddress(@Param("email") String email);
+    User getUserByPosition(@Param("position")String position);
 
 
 }

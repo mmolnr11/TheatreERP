@@ -44,7 +44,7 @@
 
 </head>
 <body>
-<form action="/event/create">
+
     <div class="form-group">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
             <p>Darab cime</p>
@@ -72,14 +72,36 @@
             <p>Vege</p>
             <p th:text="${event.getEndDateTime()}"></p>
         </div>
+
+        <div id="divComment" th:class = "${event.getId()}">
+            <p>Korabbi kommentek</p>
+            <div  th:each="comment : ${event.getComments()}">
+                <tr>
+                    <td th:text="${comment.getDescription()}"></td>
+                    <td th:text="${comment.getUser().getPosition()}"></td>
+                    <td th:text="${comment.getEntryTime()}"></td>
+
+                    <a href="" th:if="${comment.getUser().getPosition()} == ${roleString}"><i class="fa fa-eraser" aria-hidden="true"></i> Komment torlese</a>
+                </tr>
+            </div>
+
+        </div>
+
+        <form id="addComment">
+            <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class = "mdl-textfield__input" type="text" rows ="3" id ="comment" name="comment"/>
+                <label class = "mdl-textfield__label" for = "comment">Uj Komment</label>
+            </div>
+            <button  th:name="${roleString}" name="" type="button" id="addCommentButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj Komment</button>
+        </form>
         <!--<div class = "mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
         <!--<input class = "mdl-textfield__input" type="text" rows ="3" id ="position" th:value="${user.getPosition()}" name="position"/>-->
         <!--<label class = "mdl-textfield__label" for = "position">Position</label>-->
         <!--</div>-->
 
-        <button type="submit" id="save-bike-to-db" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Change Event</button>
+
     </div>
-</form>
+
 
 <!--<div th:each="instance : ${event.getEventhezDolgozok()}">-->
 <div>
@@ -112,7 +134,7 @@
 <script>
     $(document).ready(function(){
 
-        $(document).on("click",".teszVesz",function (){
+        $(document).on("click",".button",function (){
 
             var name = $( this ).attr("name");
             console.log(name);
@@ -136,15 +158,39 @@
 //                    .text("mkasmkasm"));
         });
 
-        $("#btn2").click(function(){
+        $(document).on("click","#addCommentButton",function (){
             debugger;
+            var comment = $( "input" ).val();
+            var role = $("#addCommentButton").attr("name");
+//            var date = new Date();
+            var eventId = $("#divComment").attr("class");
+
+            console.log(comment)
+            $( "#divComment" ).append( `<div><tr>
+                <td>${comment}</td>
+                <td>${role}</td>
+                </tr>
+                </div>` );
+            $.post("/addComment",
+                {
+//                    name: $(this).attr("name"),
+                    "comment": comment,
+                    "role": role,
+                    "eventId": eventId
+                },
+                function(response){
+                    alert("Elmentve a komment: " + response);
+                });
+        });
+
+        $("#btn2").click(function(){
             var option = $( "option" )[1].innerText;
 //            var option = $( this ).innerText;
 //            var id = $(this).getAttribute("value");
             var id = $("option")[1].getAttribute("value");
             console.log(option)
 
-            $(".buttonpara").append(`<button name = "${option}" class="teszVesz" id="${id}"><i class="fa fa-minus-circle" aria-hidden="true"></i>${option}</button>`);
+            $(".buttonpara").append(`<button name = "${option}" class="button" id="${id}"><i class="fa fa-minus-circle" aria-hidden="true"></i>${option}</button>`);
         });
     });
 </script>

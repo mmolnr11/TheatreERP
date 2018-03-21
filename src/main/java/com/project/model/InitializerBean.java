@@ -1,6 +1,7 @@
 package com.project.model;
 
 
+import com.project.dao.CommentDao;
 import com.project.dao.EmployeeDao;
 import com.project.dao.EventDao;
 //import com.project.dao.RoleDao;
@@ -14,7 +15,7 @@ import java.util.*;
 
 @Component
 public class InitializerBean {
-    public InitializerBean(EmployeeDao employeeDao, UserDao userDao, EventDao eventDao, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public InitializerBean(CommentDao commentDao, EmployeeDao employeeDao, UserDao userDao, EventDao eventDao, BCryptPasswordEncoder bCryptPasswordEncoder) {
 
 
         User user1 = new User("Szabo", "Andris", "andras.l.szabo@gmail.com", "pass", "admin");
@@ -28,6 +29,13 @@ public class InitializerBean {
         Event event1 = new Event("3 vilagosito", "Lion king", new Date(), new Date(),"terem", "proba");
         Event event2 = new Event("5 berendezo", "Songoku", new Date(), new Date(),"terem", "eloadas");
         Event event3 = new Event("6 vilagosito", "Pinokkio", new Date(), new Date(),"terem", "proba");
+//        List<Comment> comments = new ArrayList<>();
+        Comment comment1 = new Comment("andris szep gyerek",user2,event1);
+        Comment comment2 = new Comment("csak sokat cigizik",user1,event1);
+//        comments.add(comment1);
+//        comments.add(comment2);
+//        event1.setComments(comments);
+
 
 
 
@@ -48,14 +56,16 @@ public class InitializerBean {
 
         employeeDao.saveEmployee(berendezo2);
 
+
         eventDao.saveEvent(event1);
-
-
-
         eventDao.saveEvent(event2);
         eventDao.saveEvent(event3);
+
+
         userDao.saveUser(user1);
         userDao.saveUser(user2);
+        commentDao.saveComment(comment1);
+        commentDao.saveComment(comment2);
 
 
     }
