@@ -140,29 +140,25 @@ public class EventController {
 
     @RequestMapping(value = "/postcustomer", method = RequestMethod.POST)
     @ResponseBody
-    public Response postEmployee(@RequestParam Map<String,String> allRequestParam
-    ) {
+    public Response postEmployee(@RequestParam Map<String,String> allRequestParam) {
         String stringId = allRequestParam.get("employeeId");
-        Long id = Long.valueOf(stringId);
-        Employee inputEmployee = employeeDao.findEmployee(id);
+        if (!stringId.equals("")){
+            Long id = Long.valueOf(stringId);
+            Employee inputEmployee = employeeDao.findEmployee(id);
 
 
-        for (int i = 0; i <cust.size(); i++) {
-            if (cust.get(i).getId() == inputEmployee.getId()){
-                System.out.println("torol " +cust.get(i).getName());
-                System.out.println(cust.size() +  "törlés elott");
-                cust.remove(i);
-                System.out.println(cust.size() + " törlés után");
-
+            for (int i = 0; i <cust.size(); i++) {
+                if (cust.get(i).getId() == inputEmployee.getId()){
+                    cust.remove(i);
+                }
             }
+            Response response = new Response("Done", inputEmployee.getName());
+            return response;
         }
-        System.out.println(cust.toArray().toString());
-        System.out.println("naa " + inputEmployee.getName());
-//        System.out.println("naa " + allRequestParams.entrySet());
-//        System.out.println("naa " + allRequestParams.get("janos"));
-        // Create Response Object
-        Response response = new Response("Done", inputEmployee.getName());
-        return response;
+        else {
+            Response response = new Response("Done", "Kerlek addj hozza valakit");
+            return response;}
+
     }
 
     @RequestMapping(value = "/restoreEmployee", method = RequestMethod.POST)

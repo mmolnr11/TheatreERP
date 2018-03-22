@@ -34,8 +34,8 @@ public class Event {
     private String type;
     @OneToMany(mappedBy = "event")
     private List<Comment> comments;
-//    @ManyToOne
-//    private List<Employee> employeeList;
+    @ManyToMany()
+    private List<Employee> employeesToEvent;
     @ElementCollection
     @MapKeyColumn(name="name")
     @Column(name="value")
@@ -122,11 +122,11 @@ public class Event {
         this.comments = comments;
     }
 
-    //    public List<Employee> getEmployeeList() {
-//        return employeeList;
-//    }
-//
-//    public void setEmployeeList(List<Employee> employeeList) {
-//        this.employeeList = employeeList;
-//    }
+    public List<Employee> getEmployeesToEvent() {
+        return employeesToEvent;
+    }
+
+    public void setEmployeesToEvent(List<Employee> employeesToEvent) {
+        this.employeesToEvent = employeesToEvent;
+    }
 }

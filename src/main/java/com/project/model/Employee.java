@@ -1,6 +1,7 @@
 package com.project.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NamedQueries(
         {@NamedQuery(name = "Employee.getEmployeePositions",
@@ -21,11 +22,8 @@ public class Employee {
     private String secondName;
     @Column(nullable = false)
     private int age;
-//    @ManyToMany(mappedBy = "eventhezDolgozok")
-//    private List<Event> events;
-//    @ManyToOne
-//    @OneToMany
-//    private Employee employee;
+    @ManyToMany(mappedBy = "employeesToEvent")
+    private List<Event> eventsToEmployee;
 
     private String position;
 
@@ -83,7 +81,11 @@ public class Employee {
         return getFirstName()+ " " + getSecondName();
     }
 
+    public List<Event> getEventsToEmployee() {
+        return eventsToEmployee;
+    }
 
-
-
+    public void setEventsToEmployee(List<Event> eventsToEmployee) {
+        this.eventsToEmployee = eventsToEmployee;
+    }
 }

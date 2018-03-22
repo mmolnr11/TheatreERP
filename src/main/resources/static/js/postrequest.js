@@ -28,9 +28,9 @@ $( document ).ready(function() {
 			// dataType : 'json',
 			success : function(result) {
 				if(result.status == "Done"){
-					$("#postResultDiv").html(
-						"<strong>" + "Post Successfully! Customer's Info: FirstName = "
-							+ result.data + "</strong>");
+					// $("#postResultDiv").html(
+					// 	"<strong>" + "Post Successfully! Customer's Info: FirstName = "
+					// 		+ result.data + "</strong>");
                     userDropdown.find('option[value='+ selectedUserId +']').remove();
                     userDropdown.find('option:first').attr('selected', 'selected');
 

@@ -107,10 +107,10 @@
 <div>
     <form id="customerForm">
         <tr>
-            <td th:text="${roleString}">keyvalue</td>
-            <td th:text="${roleInteger}">num</td>
+            <p th:text="${roleString}">keyvalue</p>
+            <p id="numOfEmployee" th:text="${roleInteger}">num</p>
             <select name="" id="employee">
-                <option selected="true" disabled="disabled">Kerlek valassz egyet</option>
+                <option value="" selected="true" disabled="disabled">Kerlek valassz egyet</option>
                 <option th:each="employee : ${employees}"
                         th:if="${employee.getPosition()} == ${roleString}"
                         th:text="${employee.getName()}" th:value="${employee.getId()}"
@@ -119,8 +119,7 @@
                 <!--th:text="#{${'seedstarter.type.' + employee.getId()}}">Wireframe</option>-->
             </select>
             <a href=""></a>
-            <button type="submit" id="btn2" ><i class="fa fa-plus" aria-hidden="true"></i> Rendelj Hozza</button>
-            <!--<button >Hozza ad</button>-->
+            <button type="submit" id="selectEmployee" ><i class="fa fa-plus" aria-hidden="true"></i> Rendelj Hozza</button>
             <br/>
         </tr>
     </form>
@@ -131,7 +130,7 @@
 <div id="postResultDiv">
 </div>
 <p class="buttonpara"></p>
-<script>
+<script type="text/javascript">
     $(document).ready(function(){
 
         $(document).on("click",".button",function (){
@@ -153,13 +152,10 @@
 
 
             $('#employee').append(`<option value="${empId}">${name}</option>`)
-//                .append($("<option></option>")
-//                    .attr("value","kamnskasm")
-//                    .text("mkasmkasm"));
+
         });
 
         $(document).on("click","#addCommentButton",function (){
-            debugger;
             var comment = $( "input" ).val();
             var role = $("#addCommentButton").attr("name");
 //            var date = new Date();
@@ -183,14 +179,28 @@
                 });
         });
 
-        $("#btn2").click(function(){
-            var option = $( "option" )[1].innerText;
-//            var option = $( this ).innerText;
-//            var id = $(this).getAttribute("value");
-            var id = $("option")[1].getAttribute("value");
-            console.log(option)
+        $("#selectEmployee").click(function(){
+            debugger;
+            var selectedEmployee = $("#employee option:selected");
+            var $numOfEmployee = $("#numOfEmployee");
+            var newVal = parseInt($numOfEmployee.text() - 1);
+            if(newVal !== 0){
+                if(selectedEmployee.val() !== ""){
+                    $numOfEmployee.text( newVal );
+                }
 
-            $(".buttonpara").append(`<button name = "${option}" class="button" id="${id}"><i class="fa fa-minus-circle" aria-hidden="true"></i>${option}</button>`);
+            }else {
+                $numOfEmployee.text( "Letszam elerve" );
+
+
+            }
+
+            if (selectedEmployee.val() !== "") {
+                $(".buttonpara").append(`<button name = "${selectedEmployee.text()}" class="button" id="${selectedEmployee.val()}">
+                                            <i class="fa fa-minus-circle" aria-hidden="true"></i>${selectedEmployee.text()}
+                                         </button>`);
+            }
+
         });
     });
 </script>
