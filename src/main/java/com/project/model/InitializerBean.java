@@ -20,16 +20,21 @@ public class InitializerBean {
 
         User user1 = new User("Szabo", "Andris", "andras.l.szabo@gmail.com", "pass", "admin");
         User user2 = new User("Szabo", "Gyozo", "andras.gyogyo.szabo@gmail.com", "pass", "user", "Berendezo");
-        Vilagosito vilagosito = new Vilagosito("NEmSzabo", "NemGyozo",32, "Vilagosito");
-        Vilagosito vilagosito2 = new Vilagosito("NEmSzabo2", "NemGyozo2",32, "Vilagosito");
+        Vilagosito vilagosito = new Vilagosito("Kiss", "Miska",32, "Vilagosito");
+        Vilagosito vilagosito2 = new Vilagosito("Nagy", "Elek",32, "Vilagosito");
         Berendezo berendezo = new Berendezo("Berendez", "ELek",32, "Berendezo");
+        Berendezo berendezo3 = new Berendezo("Csuka", "Monika",32, "Berendezo");
+        Berendezo berendezo4 = new Berendezo("Stohl", "Andras",32, "Berendezo");
         Berendezo berendezo2 = new Berendezo("Megrendez", "Nelli",32, "Berendezo");
 
 
         Event event1 = new Event("3 vilagosito", "Lion king", new Date(), new Date(),"terem", "proba");
         Event event2 = new Event("5 berendezo", "Songoku", new Date(), new Date(),"terem", "eloadas");
         Event event3 = new Event("6 vilagosito", "Pinokkio", new Date(), new Date(),"terem", "proba");
-//        List<Comment> comments = new ArrayList<>();
+        List<Employee> employees = new ArrayList<>();
+        employees.add(berendezo2);
+        employees.add(berendezo);
+        event1.setEmployeesToEvent(employees);
         Comment comment1 = new Comment("andris szep gyerek",user2,event1);
         Comment comment2 = new Comment("csak sokat cigizik",user1,event1);
 //        comments.add(comment1);
@@ -55,6 +60,8 @@ public class InitializerBean {
         employeeDao.saveEmployee(berendezo);
 
         employeeDao.saveEmployee(berendezo2);
+        employeeDao.saveEmployee(berendezo3);
+        employeeDao.saveEmployee(berendezo4);
 
 
         eventDao.saveEvent(event1);

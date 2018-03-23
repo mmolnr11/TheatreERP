@@ -129,29 +129,48 @@
 
 <div id="postResultDiv">
 </div>
-<p class="buttonpara"></p>
+
+    <div class="buttonpara">
+        <div th:each="orderedEmployee : ${event.getEmployeesToEvent()}">
+            <button th:name="${orderedEmployee.getName()}"
+                    th:text="${orderedEmployee.getName()}"
+                    class="button"
+                    th:id="${orderedEmployee.getId()}">
+                nevecske
+            </button>
+        </div>
+    </div>
+
+
+
 <script type="text/javascript">
     $(document).ready(function(){
 
         $(document).on("click",".button",function (){
 
             var name = $( this ).attr("name");
-            console.log(name);
+            var $numOfEmployee = $("#numOfEmployee");
+            var newVal = parseInt($numOfEmployee.text());
+            newVal = newVal +1;
+            $numOfEmployee.text( newVal );
+            var eventId = $("#divComment").attr("class");
 
-            console.log(name);
+
             var empId = $( this ).attr("id");
             $.post("/restoreEmployee",
                 {
                     name: $(this).attr("name"),
-                    "name": $(this).attr("name")
+                    "name": $(this).attr("name"),
+                    "eventId": eventId
                 },
                 function(response){
-                    alert("Name: " + response);
+//                    alert("Name: " + response);
                 });
-            $( this ).remove();
+            $( this ).remove(),
 
 
             $('#employee').append(`<option value="${empId}">${name}</option>`)
+
 
         });
 
@@ -196,9 +215,9 @@
             }
 
             if (selectedEmployee.val() !== "") {
-                $(".buttonpara").append(`<button name = "${selectedEmployee.text()}" class="button" id="${selectedEmployee.val()}">
-                                            <i class="fa fa-minus-circle" aria-hidden="true"></i>${selectedEmployee.text()}
-                                         </button>`);
+                $(".buttonpara").append(`<div><button name = "${selectedEmployee.text()}" class="button" id="${selectedEmployee.val()}">
+                                            ${selectedEmployee.text()}
+                                         </button></div>`);
             }
 
         });

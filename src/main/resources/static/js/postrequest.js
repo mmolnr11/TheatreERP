@@ -12,15 +12,17 @@ $( document ).ready(function() {
     
     function ajaxPost(){
     	var userDropdown = $("#employee");
-    	var selectedUserId = userDropdown.val()
+    	var selectedUserId = userDropdown.val();
+        var eventId = $("#divComment").attr("class");
     	var formData = {
-    		'employeeId' : selectedUserId
+    		'employeeId' : selectedUserId,
+			'eventId' : eventId
     	}
     	
     	// DO POST            console.log(result)
         console.log(formData);
         $.ajax({
-            url : "/postcustomer",
+            url : "/addEmployee",
             method : "POST",
             // contentType : "application/json",
             data : formData,

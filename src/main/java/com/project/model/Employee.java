@@ -27,6 +27,18 @@ public class Employee {
 
     private String position;
 
+    private float workingHours;
+
+    public float getWorkingHours() {
+        return workingHours;
+    }
+
+    public void setWorkingHours(float workingHours) {
+        float hours = getWorkingHours();
+        hours += workingHours;
+        this.workingHours = hours;
+    }
+
     public String getPosition() {
         return position;
     }
