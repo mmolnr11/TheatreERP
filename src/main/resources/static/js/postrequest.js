@@ -12,15 +12,17 @@ $( document ).ready(function() {
     
     function ajaxPost(){
     	var userDropdown = $("#employee");
-    	var selectedUserId = userDropdown.val()
+    	var selectedUserId = userDropdown.val();
+        var eventId = $("#divComment").attr("class");
     	var formData = {
-    		'employeeId' : selectedUserId
+    		'employeeId' : selectedUserId,
+			'eventId' : eventId
     	}
     	
     	// DO POST            console.log(result)
         console.log(formData);
         $.ajax({
-            url : "/postcustomer",
+            url : "/addEmployee",
             method : "POST",
             // contentType : "application/json",
             data : formData,
@@ -28,9 +30,9 @@ $( document ).ready(function() {
 			// dataType : 'json',
 			success : function(result) {
 				if(result.status == "Done"){
-					$("#postResultDiv").html(
-						"<strong>" + "Post Successfully! Customer's Info: FirstName = "
-							+ result.data + "</strong>");
+					// $("#postResultDiv").html(
+					// 	"<strong>" + "Post Successfully! Customer's Info: FirstName = "
+					// 		+ result.data + "</strong>");
                     userDropdown.find('option[value='+ selectedUserId +']').remove();
                     userDropdown.find('option:first').attr('selected', 'selected');
 

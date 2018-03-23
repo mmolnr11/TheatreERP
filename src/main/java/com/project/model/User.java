@@ -2,6 +2,7 @@ package com.project.model;
 
 import javax.management.relation.Role;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "TheaterUser")
@@ -20,8 +21,10 @@ public class User {
     private String password;
     @Column (nullable = false)
     private String role;
-    @Column()
+    @Column
     private String position;
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
 
 
     public User(String firstName, String lastName, String emailAddress, String password, String role, String position) {
@@ -111,5 +114,13 @@ public class User {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

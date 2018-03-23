@@ -44,7 +44,7 @@
 
 </head>
 <body>
-<form action="/event/create">
+
     <div class="form-group">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
             <p>Darab cime</p>
@@ -72,23 +72,45 @@
             <p>Vege</p>
             <p th:text="${event.getEndDateTime()}"></p>
         </div>
+
+        <div id="divComment" th:class = "${event.getId()}">
+            <p>Korabbi kommentek</p>
+            <div  th:each="comment : ${event.getComments()}">
+                <tr>
+                    <td th:text="${comment.getDescription()}"></td>
+                    <td th:text="${comment.getUser().getPosition()}"></td>
+                    <td th:text="${comment.getEntryTime()}"></td>
+
+                    <a href="" th:if="${comment.getUser().getPosition()} == ${roleString}"><i class="fa fa-eraser" aria-hidden="true"></i> Komment torlese</a>
+                </tr>
+            </div>
+
+        </div>
+
+        <form id="addComment">
+            <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class = "mdl-textfield__input" type="text" rows ="3" id ="comment" name="comment"/>
+                <label class = "mdl-textfield__label" for = "comment">Uj Komment</label>
+            </div>
+            <button  th:name="${roleString}" name="" type="button" id="addCommentButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj Komment</button>
+        </form>
         <!--<div class = "mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
         <!--<input class = "mdl-textfield__input" type="text" rows ="3" id ="position" th:value="${user.getPosition()}" name="position"/>-->
         <!--<label class = "mdl-textfield__label" for = "position">Position</label>-->
         <!--</div>-->
 
-        <button type="submit" id="save-bike-to-db" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Change Event</button>
+
     </div>
-</form>
+
 
 <!--<div th:each="instance : ${event.getEventhezDolgozok()}">-->
 <div>
     <form id="customerForm">
         <tr>
-            <td th:text="${roleString}">keyvalue</td>
-            <td th:text="${roleInteger}">num</td>
+            <p th:text="${roleString}">keyvalue</p>
+            <p id="numOfEmployee" th:text="${roleInteger}">num</p>
             <select name="" id="employee">
-                <option selected="true" disabled="disabled">Kerlek valassz egyet</option>
+                <option value="" selected="true" disabled="disabled">Kerlek valassz egyet</option>
                 <option th:each="employee : ${employees}"
                         th:if="${employee.getPosition()} == ${roleString}"
                         th:text="${employee.getName()}" th:value="${employee.getId()}"
@@ -97,8 +119,7 @@
                 <!--th:text="#{${'seedstarter.type.' + employee.getId()}}">Wireframe</option>-->
             </select>
             <a href=""></a>
-            <button type="submit" id="btn2" ><i class="fa fa-plus" aria-hidden="true"></i> Rendelj Hozza</button>
-            <!--<button >Hozza ad</button>-->
+            <button type="submit" id="selectEmployee" ><i class="fa fa-plus" aria-hidden="true"></i> Rendelj Hozza</button>
             <br/>
         </tr>
     </form>
@@ -108,43 +129,97 @@
 
 <div id="postResultDiv">
 </div>
-<p class="buttonpara"></p>
-<script>
+
+    <div class="buttonpara">
+        <div th:each="orderedEmployee : ${event.getEmployeesToEvent()}">
+            <button th:name="${orderedEmployee.getName()}"
+                    th:text="${orderedEmployee.getName()}"
+                    class="button"
+                    th:id="${orderedEmployee.getId()}">
+                nevecske
+            </button>
+        </div>
+    </div>
+
+
+
+<script type="text/javascript">
     $(document).ready(function(){
 
-        $(document).on("click",".teszVesz",function (){
+        $(document).on("click",".button",function (){
 
             var name = $( this ).attr("name");
-            console.log(name);
+            var $numOfEmployee = $("#numOfEmployee");
+            var newVal = parseInt($numOfEmployee.text());
+            newVal = newVal +1;
+            $numOfEmployee.text( newVal );
+            var eventId = $("#divComment").attr("class");
 
-            console.log(name);
+
             var empId = $( this ).attr("id");
             $.post("/restoreEmployee",
                 {
                     name: $(this).attr("name"),
-                    "name": $(this).attr("name")
+                    "name": $(this).attr("name"),
+                    "eventId": eventId
                 },
                 function(response){
-                    alert("Name: " + response);
+//                    alert("Name: " + response);
                 });
-            $( this ).remove();
+            $( this ).remove(),
 
 
             $('#employee').append(`<option value="${empId}">${name}</option>`)
-//                .append($("<option></option>")
-//                    .attr("value","kamnskasm")
-//                    .text("mkasmkasm"));
+
+
         });
 
-        $("#btn2").click(function(){
-            debugger;
-            var option = $( "option" )[1].innerText;
-//            var option = $( this ).innerText;
-//            var id = $(this).getAttribute("value");
-            var id = $("option")[1].getAttribute("value");
-            console.log(option)
+        $(document).on("click","#addCommentButton",function (){
+            var comment = $( "input" ).val();
+            var role = $("#addCommentButton").attr("name");
+//            var date = new Date();
+            var eventId = $("#divComment").attr("class");
 
-            $(".buttonpara").append(`<button name = "${option}" class="teszVesz" id="${id}"><i class="fa fa-minus-circle" aria-hidden="true"></i>${option}</button>`);
+            console.log(comment)
+            $( "#divComment" ).append( `<div><tr>
+                <td>${comment}</td>
+                <td>${role}</td>
+                </tr>
+                </div>` );
+            $.post("/addComment",
+                {
+//                    name: $(this).attr("name"),
+                    "comment": comment,
+                    "role": role,
+                    "eventId": eventId
+                },
+                function(response){
+                    alert("Elmentve a komment: " + response);
+                });
+        });
+
+        $("#selectEmployee").click(function(){
+            debugger;
+            var selectedEmployee = $("#employee option:selected");
+            var $numOfEmployee = $("#numOfEmployee");
+            var newVal = parseInt($numOfEmployee.text() - 1);
+            if(newVal !== 0){
+                if(selectedEmployee.val() !== ""){
+                    $numOfEmployee.text( newVal );
+                }
+
+            }else {
+                $numOfEmployee.text( "Letszam elerve" );
+
+
+            }
+
+            if (selectedEmployee.val() !== "") {
+                $(".buttonpara").append(`<div><button name = "${selectedEmployee.text()}" class="button" id="${selectedEmployee.val()}">
+                                            ${selectedEmployee.text()}
+                                         </button></div>`);
+            }
+
         });
     });
 </script>
