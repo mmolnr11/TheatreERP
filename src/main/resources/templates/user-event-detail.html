@@ -160,7 +160,8 @@
             $.post("/restoreEmployee",
                 {
                     name: $(this).attr("name"),
-                    "name": $(this).attr("name"),
+//                    "name": $(this).attr("name"),
+                    "empId": $(this).attr("id"),
                     "eventId": eventId
                 },
                 function(response){

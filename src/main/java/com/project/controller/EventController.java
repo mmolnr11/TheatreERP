@@ -18,6 +18,7 @@ import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class EventController {
@@ -159,6 +160,7 @@ public class EventController {
         if (!stringId.equals("")){
             Long id = Long.valueOf(stringId);
             Employee inputEmployee = employeeDao.findEmployee(id);
+            addWorkingHoures(event, inputEmployee);
 
             for (int i = 0; i <notYetOrderedEmployees.size(); i++) {
                 if (notYetOrderedEmployees.get(i).getId() == inputEmployee.getId()){
@@ -187,7 +189,9 @@ public class EventController {
     @ResponseBody
     public String restoreEmployee(@RequestParam Map<String,String> allRequestParam){
         String name = allRequestParam.get("name");
+        String employeeId = allRequestParam.get("empId");
         String eventId = allRequestParam.get("eventId");
+        Employee inputEmployee = employeeDao.findEmployee(Long.valueOf(employeeId));
         Event event = eventDao.findOne(Long.valueOf(eventId));
         List<Employee> employees = employeeDao.getAllEmployee();
         List<Employee> alreadyOrderedEmployees = event.getEmployeesToEvent();
@@ -197,8 +201,10 @@ public class EventController {
                 alreadyOrderedEmployees.remove(employees.get(i));
             }
         }
-        event.setEmployeesToEvent(alreadyOrderedEmployees);
+        removeWorkingHoures(event,inputEmployee);
 
+        event.setEmployeesToEvent(alreadyOrderedEmployees);
+        eventDao.saveEvent(event);
         return name;
     }
     @RequestMapping(value = "/addComment", method = RequestMethod.POST)
@@ -216,6 +222,27 @@ public class EventController {
     public String getPrincipalRole(Principal principal){
        User user = userDao.getUserByEmailAddress(principal.getName());
        return user.getPosition();
+
+    }
+    private void addWorkingHoures(Event event, Employee employee) {
+        long minutes = getDurationOfEvent(event);
+        employee.setWorkingHours(minutes);
+        employeeDao.saveEmployee(employee);
+
+    }
+
+    private long getDurationOfEvent(Event event) {
+        Date startDate = event.getStartDateTime();
+        Date endDate = event.getEndDateTime();
+        long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
+        long minutes = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        return minutes;
+    }
+
+    private void removeWorkingHoures(Event event, Employee employee) {
+        long minutes = getDurationOfEvent(event);
+        employee.decreaseWorkingHours(minutes);
+        employeeDao.saveEmployee(employee);
 
     }
 
