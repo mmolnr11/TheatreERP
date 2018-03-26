@@ -47,9 +47,20 @@
 </head>
 <body>
 <p2>superadmin </p2>
-<a href="/add-new-user">Add new User</a>
-<a href="/modify-user">Modify User</a>
-<a href="/event/create">Add new event</a>
+<ul class="demo-list-item mdl-list">
+    <li class="mdl-list__item">
+        <a href="/add-new-user">Add new User</a>
+    </li>
+    <li class="mdl-list__item">
+        <a href="/modify-user">Modify User</a>
+    </li>
+    <li class="mdl-list__item">
+        <a href="/event/create">Add new event</a>
+    </li>
+</ul>
+
+
+
 <form th:action="@{'~/event-detail'}" method="post">
     <div class="form-group">
         <label for="startdate">Start date:</label>
@@ -73,18 +84,21 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-success">Submit</button>
+    <!--<button type="submit" class="btn btn-success">Submit</button>-->
+    <button type="submit" class = "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        <i class = "material-icons">add</i></button>
 </form>
 
 <div th:if="${not #lists.isEmpty(eventList)}">
 
     <div th:each="event : ${eventList}">
-        <ul class="">
-            <li><a href="#" id="" th:href="@{'~/event/' + ${event.getId()} + '/description'}"
+        <ul class="demo-list-item mdl-list">
+            <li class="mdl-list__item"><a href="#" id="" th:href="@{'~/event/' + ${event.getId()} + '/description'}"
                    th:text="${event.getTitle()}+ ' ' + ${event.getDescription()}+ ' '+ ${event.getLocation()} +' '+ ${event.getType()}" ></a>
                 <a href="#" th:href="@{'~/event/' + ${event.getId()} + '/delete'}"><i class="fa fa-trash" ></i> Delete me</a>
             </li>
         </ul>
+
 
     </div>
 </div>

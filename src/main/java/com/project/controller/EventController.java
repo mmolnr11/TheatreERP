@@ -50,8 +50,13 @@ public class EventController {
         model.addAttribute("event", event);
         return "update-event";
     }
+//    @PostMapping(value = "/event/{id}/update")
+//    public String nnn (){
+//        return "malac";
+//    }
+
     @PostMapping(value = "/event/{id}/update")
-    public String saveChangesToLiveshow (@ModelAttribute("event") Event event,
+    public String saveChangesToEvent (@ModelAttribute("event") Event event,
                                          Model model, @PathVariable("id") Long id){
         Event eventOld = eventDao.findOne(id);
         System.out.println(event.getTitle());
