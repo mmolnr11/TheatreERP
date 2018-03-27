@@ -69,7 +69,7 @@ public class EventController {
     }
     @GetMapping(value = "/event/create")
     public String renderCreateEventTemplate(Model model){
-        model.addAttribute("event", new Event());
+//        model.addAttribute("event", new Event());
 //        HashSet<Employee> list = employeeDao.listPosition();
         List<String> roles = employeeDao.getEmployeeRoles();
 //        System.out.println("anyuuu " + roles.toString());
@@ -86,13 +86,12 @@ public class EventController {
         List<String> roles = employeeDao.getEmployeeRoles();
         HashMap<String,Integer > hmap = new HashMap<String, Integer>();
 
-
         for (int i = 0; i < roles.size(); i++) {
              hmap.put(roles.get(i),Integer.valueOf(allRequestParams.get(roles.get(i))));
         }
         newEvent.setEventhezDolgozok(hmap);
         eventDao.saveEvent(newEvent);
-        return "superadmin";
+        return "material";
     }
 
     @PostMapping(value = "/user/event-detail")
