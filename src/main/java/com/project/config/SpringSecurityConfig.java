@@ -18,6 +18,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private AccessDeniedHandler accessDeniedHandler;
 
     @Autowired
+    private SimpleAuthenticationSuccessHandler successHandler;
+
+    @Autowired
     private UserDetailConfig userDetailConfig;
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){return new BCryptPasswordEncoder();}
@@ -31,11 +34,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
 //                .antMatchers("/**").permitAll()
-//                .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .antMatchers("/user/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
+                .formLogin().successHandler(successHandler)
                 .loginPage("/login")
                 .permitAll()
                 .and()
