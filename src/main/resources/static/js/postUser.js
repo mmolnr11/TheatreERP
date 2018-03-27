@@ -11,12 +11,12 @@ $( document ).ready(function() {
 
 
     function ajaxPost(){
-    var firstName = $("#firstname").val();
-    var lastName = $("#lastname").val();
+    var firstname = $("#firstname").val();
+    var lastname = $("#lastname").val();
     debugger
         var formData = {
-            "firstname": firstName,
-            "lastname": lastName,
+            "firstname": firstname,
+            "lastname": lastname,
             "email": $("#email").val(),
             "password": $("#password").val(),
             "role": $("#role").val(),
@@ -38,15 +38,18 @@ $( document ).ready(function() {
                     });
                     console.log(result)
                 // }else {
-                //     debugger;
-                //     alert(Object.keys(result).length);
                 //
-                //     $('#getResultDiv').html(`<p>${firstName} + ${lastName}</p>` );
                 // }
                     alert("malacka");
 
                 console.log(result);
-            }
+                }
+                else {
+                    debugger;
+                    alert(Object.keys(result).length);
+
+                    $('#getResultDiv .list-group').append('<li><h4 class="list-group-item">'+firstname +" "+  lastname +" sikeresen hozzadava"+'</h4></li>');
+                }
             },
             error : function(e) {
                 alert("Error!")

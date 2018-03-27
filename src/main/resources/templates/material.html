@@ -70,31 +70,31 @@
                     <div class="col-md-4" id="userfileds">
                         <div class="form-group">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
-                                <input class="mdl-textfield__input" type="text" id="firstname"  name="firstname"/>
+                                <input th:required="required" class="mdl-textfield__input" type="text" id="firstname"  name="firstname"/>
                                 <label class="mdl-textfield__label" for="firstname" >Firstname of the user</label>
                             </div>
 
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" id="lastname"  name="lastname"/>
+                                <input  class="mdl-textfield__input" type="text" id="lastname"  name="lastname" required="true"/>
                                 <label class="mdl-textfield__label" for="lastname">Secondname of the user</label>
                             </div>
 
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text"  id="email" name="email"/>
+                                <input  class="mdl-textfield__input" type="email"   id="email" name="email"/>
                                 <label class="mdl-textfield__label" for="email">Enter email</label>
                             </div>
 
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text"  id="password" name="password"/>
+                                <input  class="mdl-textfield__input" type="email"  id="password" name="password"/>
                                 <label class="mdl-textfield__label" for="password">Give password</label>
                             </div>
 
                             <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class = "mdl-textfield__input" type="text"   rows ="3" id ="role" name="role"/>
+                                <input  class = "mdl-textfield__input" type="text"   rows ="3" id ="role" name="role"/>
                                 <label class = "mdl-textfield__label" for = "position">Role</label>
                             </div>
                             <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class = "mdl-textfield__input" type="text"  rows ="3" id ="position" name="position"/>
+                                <input  class = "mdl-textfield__input" type="text"  rows ="3" id ="position" name="position"/>
                                 <label class = "mdl-textfield__label" for = "position">Position</label>
                             </div>
 
@@ -180,44 +180,6 @@
         </section>
     </main>
 </div>
-<!--<script type="text/javascript">-->
-    <!--$(document).ready(function() {-->
-
-
-        <!--$(document).on("click", "#save-user-to-db", function () {-->
-            <!--debugger;-->
-            <!--$.post("/addUser",-->
-                <!--{-->
-<!--//                    name: $(this).attr("name"),-->
-                    <!--"firstname": $("#firstname").val(),-->
-                    <!--"lastname": $("#lastname").val(),-->
-                    <!--"email": $("#email").val(),-->
-                    <!--"password": $("#password").val(),-->
-                    <!--"role": $("#role").val(),-->
-                    <!--"position": $("#position").val(),-->
-                <!--},-->
-                <!--function (result) {-->
-                    <!--$.each(result, function(i, string){-->
-                        <!--var error = "Customer " + i + ": FirstName=" + string + " ,LastName=" + string ;-->
-                        <!--$('#getResultDiv .list-group').append('<li><h4 class="list-group-item">'+error+'</h4></li>')-->
-                    <!--});-->
-                    <!--console.log("Success: ", result);-->
-<!--//                    alert("Name: " + response);-->
-                <!--});-->
-                <!--var eventId = $("#divComment").attr("class");-->
-
-
-            <!--var empId = $(this).attr("id");-->
-
-            <!--$(this).remove(),-->
-
-
-                <!--$('#employee').append(`<option value="${empId}">${name}</option>`)-->
-
-
-        <!--});-->
-    <!--});-->
-<!--</script>-->
 
 </body>
 </html>
