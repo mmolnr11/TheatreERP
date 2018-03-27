@@ -49,10 +49,13 @@ public class InitializerBean {
         Event event2 = new Event("5 berendezo", "Songoku", newdate2, newdate3,"terem", "eloadas");
         Event event3 = new Event("6 vilagosito", "Pinokkio", newdate4,newdate5,"terem", "proba");
 
+        berendezo.setWorkingHours(event1.getDurationOfEvent());
+        berendezo2.setWorkingHours(event1.getDurationOfEvent());
         List<Employee> employees = new ArrayList<>();
         employees.add(berendezo2);
         employees.add(berendezo);
         event1.setEmployeesToEvent(employees);
+        event2.setEmployeesToEvent(employees);
         Comment comment1 = new Comment("andris szep gyerek",user2,event1);
         Comment comment2 = new Comment("csak sokat cigizik",user1,event1);
 //        comments.add(comment1);
@@ -69,6 +72,8 @@ public class InitializerBean {
         hashMap.put("Berendezo", 4);
         hashMap.put("Vilagosito",2);
         event1.setEventhezDolgozok(hashMap);
+        event2.setEventhezDolgozok(hashMap);
+        event3.setEventhezDolgozok(hashMap);
 
         employeeDao.saveEmployee(vilagosito2);
 

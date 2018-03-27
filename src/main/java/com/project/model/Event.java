@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Entity
 public class Event {
@@ -128,5 +129,13 @@ public class Event {
 
     public void setEmployeesToEvent(List<Employee> employeesToEvent) {
         this.employeesToEvent = employeesToEvent;
+    }
+
+    public long getDurationOfEvent() {
+        Date startDate = this.getStartDateTime();
+        Date endDate = this.getEndDateTime();
+        long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
+        long minutes = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        return minutes;
     }
 }
