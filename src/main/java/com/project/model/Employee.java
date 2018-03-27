@@ -38,6 +38,11 @@ public class Employee {
         hours += workingHours;
         this.workingHours = hours;
     }
+    public void decreaseWorkingHours(float workingHours) {
+        float hours = getWorkingHours();
+        hours -= workingHours;
+        this.workingHours = hours;
+    }
 
     public String getPosition() {
         return position;
