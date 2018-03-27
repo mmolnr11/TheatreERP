@@ -8,6 +8,7 @@ import com.project.dao.UserDao;
 import com.project.model.*;
 //import com.project.model.Role;
 import com.project.service.DateValidation;
+import com.project.service.EventValidation;
 import netscape.security.UserTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,10 @@ public class EventController {
     @Autowired
     UserDao userDao;
     @Autowired
+    EventValidation eventValidation;
+    @Autowired
     CommentDao commentDao;
+
 //    @Autowired
 //    RoleDao roleDao;
 
@@ -215,6 +219,21 @@ public class EventController {
     public String getPrincipalRole(Principal principal){
        User user = userDao.getUserByEmailAddress(principal.getName());
        return user.getPosition();
+
+    }
+
+    @RequestMapping(value = "/event/add-event", method = RequestMethod.POST)
+    @ResponseBody
+    public List<String> addEventToDb(@RequestParam HashMap<String,String> allRequestParams) throws ParseException {
+        List<Date> dates = dateValidation.createDateFromForm(allRequestParams);
+        Event newEvent = new Event(allRequestParams.get("description"),allRequestParams.get("title"),
+                dates.get(0),dates.get(1),allRequestParams.get("location"),allRequestParams.get("type") );
+
+        List<String> errorMessages = eventValidation.validateEvent(newEvent);
+        if (errorMessages.size() == 0){
+            eventDao.saveEvent(newEvent);
+        }
+        return errorMessages;
 
     }
 
