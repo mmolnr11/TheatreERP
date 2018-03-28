@@ -15,15 +15,19 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
+    private CustomAccessDeniedHandler accessDeniedHandler;
 
     @Autowired
     private SimpleAuthenticationSuccessHandler successHandler;
 
     @Autowired
     private UserDetailConfig userDetailConfig;
+
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){return new BCryptPasswordEncoder();}
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     // roles admin allow to access /admin/**
     // roles user allow to access /user/**
     // custom 403 access denied handler
@@ -33,7 +37,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
         http.csrf().disable()
                 .authorizeRequests()
-//                .antMatchers("/**").permitAll()
+                .antMatchers("/error-page").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .antMatchers("/user/**").hasRole("USER")
                 .anyRequest().authenticated()
@@ -45,7 +49,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll()
                 .and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
+                .accessDeniedPage("/error-page");
     }
 
 
