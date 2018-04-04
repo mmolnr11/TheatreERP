@@ -14,6 +14,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="/js/postuser.js"></script>
     <script src="/js/postevent.js"></script>
+    <script src="/js/searchevent.js"></script>
 
 </head>
 
@@ -30,9 +31,9 @@
 
         <!-- Tabs -->
         <div class = "mdl-layout__tab-bar mdl-js-ripple-effect">
-            <a href = "#scroll-tab-1" class = "mdl-layout__tab is-active">Kereses</a>
-            <a href = "#scroll-tab-2" class = "mdl-layout__tab">Uj munkas</a>
-            <a href = "#scroll-tab-3" class = "mdl-layout__tab">Uj esemeny 3</a>
+            <a href = "#scroll-tab-1" class = "mdl-layout__tab is-active">Esemény keresése</a>
+            <a href = "#scroll-tab-2" class = "mdl-layout__tab">User hozzáadása</a>
+            <a href = "#scroll-tab-3" class = "mdl-layout__tab">Esemeny hozzáadása</a>
         </div>
     </header>
 
@@ -46,15 +47,36 @@
 
     <main class = "mdl-layout__content">
         <section class = "mdl-layout__tab-panel is-active" id = "scroll-tab-1">
-            <div class = "page-content">Kereses az esemenyek kozott
-                <p>ide jon a calendar</p>
+            <div class = "page-content">
+                <form id="search-event" method="post">
+                    <label for="searchdatestart"> Előadás(ok) kezdete : </label><input id="searchdatestart" type="date" value="2018-04-04"/>
+                    <label for="searchdateend"> Előadás(ok) vége : </label><input id="searchdateend" type="date" value="2018-04-04"/>
+                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Keresés</button>
+
+                </form>
+
+                <div th:if="${not #lists.isEmpty(eventList)}">
+
+                    <div th:each="event : ${eventList}">
+                        <ul class="">
+                            <li><a href="#" id="" th:href="@{'~/event/' + ${event.getId()} + '/description'}"
+                                   th:text="${event.getTitle()}+ ' ' + ${event.getDescription()}+ ' '+ ${event.getLocation()} +' '+ ${event.getType()}" ></a>
+                                <a href="#" th:href="@{'~/event/' + ${event.getId()} + '/delete'}"><i class="fa fa-trash" ></i> Delete me</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div th:if="${ #lists.isEmpty(eventList)}">
+                    <p>kerlek addj meg egy napot</p>
+                </div>
 
             </div>
-            <script>HTMLJS
-            angular.module('datepickerBasicUsage', ['ngMaterial', 'ngMessages']).controller('AppCtrl', function() {
-                this.myDate = new Date();
-                this.isOpen = false;
-            });</script>
+            <div id="searchDiv">
+                <ul class="list-group">
+                </ul>
+            </div>
+
         </section>
         <section class = "mdl-layout__tab-panel" id = "scroll-tab-2">
             <div class = "page-content">Uj munkas hozzaadasa
@@ -106,7 +128,7 @@
             </div>
         </section>
         <section class = "mdl-layout__tab-panel" id = "scroll-tab-3">
-            <div class = "page-content">Uj esemeny hozzaadasa
+            <div class = "page-content">Uj esemeny
                 <form id="save-event" th:object="${event}" method="post">
                     <div class="form-group">
                         <label for="startdate">Start date:</label>

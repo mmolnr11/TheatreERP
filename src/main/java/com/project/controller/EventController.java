@@ -1,5 +1,10 @@
 package com.project.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.json.JSONArray;
+import org.json.simple.JSONObject;
 import com.project.dao.CommentDao;
 import com.project.dao.EmployeeDao;
 import com.project.dao.EventDao;
@@ -236,5 +241,48 @@ public class EventController {
         return errorMessages;
 
     }
+    @RequestMapping(value = "/event/search", method = RequestMethod.POST)
+    @ResponseBody
+//    @JsonSerialize
+    public String searchEvent (
+            @RequestParam("searchdatestart") String startDate,
+            @RequestParam("searchdateend") String endDate) throws ParseException, JsonProcessingException {
+        List<Date> dates = dateValidation.createDateNew(startDate,endDate);
+        List<Event> eventList =  eventDao.findByDate(dates.get(0),dates.get(1));
+        System.out.println(eventList.size());
+        System.out.println(eventList.get(0).getTitle());
+        System.out.println(startDate + " pisti " + endDate);
+        System.out.println(dates.get(0).toString() + " pisti " + dates.get(0).toString());
+        Respons2 respons2 = new Respons2(eventList);
+        List<String> strings = new ArrayList<>();
+        strings.add("mlml");
+        strings.add("kam");
+        strings.add("lamx");
 
+//        JSONObject responseDetailsJson = new JSONObject();
+//        JSONArray jsonArray = new JSONArray();
+//
+//        for (int i = 0; i < eventList.size(); i++)
+//        {
+//            JSONObject formDetailsJson = new JSONObject();
+//            formDetailsJson.put("id", eventList.get(i).getId());
+//            formDetailsJson.put("title", eventList.get(i).getTitle());
+//            formDetailsJson.put("description", eventList.get(i).getTitle());
+//
+//            jsonArray.put(formDetailsJson);
+//        }
+//        responseDetailsJson.put("events", jsonArray);
+//        System.out.println(responseDetailsJson);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String carAsString = "";
+        for (int i = 0; i < eventList.size(); i++) {
+             carAsString = objectMapper.writeValueAsString(eventList.get(i));
+
+        }
+//        objectMapper.writeValue(new File("target/car.json"), car);
+        System.out.println(carAsString);
+        return carAsString;
+//        return eventList;
+    }
 }
