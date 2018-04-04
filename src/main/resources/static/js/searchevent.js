@@ -33,9 +33,12 @@ $( document ).ready(function() {
                 console.log(result);
                 if (Object.keys(result).length !== 0){
                     $.each(result, function(i, event){
+                        var startDate = new Date(event.startDateTime);
+                        var endDate = new Date(event.endDateTime);
+                        // console.log(myDate.toUTCString());
                         var eventId = event.id;
-                        var date = "Esemenyek : " + event.title + " " + event.startDateTime + " " +
-                            event.endDateTime + " "+ event.description;
+                        var date = "Esemenyek : " + event.title + " " + startDate.toUTCString() + " " +
+                            endDate.toUTCString() + " "+ event.description;
                         var link = "<a href='/event/" + eventId +"/description'>This is the link</a>";
 
                         $('#searchDiv .list-group').append('<li><a  href="event/'+ eventId + '/description"  class="list-group-item">'+date+'</a></li>')
