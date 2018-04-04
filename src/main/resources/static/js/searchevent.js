@@ -21,7 +21,6 @@ $( document ).ready(function() {
         };
 
         console.log(formData);
-        debugger;
         $.ajax({
             // contentType : "application/json",
             // dataType : 'json',
@@ -31,27 +30,23 @@ $( document ).ready(function() {
             success : function(result) {
                 debugger;
 
-                // var obj = $.parseJSON(result);
                 console.log(result);
-                // if (Object.keys(result).length !== 0){
-                //     $.each(result, function(i, string){
-                //         var date = "Datumok " + i + ": " + string.title ;
-                //         $('#searchDiv .list-group').append('<li><h4 class="list-group-item">'+date+'</h4></li>')
-                //     });
-                //     console.log(result)
-                //     // }else {
-                //     //
-                //     // }
-                //     alert("malacka");
-                //
-                //     console.log(result);
-                // }
-                // else {
-                //     debugger;
-                //     alert(Object.keys(result).length);
-                //
-                //     $('#getResultDiv .list-group').append('<li><h4 class="list-group-item">'+firstname +" "+  lastname +" sikeresen hozzadava"+'</h4></li>');
-                // }
+                if (Object.keys(result).length !== 0){
+                    $.each(result, function(i, event){
+                        var eventId = event.id;
+                        var date = "Esemenyek : " + event.title + " " + event.startDateTime + " " +
+                            event.endDateTime + " "+ event.description;
+                        var link = "<a href='/event/" + eventId +"/description'>This is the link</a>";
+
+                        $('#searchDiv .list-group').append('<li><a  href="event/'+ eventId + '/description"  class="list-group-item">'+date+'</a></li>')
+                    });
+                }
+                else {
+                    debugger;
+                    alert(Object.keys(result).length);
+
+                    $('#getResultDiv .list-group').append('<li><h4 class="list-group-item">'+firstname +" "+  lastname +" sikeresen hozzadava"+'</h4></li>');
+                }
             },
             error : function(e) {
                 alert("Error!");
