@@ -1,5 +1,7 @@
 package com.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class Employee {
     private String secondName;
     @Column(nullable = false)
     private int age;
+    @JsonIgnore
     @ManyToMany(mappedBy = "employeesToEvent")
     private List<Event> eventsToEmployee;
 

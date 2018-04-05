@@ -3,6 +3,7 @@ package com.project.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -33,8 +34,10 @@ public class Event {
     private String location;
     @Column
     private String type;
+    @JsonIgnore
     @OneToMany(mappedBy = "event")
     private List<Comment> comments;
+    @JsonIgnore
     @ManyToMany()
     private List<Employee> employeesToEvent;
     @ElementCollection

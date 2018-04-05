@@ -1,5 +1,10 @@
 package com.project.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.json.JSONArray;
+import org.json.simple.JSONObject;
 import com.project.dao.CommentDao;
 import com.project.dao.EmployeeDao;
 import com.project.dao.EventDao;
@@ -8,6 +13,7 @@ import com.project.dao.UserDao;
 import com.project.model.*;
 //import com.project.model.Role;
 import com.project.service.DateValidation;
+import com.project.service.EventValidation;
 import netscape.security.UserTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +37,10 @@ public class EventController {
     @Autowired
     UserDao userDao;
     @Autowired
+    EventValidation eventValidation;
+    @Autowired
     CommentDao commentDao;
+
 //    @Autowired
 //    RoleDao roleDao;
 
@@ -70,7 +79,7 @@ public class EventController {
     }
     @GetMapping(value = "/event/create")
     public String renderCreateEventTemplate(Model model){
-        model.addAttribute("event", new Event());
+//        model.addAttribute("event", new Event());
 //        HashSet<Employee> list = employeeDao.listPosition();
         List<String> roles = employeeDao.getEmployeeRoles();
 //        System.out.println("anyuuu " + roles.toString());
@@ -87,13 +96,12 @@ public class EventController {
         List<String> roles = employeeDao.getEmployeeRoles();
         HashMap<String,Integer > hmap = new HashMap<String, Integer>();
 
-
         for (int i = 0; i < roles.size(); i++) {
              hmap.put(roles.get(i),Integer.valueOf(allRequestParams.get(roles.get(i))));
         }
         newEvent.setEventhezDolgozok(hmap);
         eventDao.saveEvent(newEvent);
-        return "superadmin";
+        return "material";
     }
 
     @PostMapping(value = "/user/event-detail")
@@ -246,4 +254,62 @@ public class EventController {
 
     }
 
+    @RequestMapping(value = "/event/add-event", method = RequestMethod.POST)
+    @ResponseBody
+    public List<String> addEventToDb(@RequestParam HashMap<String,String> allRequestParams) throws ParseException {
+        List<Date> dates = dateValidation.createDateFromForm(allRequestParams);
+        Event newEvent = new Event(allRequestParams.get("description"),allRequestParams.get("title"),
+                dates.get(0),dates.get(1),allRequestParams.get("location"),allRequestParams.get("type") );
+
+        List<String> errorMessages = eventValidation.validateEvent(newEvent);
+        if (errorMessages.size() == 0){
+            eventDao.saveEvent(newEvent);
+        }
+        return errorMessages;
+
+    }
+//    @RequestMapping(value = "/event/search", method = RequestMethod.POST)
+//    @ResponseBody
+////    @JsonSerialize
+//    public JSONObject searchEvent (
+//            @RequestParam("searchdatestart") String startDate,
+//            @RequestParam("searchdateend") String endDate) throws ParseException, JsonProcessingException {
+//        List<Date> dates = dateValidation.createDateNew(startDate,endDate);
+//        List<Event> eventList =  eventDao.findByDate(dates.get(0),dates.get(1));
+//        System.out.println(eventList.size());
+//        System.out.println(eventList.get(0).getTitle());
+//        System.out.println(startDate + " pisti " + endDate);
+//        System.out.println(dates.get(0).toString() + " pisti " + dates.get(0).toString());
+//        Respons2 respons2 = new Respons2(eventList);
+//        List<String> strings = new ArrayList<>();
+//        strings.add("mlml");
+//        strings.add("kam");
+//        strings.add("lamx");
+//
+//        JSONObject responseDetailsJson = new JSONObject();
+//        JSONArray jsonArray = new JSONArray();
+//
+//        for (int i = 0; i < eventList.size(); i++)
+//        {
+//            JSONObject formDetailsJson = new JSONObject();
+//            formDetailsJson.put("id", eventList.get(i).getId());
+//            formDetailsJson.put("title", eventList.get(i).getTitle());
+//            formDetailsJson.put("description", eventList.get(i).getTitle());
+//
+//            jsonArray.put(formDetailsJson);
+//        }
+//        responseDetailsJson.put("events", jsonArray);
+//        System.out.println(responseDetailsJson);
+//
+////        ObjectMapper objectMapper = new ObjectMapper();
+////        String carAsString = "";
+////        for (int i = 0; i < eventList.size(); i++) {
+////             carAsString = objectMapper.writeValueAsString(eventList.get(i));
+////
+////        }
+//////        objectMapper.writeValue(new File("target/car.json"), car);
+////        System.out.println(carAsString);
+//        return responseDetailsJson;
+////        return eventList;
+//    }
 }

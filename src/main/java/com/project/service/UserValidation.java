@@ -15,7 +15,7 @@ public class UserValidation {
     @Autowired
     UserDao userDao;
     public List<String> validateRegistrationDatas(User user, String confirm) {
-        List<String> errorMessages = new ArrayList();
+        List<String> errorMessages = new ArrayList<>();
 
         if (user.getFirstName().length() < 2){
             errorMessages.add("First name must be at least 2 character long.");
@@ -26,9 +26,12 @@ public class UserValidation {
         if (dataContainsSigns(user.getFirstName())){
             errorMessages.add("First name shall be free of signs.");
         }
+        System.out.println("kaka");
         if (user.getFirstName().length() > 0 && dataNotStartsWithUpperCaseLetter(user.getFirstName())){
+            System.out.println("kaka2");
             errorMessages.add("First name must start with upper case letter.");
         }
+        System.out.println(user.getLastName().length() + "husszu");
         if (user.getLastName().length() < 2){
             errorMessages.add("Last name must be at least 2 character long.");
         }
