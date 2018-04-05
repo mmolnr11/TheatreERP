@@ -13,6 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,8 +36,16 @@ public class Controller {
     EmployeeDao employeeDao;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String renderLoginPage(Model model) {
-        return "index";
+    public String renderLoginPage(Model model, Principal principal ) {
+        String role = getPrincipalRole(principal);
+        System.out.println("EZ a role " + role);
+        if(role.equals("ROLE_ADMIN")){
+            return "redirect:/admin";
+        }else if (role.equals("ROLE_USER")){
+            return "redirect:/user";
+        }else {
+            return "redirect:/login";
+        }
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -100,6 +109,23 @@ public class Controller {
 
     }
 
+
+    public String getPrincipalRole(Principal principal){
+        User user = userDao.getUserByEmailAddress(principal.getName());
+        return user.getRole();
+
+    }
+
+    @GetMapping(value = "/log-out")
+    public String logOut(Model model){
+        return "index";
+    }
+
+
+    @GetMapping(value = "/error-page")
+    public String errorPage(Model model){
+        return "error-page";
+        
     @RequestMapping(value = "/event/add-user", method = RequestMethod.POST)
     @ResponseBody
     public List<String> addUserToDb(@RequestParam Map<String,String> allRequestParam){
