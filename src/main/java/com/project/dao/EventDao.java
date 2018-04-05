@@ -40,5 +40,10 @@ public class EventDao {
         List<Event> events = eventRepository.findEventByEndDateTimeBetween(start, end);
         return events;
     }
+
+    public List<Event> allEvent(){
+        List<Event> events = eventRepository.findAll();
+        return events;
+    }
 }
 

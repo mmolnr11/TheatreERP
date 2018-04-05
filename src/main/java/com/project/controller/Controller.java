@@ -1,7 +1,9 @@
 package com.project.controller;
 
+import com.project.dao.EmployeeDao;
 import com.project.dao.EventDao;
 import com.project.dao.UserDao;
+import com.project.model.Employee;
 import com.project.model.Event;
 import com.project.model.User;
 import com.project.repository.UserRepository;
@@ -19,10 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 
 @org.springframework.stereotype.Controller
@@ -33,6 +32,8 @@ public class Controller {
     EventDao eventDao;
     @Autowired
     UserValidation userValidation;
+    @Autowired
+    EmployeeDao employeeDao;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderLoginPage(Model model, Principal principal ) {
@@ -49,7 +50,11 @@ public class Controller {
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String superadmin(Model model) {
-        return "superadmin";
+        model.addAttribute("event", new Event());
+        List<String> roles = employeeDao.getEmployeeRoles();
+        model.addAttribute("roles", roles);
+
+        return "material";
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
@@ -64,6 +69,8 @@ public class Controller {
     public String renderAddNewUserTemplate(Model model){
         model.addAttribute("user", new User());
         return "addnewuser";}
+
+
 
     @RequestMapping(value = "/add-new-user", method = RequestMethod.POST)
     public String saveNewUser(@ModelAttribute("user") User user, Model model) {
@@ -118,6 +125,24 @@ public class Controller {
     @GetMapping(value = "/error-page")
     public String errorPage(Model model){
         return "error-page";
+        
+    @RequestMapping(value = "/event/add-user", method = RequestMethod.POST)
+    @ResponseBody
+    public List<String> addUserToDb(@RequestParam Map<String,String> allRequestParam){
+        System.out.println("hello");
+        String fname = allRequestParam.get("firstname");
+        User user = new User(allRequestParam.get("firstname"),
+                allRequestParam.get("lastname"),
+                allRequestParam.get("email"),
+                allRequestParam.get("password"),
+                allRequestParam.get("role"),
+                allRequestParam.get("position"));
+        List<String> errorMessages = userValidation.validateRegistrationDatas(user,"majdPassword");
+        if (errorMessages.size() == 0){
+            userDao.saveUser(user);
+        }
+        return errorMessages;
+
     }
 
 }

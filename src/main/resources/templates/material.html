@@ -1,0 +1,213 @@
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel = "stylesheet"
+          href = "https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css" />
+    <script src = "https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js">
+    </script>
+    <link rel = "stylesheet"
+          href = "https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+
+    <link href="//cdn.muicss.com/mui-0.9.38/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-0.9.38/js/mui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/js/postuser.js"></script>
+    <script src="/js/postevent.js"></script>
+    <script src="/js/searchevent.js"></script>
+
+</head>
+
+<body>
+<!-- The drawer is always open in large screens. The header is always
+   shown, even in small screens. -->
+<div class = "mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+    <header class = "mdl-layout__header">
+        <!-- Top row, always visible -->
+        <div class = "mdl-layout__header-row">
+            <!-- Title -->
+            <span class = "mdl-layout-title">HTML5 Tutorial</span>
+        </div>
+
+        <!-- Tabs -->
+        <div class = "mdl-layout__tab-bar mdl-js-ripple-effect">
+            <a href = "#scroll-tab-1" class = "mdl-layout__tab is-active">Esemény keresése</a>
+            <a href = "#scroll-tab-2" class = "mdl-layout__tab">User hozzáadása</a>
+            <a href = "#scroll-tab-3" class = "mdl-layout__tab">Esemeny hozzáadása</a>
+        </div>
+    </header>
+
+    <div class = "mdl-layout__drawer">
+        <span class = "mdl-layout-title">Theatre ERP</span>
+        <nav class = "mdl-navigation">
+            <a class = "mdl-navigation__link" href = "">Hasznalati szabalyzat</a>
+            <a class = "mdl-navigation__link" href = "">Segitseg</a>
+        </nav>
+    </div>
+
+    <main class = "mdl-layout__content">
+        <section class = "mdl-layout__tab-panel is-active" id = "scroll-tab-1">
+            <div class = "page-content">
+                <form id="search-event" method="post">
+                    <label for="searchdatestart"> Előadás(ok) kezdete : </label><input id="searchdatestart" type="date" value="2018-04-04"/>
+                    <label for="searchdateend"> Előadás(ok) vége : </label><input id="searchdateend" type="date" value="2018-04-04"/>
+                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Keresés</button>
+
+                </form>
+
+                <div th:if="${not #lists.isEmpty(eventList)}">
+
+                    <div th:each="event : ${eventList}">
+                        <ul class="">
+                            <li><a href="#" id="" th:href="@{'~/event/' + ${event.getId()} + '/description'}"
+                                   th:text="${event.getTitle()}+ ' ' + ${event.getDescription()}+ ' '+ ${event.getLocation()} +' '+ ${event.getType()}" ></a>
+                                <a href="#" th:href="@{'~/event/' + ${event.getId()} + '/delete'}"><i class="fa fa-trash" ></i> Delete me</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div th:if="${ #lists.isEmpty(eventList)}">
+                    <p>kerlek addj meg egy napot</p>
+                </div>
+
+            </div>
+            <div id="searchDiv">
+                <ul class="list-group">
+                </ul>
+            </div>
+
+        </section>
+        <section class = "mdl-layout__tab-panel" id = "scroll-tab-2">
+            <div class = "page-content">Uj munkas hozzaadasa
+                <form id="save-user"  method="post">
+
+                    <div class="col-md-4" id="userfileds">
+                        <div class="form-group">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                <input th:required="required" class="mdl-textfield__input" type="text" id="firstname"  name="firstname"/>
+                                <label class="mdl-textfield__label" for="firstname" >Firstname of the user</label>
+                            </div>
+
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input  class="mdl-textfield__input" type="text" id="lastname"  name="lastname" th:required="required" />
+                                <label class="mdl-textfield__label" for="lastname">Secondname of the user</label>
+                            </div>
+
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input  th:required="required" class="mdl-textfield__input" type="email"   id="email" name="email"/>
+                                <label class="mdl-textfield__label" for="email">Enter email</label>
+                            </div>
+
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input  th:required="required" class="mdl-textfield__input" type="email"  id="password" name="password"/>
+                                <label class="mdl-textfield__label" for="password">Give password</label>
+                            </div>
+
+                            <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input th:required="required" class = "mdl-textfield__input" type="text"   rows ="3" id ="role" name="role"/>
+                                <label class = "mdl-textfield__label" for = "position">Role</label>
+                            </div>
+                            <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input  th:required="required" class = "mdl-textfield__input" type="text"  rows ="3" id ="position" name="position"/>
+                                <label class = "mdl-textfield__label" for = "position">Position</label>
+                            </div>
+
+                        </div>
+                        <button type="submit" id="save-user-to-db" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Add User</button>
+                    </div>
+
+
+                </form>
+                <div id="getResultDiv">
+                    <ul class="list-group">
+                    </ul>
+                </div>
+
+
+            </div>
+        </section>
+        <section class = "mdl-layout__tab-panel" id = "scroll-tab-3">
+            <div class = "page-content">Uj esemeny
+                <form id="save-event" th:object="${event}" method="post">
+                    <div class="form-group">
+                        <label for="startdate">Start date:</label>
+                        <div class="container">
+                            <div class="row">
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <div class='input-group date' id='datetimepicker1'>
+                                            <input th:required="required"
+                                                   pattern="(0[1-9]|1[012])/(0[1-9]|1[0-9]|2[0-9]|3[01])/[0-9]{4}"
+                                                   title="Pelda dátum 12/24/2017"
+                                                   placeholder="MM/DD/YYYY" name="startdate" id="startdate" type='text' class="form-control" />
+                                            <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#datetimepicker1').datetimepicker({
+                                            format: "MM/DD/YYYY"
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                            <input th:required="required" title="Cím kezdődjön nagy betűvel"
+                                   class="mdl-textfield__input" type="text" id="title" th:field= "*{title}"  name="title"/>
+                            <label class="mdl-textfield__label" for="firstname" >Darab cime</label>
+                        </div>
+
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="description" th:field= "*{description}"  name="description"/>
+                            <label class="mdl-textfield__label" for="description">Leiras</label>
+                        </div>
+
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input th:required="required" class="mdl-textfield__input" type="text" th:field= "*{location}"  id="location" name="location"/>
+                            <label class="mdl-textfield__label" for="email">Helyszin</label>
+                        </div>
+
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input  th:required="required"
+                                    title="Időformatum példa 16:20"
+                                    pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" class="mdl-textfield__input" type="text" th:field= "*{startDateTime}"  id="startDateTime" name="startDateTime"/>
+                            <label class="mdl-textfield__label" for="password">Kezdes</label>
+                        </div>
+
+                        <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input th:required="required" class = "mdl-textfield__input"
+                                   title="Időformatum példa 16:20"
+                                   pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]"
+                                   type="text" rows ="3" id ="endDateTime" th:field ="*{endDateTime}"  name="endDateTime"/>
+                            <label class = "mdl-textfield__label" for = "position">Vege</label>
+                        </div>
+                        <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input th:required="required" class = "mdl-textfield__input" type="text" rows ="3" th:field ="*{type}" id ="type" name="type"/>
+                            <label class = "mdl-textfield__label" for = "type">Tipus</label>
+                        </div>
+
+                        <button type="submit" id="" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj esemeny hozzadasa</button>
+                    </div>
+                    <div th:each="position : ${roles}" >
+                        <p th:text="${position}"></p>
+                        <label th:for="user"> </label><input th:id="${position}" th:name="${position}" type="number" value="0"/>
+                    </div>
+                </form>
+            </div>
+            <div id="eventErrors">
+                <ul class="list-group">
+                </ul>
+            </div>
+        </section>
+    </main>
+</div>
+
+</body>
+</html>
