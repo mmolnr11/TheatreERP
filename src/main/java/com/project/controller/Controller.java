@@ -123,9 +123,11 @@ public class Controller {
 
 
     @GetMapping(value = "/error-page")
-    public String errorPage(Model model){
+    public String errorPage(Model model) {
         return "error-page";
-        
+    }
+
+
     @RequestMapping(value = "/event/add-user", method = RequestMethod.POST)
     @ResponseBody
     public List<String> addUserToDb(@RequestParam Map<String,String> allRequestParam){
