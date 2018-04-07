@@ -39,7 +39,7 @@ $( document ).ready(function() {
                         var eventId = event.id;
                         var date = "Esemenyek : " + event.title + " " + startDate.toUTCString() + " " +
                             endDate.toUTCString() + " "+ event.description;
-                        var link = "<a href='/event/" + eventId +"/description'>This is the link</a>";
+                        // var link = "<a href='/event/" + eventId +"/description'>This is the link</a>";
 
                         $('#searchDiv .list-group').append('<li><a  href="event/'+ eventId + '/description"  class="list-group-item">'+date+'</a></li>')
                     });
