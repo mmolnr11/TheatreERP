@@ -58,8 +58,8 @@ public class Controller {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String simauser(Model model) {
-        return "user";
+    public String user(Model model) {
+        return "user-material";
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
@@ -123,25 +123,8 @@ public class Controller {
 
 
     @GetMapping(value = "/error-page")
-    public String errorPage(Model model){
+    public String errorPage(Model model) {
         return "error-page";
-        
-    @RequestMapping(value = "/event/add-user", method = RequestMethod.POST)
-    @ResponseBody
-    public List<String> addUserToDb(@RequestParam Map<String,String> allRequestParam){
-        System.out.println("hello");
-        String fname = allRequestParam.get("firstname");
-        User user = new User(allRequestParam.get("firstname"),
-                allRequestParam.get("lastname"),
-                allRequestParam.get("email"),
-                allRequestParam.get("password"),
-                allRequestParam.get("role"),
-                allRequestParam.get("position"));
-        List<String> errorMessages = userValidation.validateRegistrationDatas(user,"majdPassword");
-        if (errorMessages.size() == 0){
-            userDao.saveUser(user);
-        }
-        return errorMessages;
 
     }
 

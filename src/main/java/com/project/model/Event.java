@@ -44,7 +44,7 @@ public class Event {
     @MapKeyColumn(name="name")
     @Column(name="value")
 //    @CollectionTable(name="example_attributes", joinColumns=@JoinColumn(name="example_id"))
-    private Map<String, Integer> eventhezDolgozok;
+    private Map<String, Integer> employeesInNumbersToEvent;
 
     public Event() {
     }
@@ -110,12 +110,12 @@ public class Event {
         return id;
     }
 
-    public Map<String, Integer> getEventhezDolgozok() {
-        return eventhezDolgozok;
+    public Map<String, Integer> getEmployeesInNumbersToEvent() {
+        return employeesInNumbersToEvent;
     }
 
-    public void setEventhezDolgozok(HashMap<String, Integer> eventhezDolgozok) {
-        this.eventhezDolgozok = eventhezDolgozok;
+    public void setEmployeesInNumbersToEvent(Map<String, Integer> employeesInNumbersToEvent) {
+        this.employeesInNumbersToEvent = employeesInNumbersToEvent;
     }
 
     public List<Comment> getComments() {

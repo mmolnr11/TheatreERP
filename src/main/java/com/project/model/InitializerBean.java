@@ -71,9 +71,9 @@ public class InitializerBean {
         HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
         hashMap.put("Berendezo", 4);
         hashMap.put("Vilagosito",2);
-        event1.setEventhezDolgozok(hashMap);
-        event2.setEventhezDolgozok(hashMap);
-        event3.setEventhezDolgozok(hashMap);
+        event1.setEmployeesInNumbersToEvent(hashMap);
+        event2.setEmployeesInNumbersToEvent(hashMap);
+        event3.setEmployeesInNumbersToEvent(hashMap);
 
         employeeDao.saveEmployee(vilagosito2);
 

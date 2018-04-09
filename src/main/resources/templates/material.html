@@ -26,7 +26,8 @@
         <!-- Top row, always visible -->
         <div class = "mdl-layout__header-row">
             <!-- Title -->
-            <span class = "mdl-layout-title">HTML5 Tutorial</span>
+            <span class = "mdl-layout-title">TheatreERP</span>
+            <span class = "mdl-layout-title">  A mi kis "Nagy" dobásunk </span>
         </div>
 
         <!-- Tabs -->
@@ -49,8 +50,8 @@
         <section class = "mdl-layout__tab-panel is-active" id = "scroll-tab-1">
             <div class = "page-content">
                 <form id="search-event" method="post">
-                    <label for="searchdatestart"> Előadás(ok) kezdete : </label><input id="searchdatestart" type="date" value="2018-04-04"/>
-                    <label for="searchdateend"> Előadás(ok) vége : </label><input id="searchdateend" type="date" value="2018-04-04"/>
+                    <label for="searchdatestart"> Előadás(ok) kezdete : </label><input id="searchdatestart" type="date" value="2018-03-10"/>
+                    <label for="searchdateend"> Előadás(ok) vége : </label><input id="searchdateend" type="date" value="2018-03-13"/>
                     <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Keresés</button>
 
                 </form>
@@ -100,7 +101,7 @@
                             </div>
 
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input  th:required="required" class="mdl-textfield__input" type="email"  id="password" name="password"/>
+                                <input  th:required="required" class="mdl-textfield__input" type="text"  id="password" name="password"/>
                                 <label class="mdl-textfield__label" for="password">Give password</label>
                             </div>
 
@@ -129,35 +130,11 @@
         </section>
         <section class = "mdl-layout__tab-panel" id = "scroll-tab-3">
             <div class = "page-content">Uj esemeny
-                <form id="save-event" th:object="${event}" method="post">
+                <form id="save-event" th:object="${event}">
                     <div class="form-group">
-                        <label for="startdate">Start date:</label>
-                        <div class="container">
-                            <div class="row">
-                                <div class='col-sm-6'>
-                                    <div class="form-group">
-                                        <div class='input-group date' id='datetimepicker1'>
-                                            <input th:required="required"
-                                                   pattern="(0[1-9]|1[012])/(0[1-9]|1[0-9]|2[0-9]|3[01])/[0-9]{4}"
-                                                   title="Pelda dátum 12/24/2017"
-                                                   placeholder="MM/DD/YYYY" name="startdate" id="startdate" type='text' class="form-control" />
-                                            <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <script type="text/javascript">
-                                    $(function () {
-                                        $('#datetimepicker1').datetimepicker({
-                                            format: "MM/DD/YYYY"
-                                        });
-                                    });
-                                </script>
-                            </div>
+                        <div>
+                            <input id="date" type="date"/>
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
                             <input th:required="required" title="Cím kezdődjön nagy betűvel"
                                    class="mdl-textfield__input" type="text" id="title" th:field= "*{title}"  name="title"/>
@@ -193,13 +170,16 @@
                             <label class = "mdl-textfield__label" for = "type">Tipus</label>
                         </div>
 
-                        <button type="submit" id="" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj esemeny hozzadasa</button>
+                        <button type="submit" id="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj esemeny hozzadasa</button>
                     </div>
-                    <div th:each="position : ${roles}" >
+                    <div th:each="position : ${roles}" class="employees" >
                         <p th:text="${position}"></p>
                         <label th:for="user"> </label><input th:id="${position}" th:name="${position}" type="number" value="0"/>
                     </div>
                 </form>
+                <p id="results"></p>
+
+
             </div>
             <div id="eventErrors">
                 <ul class="list-group">

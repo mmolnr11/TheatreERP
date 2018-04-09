@@ -3,7 +3,7 @@ $( document ).ready(function() {
     var url = window.location;
 
     // SUBMIT FORM
-    $("#search-event").submit(function(event) {
+    $("#search-event-user").submit(function(event) {
         // Prevent the form from submitting via the browser.
         event.preventDefault();
         ajaxPost();
@@ -24,7 +24,7 @@ $( document ).ready(function() {
         $.ajax({
             // contentType : "application/json",
             // dataType : 'json',
-            url : "/event/search",
+            url : "/user/event/search",
             method : "POST",
             data : formData,
             success : function(result) {
@@ -40,7 +40,7 @@ $( document ).ready(function() {
                             endDate + " "+ event.description;
                         // var link = "<a href='/event/" + eventId +"/description'>This is the link</a>";
 
-                        $('#searchDiv .list-group').append('<li><a  href="event/'+ eventId + '/description"  class="list-group-item">'+date+'</a></li>')
+                        $('#searchDiv .list-group').append('<li><a  href="user/event/'+ eventId + '/description"  class="list-group-item">'+date+'</a></li>')
                     });
                 }
                 else {
