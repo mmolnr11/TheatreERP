@@ -50,10 +50,14 @@ public class EventController {
 //        return "superadmin";
 //    }
 
-    @GetMapping(value = "/event/{id}/description")
-    public String renderEventDetailsPage(Model model, @PathVariable("id") Long id){
+    @GetMapping(value = "/admin/event/{id}/description")
+    public String renderEventDetailsPage(Principal principal, Model model, @PathVariable("id") Long id){
         Event event = eventDao.findOne(id);
+        String roleCorrect = getPrincipalRole(principal);
+//        List detailsOfOrderedEmployees = eventService.gettingDesiredEmpNumberToOneEvent(event,principal);
+//        String roleCorrect = (String) detailsOfOrderedEmployees.get(0);
         model.addAttribute("event", event);
+        model.addAttribute("roleString", roleCorrect);
 //        model.addAttribute("roles", )
         return "material-update";
     }
@@ -73,6 +77,11 @@ public class EventController {
         model.addAttribute("roleInteger", actualNumberOfEmployees);
         model.addAttribute("employees", notYetOrderedEmployees);
         return "user-event-detail-material";
+    }
+    public String getPrincipalRole(Principal principal){
+        User user = userDao.getUserByEmailAddress(principal.getName());
+        return user.getRole();
+
     }
 
 

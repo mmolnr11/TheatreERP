@@ -28,7 +28,6 @@ $( document ).ready(function() {
             method : "POST",
             data : formData,
             success : function(result) {
-                debugger;
 
                 console.log(result);
                 if (Object.keys(result).length !== 0){
@@ -40,7 +39,7 @@ $( document ).ready(function() {
                             endDate + " "+ event.description;
                         // var link = "<a href='/event/" + eventId +"/description'>This is the link</a>";
 
-                        $('#searchDiv .list-group').append('<li><a  href="event/'+ eventId + '/description"  class="list-group-item">'+date+'</a></li>')
+                        $('#searchDiv .list-group').append('<li><a  href="admin/event/'+ eventId + '/description"  class="list-group-item">'+date+'</a></li>')
                     });
                 }
                 else {

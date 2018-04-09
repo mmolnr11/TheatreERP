@@ -16,6 +16,7 @@
     <script src="/js/postevent.js"></script>
     <script src="/js/searchevent.js"></script>
     <script src="/js/changeevent.js"></script>
+    <script src="/js/addcomment.js"></script>
 
 </head>
 
@@ -107,12 +108,32 @@
                         <label th:for="user"> </label><input th:id="${position.key}" th:name="${position}" type="number" th:value="${position.value}" />
                     </div>
                 </form>
+                <div id="divComment" th:class = "${event.getId()}">
+                    <p>Korabbi kommentek</p>
+                    <div  th:each="comment : ${event.getComments()}">
+                        <tr>
+                            <td th:text="${comment.getDescription()}"></td>
+                            <td th:text="${comment.getUser().getPosition()}"></td>
+                            <td th:text="${comment.getEntryTime()}"></td>
+
+                            <a href="" th:if="${comment.getUser().getPosition()} == ${roleString}"><i class="fa fa-eraser" aria-hidden="true"></i> Komment torlese</a>
+                        </tr>
+                    </div>
+                    <form id="addComment">
+                        <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class = "mdl-textfield__input" type="text" rows ="3" id ="comment" name="comment"/>
+                            <label class = "mdl-textfield__label" for = "comment">Uj Komment</label>
+                        </div>
+                        <button  th:name="${roleString}" name="" type="button" id="addCommentButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj Komment</button>
+                    </form>
+
+                </div>
             </div>
-            <div id="eventErrors??">
+            <div id="searchDiv">
                 <ul class="list-group">
                 </ul>
             </div>
-        </section>
+            </section>
     </main>
 </div>
 
