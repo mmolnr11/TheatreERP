@@ -127,19 +127,19 @@
 </div>
 
 
-<div id="postResultDiv">
-</div>
-
-    <div class="buttonpara">
-        <div th:each="orderedEmployee : ${event.getEmployeesToEvent()}">
-            <button th:name="${orderedEmployee.getName()}"
-                    th:text="${orderedEmployee.getName()}"
-                    class="button"
-                    th:id="${orderedEmployee.getId()}">
-                nevecske
-            </button>
-        </div>
+    <div id="postResultDiv">
     </div>
+
+        <div class="buttonpara">
+            <div th:each="orderedEmployee : ${event.getEmployeesToEvent()}">
+                <button th:name="${orderedEmployee.getName()}"
+                        th:text="${orderedEmployee.getName()}"
+                        class="button"
+                        th:id="${orderedEmployee.getId()}">
+                    nevecske
+                </button>
+            </div>
+        </div>
 
 
 

@@ -29,7 +29,7 @@ $( document ).ready(function() {
 			// data : JSON.stringify(formData),
 			// dataType : 'json',
 			success : function(result) {
-				if(result.status == "Done"){
+				if(Object.keys(result).length !== 0){
 					// $("#postResultDiv").html(
 					// 	"<strong>" + "Post Successfully! Customer's Info: FirstName = "
 					// 		+ result.data + "</strong>");

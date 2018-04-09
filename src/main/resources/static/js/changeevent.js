@@ -3,7 +3,7 @@ $( document ).ready(function() {
     var url = window.location;
 
     // SUBMIT FORM
-    $("#save-event").submit(function(event) {
+    $("#update-event").submit(function(event) {
         // Prevent the form from submitting via the browser.
         event.preventDefault();
         ajaxPost();
@@ -12,27 +12,23 @@ $( document ).ready(function() {
 
     function ajaxPost(){
         debugger;
-        var str = $( "#save-event" ).serialize();
-        $( "#results" ).text( str );
-        console.log(str);
-
-        var title = $("#title").val();
+        var title = $("#update-title").val();
         var formData = {
-            // "timepickerdate": $("#timepickerdate").val(),
-            "serialize" : str,
-            "date": $("#date").val(),
+            // "startdate": $("#update-startdate").val(),
+            // "date": $("#update-date").val(),
             "title": title,
-            "description": $("#description").val(),
-            "location": $("#location").val(),
-            "startDateTime": $("#startDateTime").val(),
-            "endDateTime": $("#endDateTime").val(),
-            "type": $("#type").val()
+            "description": $("#update-description").val(),
+            "location": $("#update-location").val(),
+            "startDateTime": $("#update-startDateTime").val(),
+            "endDateTime": $("#update-endDateTime").val(),
+            "type": $("#update-type").val(),
+            "id": $("#update-id").val()
         };
 
         // DO POST            console.log(result)
         console.log(formData);
         $.ajax({
-            url : "/event/add-event",
+            url : "/event/change",
             method : "POST",
             data : formData,
 
@@ -40,18 +36,25 @@ $( document ).ready(function() {
                 if (Object.keys(result).length !== 0){
                     $.each(result, function(i, string){
                         var error = "Hiba " + i + ": " + string ;
-                        $('#eventErrors .list-group').append('<li><h4 class="list-group-item">'+error+'</h4></li>')
+                        $('#getResultDiv .list-group').append('<li><h4 class="list-group-item">'+error+'</h4></li>')
                     });
+                    console.log(result)
+                    // }else {
+                    //
+                    // }
+                    alert("malacka");
+
                     console.log(result);
                 }
                 else {
                     debugger;
-                    // alert(Object.keys(result).length);
-                    $('#eventErrors .list-group').append('<li><h4 class="list-group-item">'+title + " sikeresen hozzadava"+'</h4></li>');
+                    alert(Object.keys(result).length);
+
+                    $('#getResultDiv .list-group').append('<li><h4 class="list-group-item">'+firstname +" "+  lastname +" sikeresen hozzadava"+'</h4></li>');
                 }
             },
             error : function(e) {
-                alert("Error!")
+                alert("Error!");
                 console.log("ERROR: ", e);
             }
         });
@@ -64,4 +67,4 @@ $( document ).ready(function() {
     function resetData(){
         $("#employee").val("");
     }
-})
+});
