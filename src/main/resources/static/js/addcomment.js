@@ -1,3 +1,5 @@
+
+
     $(document).on("click","#addCommentButton",function (){
         var comment = $( "#comment" ).val();
         var role = $("#addCommentButton").attr("name");
@@ -18,6 +20,6 @@ debugger;
                 "eventId": eventId
             },
             function(response){
-                alert("Elmentve a komment: " + response);
+                // alert("Elmentve a komment: " + response);
             });
     });

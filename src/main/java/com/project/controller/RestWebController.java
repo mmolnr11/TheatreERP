@@ -5,6 +5,7 @@ import com.project.dao.EventDao;
 import com.project.dao.UserDao;
 import com.project.model.*;
 import com.project.service.DateValidation;
+import com.project.service.EventService;
 import com.project.service.UserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,9 @@ public class RestWebController {
 
     @Autowired
     DateValidation dateValidation;
+
+    @Autowired
+    EventService eventService;
 
 //    @RequestMapping(value = "/getallcustomer", method = RequestMethod.GET)
 
@@ -88,16 +92,10 @@ public class RestWebController {
     }
 
     @RequestMapping(value = "/event/change", method = RequestMethod.POST)
-    public Event changeEvent(@RequestParam Map<String,String> allRequestParam){
-        Long id = Long.valueOf(allRequestParam.get("id"));
-        Event event = eventDao.findOne(id);
-        event.setTitle(allRequestParam.get("title"));
-        System.out.println("majomfidesz" + allRequestParam.get("startDateTime"));
-        System.out.println(event.getStartDateTime());
-        event.setDescription(allRequestParam.get("description"));
-        event.setLocation(allRequestParam.get("location"));
-        event.setType(allRequestParam.get("type"));
-        eventDao.saveEvent(event);
+    public Event changeEvent(@RequestParam HashMap<String,String> allRequestParam) throws ParseException {
+        Event event = eventService.updateEvent(allRequestParam);
+
+
         return event;
 
     }

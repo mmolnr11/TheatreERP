@@ -203,4 +203,39 @@ public class EventService {
         newEvent.setEmployeesInNumbersToEvent(mapping);
         return newEvent;
     }
+    public Event updateEvent(HashMap<String, String> allRequestParams) throws ParseException {
+//        List<Date> dates = dateValidation.createDateFromForm(allRequestParams);
+//        Event newEvent = new Event(allRequestParams.get("description"),allRequestParams.get("title"),
+//                dates.get(0),dates.get(1),allRequestParams.get("location"),allRequestParams.get("type") );
+        String serialize = allRequestParams.get("serialize");
+
+        Long id = Long.valueOf(allRequestParams.get("id"));
+        Event event = eventDao.findOne(id);
+        event.setTitle(allRequestParams.get("title"));
+        System.out.println("majomfidesz" + allRequestParams.get("startDateTime"));
+        System.out.println(event.getStartDateTime());
+        event.setDescription(allRequestParams.get("description"));
+        event.setLocation(allRequestParams.get("location"));
+        event.setType(allRequestParams.get("type"));
+        Map<String, Integer> alreadyAssignedNumbersToEvent = event.getEmployeesInNumbersToEvent();
+
+//        Map<String, Integer> mapping = new HashMap<String, Integer>() {
+//        };
+        for (String retval: serialize.split("&")) {
+            int indexOf = retval.indexOf("=");
+            String key = retval.substring(0,indexOf);
+            String valueAsString = retval.substring(indexOf+1);
+            for (String role: employeeDao.getEmployeeRoles()
+                    ) {
+                if(role.equals(key)){
+                    Integer value = Integer.valueOf(valueAsString);
+                    alreadyAssignedNumbersToEvent.put(key,value);
+                }
+            }
+        }
+        event.setEmployeesInNumbersToEvent(alreadyAssignedNumbersToEvent);
+        eventDao.saveEvent(event);
+        System.out.println("print "+ event.getEmployeesInNumbersToEvent().entrySet());
+        return event;
+    }
 }
