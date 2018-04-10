@@ -1,5 +1,6 @@
 package com.project.controller;
 
+import com.project.dao.CommentDao;
 import com.project.dao.EmployeeDao;
 import com.project.dao.EventDao;
 import com.project.dao.UserDao;
@@ -31,6 +32,9 @@ public class RestWebController {
 
     @Autowired
     DateValidation dateValidation;
+
+    @Autowired
+    CommentDao commentDao;
 
     @Autowired
     EventService eventService;
@@ -95,8 +99,13 @@ public class RestWebController {
     public Event changeEvent(@RequestParam HashMap<String,String> allRequestParam) throws ParseException {
         Event event = eventService.updateEvent(allRequestParam);
 
-
         return event;
 
     }
+    @RequestMapping(value = "/deleteComment", method = RequestMethod.POST)
+    public void deleteComment(@RequestParam("commentId") String commentId ){
+        Long id = Long.valueOf(commentId);
+        commentDao.deleteCommentByAdmin(id);
+    }
+
 }

@@ -112,7 +112,7 @@ public class Controller {
 
     public String getPrincipalRole(Principal principal){
         User user = userDao.getUserByEmailAddress(principal.getName());
-        return user.getRole();
+        return user.getPosition();
 
     }
 

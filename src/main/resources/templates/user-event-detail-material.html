@@ -124,10 +124,10 @@
                     <div  th:each="comment : ${event.getComments()}">
                         <tr>
                             <td th:text="${comment.getDescription()}"></td>
-                            <td th:text="${comment.getUser().getPosition()}"></td>
+                            <!--<td th:text="${comment.getUser().getName()}"></td>-->
                             <td th:text="${comment.getEntryTime()}"></td>
 
-                            <!--<a href="" th:if="${comment.getUser().getPosition()} == ${roleString}"><i class="fa fa-eraser" aria-hidden="true"></i> Komment torlese</a>-->
+                            <!--<a href="" th:if="${comment.getUser().getName()} == 'Szabo Andris'"><i class="fa fa-eraser" aria-hidden="true"></i> Komment torlese</a>-->
                         </tr>
                     </div>
 

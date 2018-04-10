@@ -212,8 +212,6 @@ public class EventService {
         Long id = Long.valueOf(allRequestParams.get("id"));
         Event event = eventDao.findOne(id);
         event.setTitle(allRequestParams.get("title"));
-        System.out.println("majomfidesz" + allRequestParams.get("startDateTime"));
-        System.out.println(event.getStartDateTime());
         event.setDescription(allRequestParams.get("description"));
         event.setLocation(allRequestParams.get("location"));
         event.setType(allRequestParams.get("type"));
@@ -235,7 +233,6 @@ public class EventService {
         }
         event.setEmployeesInNumbersToEvent(alreadyAssignedNumbersToEvent);
         eventDao.saveEvent(event);
-        System.out.println("print "+ event.getEmployeesInNumbersToEvent().entrySet());
         return event;
     }
 }

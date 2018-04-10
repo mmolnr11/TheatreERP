@@ -112,6 +112,10 @@ public class User {
         return position;
     }
 
+    public String getName() {
+        return this.getFirstName() + " " + this.getLastName();
+    }
+
     public void setPosition(String position) {
         this.position = position;
     }
@@ -123,4 +127,5 @@ public class User {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
 }

@@ -17,6 +17,7 @@
     <script src="/js/searchevent.js"></script>
     <script src="/js/changeevent.js"></script>
     <script src="/js/addcomment.js"></script>
+    <script src="/js/deletecomment.js"></script>
 
 </head>
 
@@ -50,7 +51,7 @@
 
     <main class = "mdl-layout__content">
         <section>
-            <div class = "page-content">Esemeny részletei
+            <div class = "page-content">
                 <form id="update-event" th:object="${event}" method="post">
 
                     <div class="form-group">
@@ -111,16 +112,7 @@
 
             </div>
             <div id="divComment" th:class = "${event.getId()}">
-                <p>Korabbi kommentek</p>
-                <div  th:each="comment : ${event.getComments()}">
-                    <tr>
-                        <td th:text="${comment.getDescription()}"></td>
-                        <!--<td th:text="${comment.getUser().getPosition()}"></td>-->
-                        <td th:text="${comment.getEntryTime()}"></td>
 
-                        <!--<a href="" th:if="${comment.getUser().getPosition()} == ${roleString}"><i class="fa fa-eraser" aria-hidden="true"></i> Komment torlese</a>-->
-                    </tr>
-                </div>
                 <form id="addComment">
                     <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class = "mdl-textfield__input" type="text" rows ="3" id ="comment" name="comment"/>
@@ -128,6 +120,22 @@
                     </div>
                     <button  th:name="${roleString}" name="" type="button" id="addCommentButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj Komment</button>
                 </form>
+                <p>Korabbi kommentek</p>
+                <div  th:each="comment : ${event.getComments()}">
+                    <tr>
+                        <td th:text="${comment.getDescription()}"></td>
+                        <td th:text="${comment.getUser().getPosition()}"></td>
+                        <td th:text="${comment.getEntryTime()}"></td>
+                        <button id="deleteCommentButton"
+                                type="button"
+                                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                                th:if="${comment.getUser().getPosition()} != ${roleString}"
+                                th:name="${comment.getId()}">Komment törlése</button>
+                        <!--<a th:href="@{'~/admin/comment/' + ${comment.getId()} + '/delete'}"-->
+                                 <!--th:if="${comment.getUser().getPosition()} != ${roleString}"><i class="fa fa-eraser" aria-hidden="true"></i> Komment torlese</a>-->
+                    </tr>
+                </div>
+
 
             </div>
             <div id="searchDiv">
