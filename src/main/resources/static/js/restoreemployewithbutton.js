@@ -7,6 +7,8 @@ $( document ).ready(function() {
         newVal = newVal +1;
         $numOfEmployee.text( newVal );
         var eventId = $("#divComment").attr("class");
+        var addButton = $("#selectEmployee");
+
 
 
         var empId = $( this ).attr("id");
@@ -21,7 +23,10 @@ $( document ).ready(function() {
                    // alert("Name: " + response);
             });
         $( this ).remove(),
+                addButton.show();
 
+        $("#noValue").hide();
+        $numOfEmployee.show();
 
             $('#employee').append(`<option value="${empId}">${name}</option>`)
 

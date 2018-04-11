@@ -109,6 +109,7 @@
         <tr>
             <p th:text="${roleString}">keyvalue</p>
             <p id="numOfEmployee" th:text="${roleInteger}">num</p>
+            <p id="noValue"></p>
             <select name="" id="employee">
                 <option value="" selected="true" disabled="disabled">Kerlek valassz egyet</option>
                 <option th:each="employee : ${employees}"

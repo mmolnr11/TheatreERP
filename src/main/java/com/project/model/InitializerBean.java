@@ -71,7 +71,7 @@ public class InitializerBean {
         user2.setPassword(bCryptPasswordEncoder.encode(user2.getPassword()));
 
         HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
-        hashMap.put("Berendezo", 4);
+        hashMap.put("Berendezo", 2);
         hashMap.put("Vilagosito",2);
         event1.setEmployeesInNumbersToEvent(hashMap);
         event2.setEmployeesInNumbersToEvent(hashMap);
