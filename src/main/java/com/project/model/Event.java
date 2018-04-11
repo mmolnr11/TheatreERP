@@ -24,12 +24,14 @@ public class Event {
     private String description;
     @Column
     private String title;
-    @Column
-    @Temporal(value= TemporalType.TIMESTAMP)
-    private Date startDateTime;
-    @Column
-    @Temporal(value= TemporalType.TIMESTAMP)
-    private Date endDateTime;
+    @OneToMany
+    DatesOfEvent datesOfEvent;
+//    @Column
+//    @Temporal(value= TemporalType.TIMESTAMP)
+//    private Date startDateTime;
+//    @Column
+//    @Temporal(value= TemporalType.TIMESTAMP)
+//    private Date endDateTime;
     @Column
     private String location;
     @Column
@@ -49,11 +51,11 @@ public class Event {
     public Event() {
     }
 
-    public Event(String description, String title, Date startDateTime, Date endDateTime, String location, String type) {
+    public Event(String description, String title, String location, String type) {
         this.description = description;
         this.title = title;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+//        this.startDateTime = startDateTime;
+//        this.endDateTime = endDateTime;
         this.location = location;
         this.type = type;
     }
@@ -82,21 +84,21 @@ public class Event {
         this.title = title;
     }
 
-    public Date getStartDateTime() {
-        return startDateTime;
-    }
-
-    public void setStartDateTime(Date startDateTime) {
-        this.startDateTime = startDateTime;
-    }
-
-    public Date getEndDateTime() {
-        return endDateTime;
-    }
-
-    public void setEndDateTime(Date endDateTime) {
-        this.endDateTime = endDateTime;
-    }
+//    public Date getStartDateTime() {
+//        return startDateTime;
+//    }
+//
+//    public void setStartDateTime(Date startDateTime) {
+//        this.startDateTime = startDateTime;
+//    }
+//
+//    public Date getEndDateTime() {
+//        return endDateTime;
+//    }
+//
+//    public void setEndDateTime(Date endDateTime) {
+//        this.endDateTime = endDateTime;
+//    }
 
     public String getLocation() {
         return location;
@@ -134,11 +136,19 @@ public class Event {
         this.employeesToEvent = employeesToEvent;
     }
 
-    public long getDurationOfEvent() {
-        Date startDate = this.getStartDateTime();
-        Date endDate = this.getEndDateTime();
-        long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
-        long minutes = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
-        return minutes;
+    public DatesOfEvent getDatesOfEvent() {
+        return datesOfEvent;
+    }
+
+    public void setDatesOfEvent(DatesOfEvent datesOfEvent) {
+        this.datesOfEvent = datesOfEvent;
+    }
+
+    public void getDurationOfEvent() {
+//        Date startDate = this.getStartDateTime();
+//        Date endDate = this.getEndDateTime();
+//        long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
+//        long minutes = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+//        return minutes;
     }
 }
