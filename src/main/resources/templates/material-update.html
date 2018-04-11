@@ -88,19 +88,19 @@
                             <label class="mdl-textfield__label" for="password">Kezdes</label>
                         </div>
 
-                        <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input th:required="required" class = "mdl-textfield__input"
-                                   title="Időformatum példa 16:20"
-                                   th:value="${event.getEndDateTime()}"
-                                   type="text" rows ="3" id ="update-endDateTime" th:field ="*{endDateTime}"  name="endDateTime"/>
-                            <label class = "mdl-textfield__label" for = "position">Vege</label>
-                        </div>
-                        <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input th:required="required" class = "mdl-textfield__input"
-                                   th:value="${event.getType()}"
-                                   type="text" rows ="3" th:field ="*{type}" id ="update-type" name="type"/>
-                            <label class = "mdl-textfield__label" for = "type">Tipus</label>
-                        </div>
+                        <!--<div class = "mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
+                            <!--<input th:required="required" class = "mdl-textfield__input"-->
+                                   <!--title="Időformatum példa 16:20"-->
+                                   <!--th:value="${event.getEndDateTime()}"-->
+                                   <!--type="text" rows ="3" id ="update-endDateTime" th:field ="*{endDateTime}"  name="endDateTime"/>-->
+                            <!--<label class = "mdl-textfield__label" for = "position">Vege</label>-->
+                        <!--</div>-->
+                        <!--<div class = "mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
+                            <!--<input th:required="required" class = "mdl-textfield__input"-->
+                                   <!--th:value="${event.getType()}"-->
+                                   <!--type="text" rows ="3" th:field ="*{type}" id ="update-type" name="type"/>-->
+                            <!--<label class = "mdl-textfield__label" for = "type">Tipus</label>-->
+                        <!--</div>-->
 
                         <button type="submit" th:value="${event.getId()}"  id="update-id" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj esemeny hozzadasa</button>
                     </div>

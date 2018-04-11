@@ -1,16 +1,21 @@
 package com.project.model;
 
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class DatesOfEvent {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private Date startDate, endDate;
     @ManyToOne
     private Event event;
 
-    public DatesOfEvent(Date startDate, Date endDate) {
+    public DatesOfEvent(Event event, Date startDate, Date endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
+        this.event = event;
     }
 
     public DatesOfEvent() {
@@ -30,5 +35,13 @@ public class DatesOfEvent {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

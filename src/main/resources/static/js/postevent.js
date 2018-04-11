@@ -20,12 +20,12 @@ $( document ).ready(function() {
         var formData = {
             // "timepickerdate": $("#timepickerdate").val(),
             "serialize" : str,
-            "date": $("#date").val(),
+            // "date": $("#date").val(),
             "title": title,
             "description": $("#description").val(),
             "location": $("#location").val(),
-            "startDateTime": $("#startDateTime").val(),
-            "endDateTime": $("#endDateTime").val(),
+            // "startDateTime": $("#startDateTime").val(),
+            // "endDateTime": $("#endDateTime").val(),
             "type": $("#type").val()
         };
 

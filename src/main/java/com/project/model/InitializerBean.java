@@ -1,11 +1,8 @@
 package com.project.model;
 
 
-import com.project.dao.CommentDao;
-import com.project.dao.EmployeeDao;
-import com.project.dao.EventDao;
+import com.project.dao.*;
 //import com.project.dao.RoleDao;
-import com.project.dao.UserDao;
 //import com.project.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +14,8 @@ import java.util.*;
 
 @Component
 public class InitializerBean {
-    public InitializerBean(CommentDao commentDao, EmployeeDao employeeDao, UserDao userDao, EventDao eventDao, BCryptPasswordEncoder bCryptPasswordEncoder) throws ParseException {
+    public InitializerBean(CommentDao commentDao, DatesOfEventDao datesOfEventDao,
+                           EmployeeDao employeeDao, UserDao userDao, EventDao eventDao, BCryptPasswordEncoder bCryptPasswordEncoder) throws ParseException {
 
 
         User user1 = new User("Szabo", "Andris", "andras.l.szabo@gmail.com", "pass", "admin", "Admin");
@@ -45,12 +43,22 @@ public class InitializerBean {
         Date newdate5 = dateformat2.parse(strdate6);
 
 
-        Event event1 = new Event("3 vilagosito", "Lion king", newdate, newdate1,"terem", "proba");
-        Event event2 = new Event("5 berendezo", "Songoku", newdate2, newdate3,"terem", "eloadas");
-        Event event3 = new Event("6 vilagosito", "Pinokkio", newdate4,newdate5,"terem", "proba");
+        Event event1 = new Event("3 vilagosito", "Lion king","terem", "proba");
+        Event event2 = new Event("5 berendezo", "Songoku","terem", "eloadas");
+        Event event3 = new Event("6 vilagosito", "Pinokkio","terem", "proba");
 
-        berendezo.setWorkingHours(event1.getDurationOfEvent());
-        berendezo2.setWorkingHours(event1.getDurationOfEvent());
+        List<DatesOfEvent> datesOfEventArrayList = new ArrayList<>();
+        DatesOfEvent datesOfEvent = new DatesOfEvent( event2,newdate4,newdate5);
+        DatesOfEvent datesOfEvent2 = new DatesOfEvent( event2,newdate3,newdate2);
+
+        datesOfEventArrayList.add(datesOfEvent);
+        datesOfEventArrayList.add(datesOfEvent2);
+
+
+        event2.setDatesOfEventList(datesOfEventArrayList);
+
+//        berendezo.setWorkingHours(event1.getDurationOfEvent());
+//        berendezo2.setWorkingHours(event1.getDurationOfEvent());
         List<Employee> employees = new ArrayList<>();
         employees.add(berendezo2);
         employees.add(berendezo);
@@ -98,6 +106,8 @@ public class InitializerBean {
         userDao.saveUser(user2);
         commentDao.saveComment(comment1);
         commentDao.saveComment(comment2);
+        datesOfEventDao.saveDate(datesOfEvent);
+        datesOfEventDao.saveDate(datesOfEvent2);
 
 
     }

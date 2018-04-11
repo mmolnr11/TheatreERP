@@ -1,9 +1,6 @@
 package com.project.controller;
 
-import com.project.dao.CommentDao;
-import com.project.dao.EmployeeDao;
-import com.project.dao.EventDao;
-import com.project.dao.UserDao;
+import com.project.dao.*;
 import com.project.model.*;
 import com.project.service.DateValidation;
 import com.project.service.EventService;
@@ -23,6 +20,9 @@ public class RestWebController {
 
     @Autowired
     EventDao eventDao;
+
+    @Autowired
+    DatesOfEventDao datesOfEventDao;
 
     @Autowired
     UserDao userDao;
@@ -49,34 +49,42 @@ public class RestWebController {
     private final AtomicLong counter = new AtomicLong();
     long id = 1;
 
-    @RequestMapping("/greeting")
-    public List<Employee> employee(@RequestParam(value = "name", defaultValue = "World") String name) {
-        List<Employee> myemp = employeeDao.getAllEmployee();
-
-        return myemp;
-
-
-    }
-
-    @RequestMapping(value = "/event/search", method = RequestMethod.POST)
-    public List<Event> searchAsAdmin(@RequestParam("searchdatestart") String startDate,
-                                 @RequestParam("searchdateend") String endDate) throws ParseException {
-        List<Date> dates = dateValidation.createDateNew(startDate,endDate);
-        List<Event> eventList =  eventDao.findByDate(dates.get(0),dates.get(1));
-        return eventList;
+    @RequestMapping(value = "/admin/event/addDate",method = RequestMethod.POST)
+    public DatesOfEvent addDateToEvent(@RequestParam Map<String,String> allRequestParam) throws ParseException {
+        String dayOfEvent = allRequestParam.get("dayOfEvent");
+        String startTime = allRequestParam.get("startTime");
+        String endTime = allRequestParam.get("endTime");
+        String eventId = allRequestParam.get("eventId");
+        Event event = eventDao.findOne(Long.valueOf(eventId));
+        DatesOfEvent dates = dateValidation.dateToEvent(event, dayOfEvent,startTime,endTime);
+        List<DatesOfEvent> datesOfEvents = event.getDatesOfEvent();
+        datesOfEvents.add(dates);
+        datesOfEventDao.saveDate(dates);
+        eventDao.saveEvent(event);
+        return dates;
 
 
     }
 
-    @RequestMapping(value = "/user/event/search", method = RequestMethod.POST)
-    public List<Event> searchAsUser (@RequestParam("searchdatestart") String startDate,
-                                 @RequestParam("searchdateend") String endDate) throws ParseException {
-        List<Date> dates = dateValidation.createDateNew(startDate,endDate);
-        List<Event> eventList =  eventDao.findByDate(dates.get(0),dates.get(1));
-        return eventList;
-
-
-    }
+//    @RequestMapping(value = "/event/search", method = RequestMethod.POST)
+//    public List<Event> searchAsAdmin(@RequestParam("searchdatestart") String startDate,
+//                                 @RequestParam("searchdateend") String endDate) throws ParseException {
+//        List<Date> dates = dateValidation.createDateNew(startDate,endDate);
+//        List<Event> eventList =  eventDao.findByDate(dates.get(0),dates.get(1));
+//        return eventList;
+//
+//
+//    }
+//
+//    @RequestMapping(value = "/user/event/search", method = RequestMethod.POST)
+//    public List<Event> searchAsUser (@RequestParam("searchdatestart") String startDate,
+//                                 @RequestParam("searchdateend") String endDate) throws ParseException {
+//        List<Date> dates = dateValidation.createDateNew(startDate,endDate);
+//        List<Event> eventList =  eventDao.findByDate(dates.get(0),dates.get(1));
+//        return eventList;
+//
+//
+//    }
 
     @RequestMapping(value = "/event/add-user", method = RequestMethod.POST)
     public List<String> addUserToDb(@RequestParam Map<String,String> allRequestParam){

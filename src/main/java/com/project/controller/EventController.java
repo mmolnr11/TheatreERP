@@ -130,6 +130,14 @@ public class EventController {
     }
 
 
+    @RequestMapping(value = "admin/event/{id}/addDate")
+    public String addDateToEvent (Model model, @PathVariable("id") String id){
+        Long eventId = Long.valueOf(id);
+        Event event = eventDao.findOne(eventId);
+        model.addAttribute("event", event);
+        return "admin-date-to-event";
+    }
+
     @RequestMapping(value = "/event/add-event", method = RequestMethod.POST)
     @ResponseBody
     public List<String> addEventToDb(@RequestParam HashMap<String,String> allRequestParams) throws ParseException {

@@ -1,45 +1,50 @@
-$( document ).ready(function() {
-
-    var url = window.location;
+// $( document ).ready(function() {
+//
+//     var url = window.location;
 
     // SUBMIT FORM
-    $("#search-event").submit(function(event) {
-        // Prevent the form from submitting via the browser.
-        event.preventDefault();
-        ajaxPost();
-    });
-
-
-    function ajaxPost(){
-        var searchdatestart = $("#searchdatestart").val();
-        var searchdateend = $("#searchdateend").val();
+    // $("#addDates").submit(function(event) {
+    //     // Prevent the form from submitting via the browser.
+    //     event.preventDefault();
+    //     ajaxPost();
+    // });
+    //
+    //
+    // function ajaxPost(){
+        $(document).on("click","#addDateButton",function (){
+        var startTime = $("#startTime").val();
+        var endTime = $("#endTime").val();
+        var dayOfEvent = $("#dayOfEvent").val();
+        var eventId = $("#addDateButton").attr("name");
+        debugger;
         var formData = {
-            "searchdatestart": searchdatestart,
-            "searchdateend": searchdateend
-            // searchdatestart: searchdatestart,
-            // searchdateend: searchdateend
+            "startTime": startTime,
+            "endTime": endTime,
+            "dayOfEvent" : dayOfEvent,
+            "eventId" : eventId
         };
 
         console.log(formData);
         $.ajax({
             // contentType : "application/json",
             // dataType : 'json',
-            url : "/event/search",
+            url : "/admin/event/addDate",
             method : "POST",
             data : formData,
             success : function(result) {
+
 
                 console.log(result);
                 if (Object.keys(result).length !== 0){
                     $.each(result, function(i, event){
                         // var startDate = new Date(event.startDateTime);
                         // var endDate = new Date(event.endDateTime);
-                        var eventId = event.id;
+                        // var eventId = event.id;
                         // var date = "Esemenyek : " + event.title + " " + startDate + " " +
                         //     endDate + " "+ event.description;
                         // var link = "<a href='/event/" + eventId +"/description'>This is the link</a>";
 
-                        // $('#searchDiv .list-group').append('<li><a  href="admin/event/'+ eventId + '/description"  class="list-group-item">'+date+'</a></li>')
+                        // $('#searchDiv .list-group').append('<li><a  href="user/event/'+ eventId + '/description"  class="list-group-item">'+date+'</a></li>')
                     });
                 }
                 else {
@@ -55,11 +60,7 @@ $( document ).ready(function() {
             }
         });
 
-        resetData();
 
-    }
+    });
 
-    function resetData(){
-        $("#employee").val("");
-    }
-})
+    // });

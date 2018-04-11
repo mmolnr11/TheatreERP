@@ -11,7 +11,7 @@ import java.util.List;
 public interface EventRepository extends JpaRepository<Event, Long> {
     @Override
     Event findOne(Long aLong);
-    List<Event> findEventByEndDateTimeBetween(Date start, Date end);
+//    List<Event> findEventByEndDateTimeBetween(Date start, Date end);
 
 
 }

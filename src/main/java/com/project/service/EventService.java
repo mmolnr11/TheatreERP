@@ -49,8 +49,8 @@ public class EventService {
     public Event updateEvent(Event oldEvent, Event newEvent){
         oldEvent.setTitle(newEvent.getTitle());
         oldEvent.setDescription(newEvent.getDescription());
-        oldEvent.setStartDateTime(newEvent.getStartDateTime());
-        oldEvent.setEndDateTime(newEvent.getEndDateTime());
+//        oldEvent.setStartDateTime(newEvent.getStartDateTime());
+//        oldEvent.setEndDateTime(newEvent.getEndDateTime());
         return oldEvent;
     };
 
@@ -119,7 +119,7 @@ public class EventService {
         if (!stringId.equals("")){
             Long id = Long.valueOf(stringId);
             Employee inputEmployee = employeeDao.findEmployee(id);
-            addWorkingHoures(event, inputEmployee);
+//            addWorkingHoures(event, inputEmployee);
             for (int i = 0; i <notYetOrderedEmployees.size(); i++) {
                 if (notYetOrderedEmployees.get(i).getId() == inputEmployee.getId()){
                     alreadyOrderedEmployees.add(notYetOrderedEmployees.get(i));
@@ -137,26 +137,26 @@ public class EventService {
         }
 
     }
-    private void addWorkingHoures(Event event, Employee employee) {
-        long minutes = getDurationOfEvent(event);
-        employee.setWorkingHours(minutes);
-        employeeDao.saveEmployee(employee);
+//    private void addWorkingHoures(Event event, Employee employee) {
+//        long minutes = getDurationOfEvent(event);
+//        employee.setWorkingHours(minutes);
+//        employeeDao.saveEmployee(employee);
+//
+//    }
+//    private long getDurationOfEvent(Event event) {
+//        Date startDate = event.getStartDateTime();
+//        Date endDate = event.getEndDateTime();
+//        long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
+//        long minutes = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+//        return minutes;
+//    }
 
-    }
-    private long getDurationOfEvent(Event event) {
-        Date startDate = event.getStartDateTime();
-        Date endDate = event.getEndDateTime();
-        long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
-        long minutes = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
-        return minutes;
-    }
-
-    private void removeWorkingHoures(Event event, Employee employee) {
-        long minutes = getDurationOfEvent(event);
-        employee.decreaseWorkingHours(minutes);
-        employeeDao.saveEmployee(employee);
-
-    }
+//    private void removeWorkingHoures(Event event, Employee employee) {
+//        long minutes = getDurationOfEvent(event);
+//        employee.decreaseWorkingHours(minutes);
+//        employeeDao.saveEmployee(employee);
+//
+//    }
 
     public String restoreEmployee(Map<String, String> allRequestParam) {
         String name = allRequestParam.get("name");
@@ -172,7 +172,7 @@ public class EventService {
                 alreadyOrderedEmployees.remove(employees.get(i));
             }
         }
-        removeWorkingHoures(event,inputEmployee);
+//        removeWorkingHoures(event,inputEmployee);
 
         event.setEmployeesToEvent(alreadyOrderedEmployees);
         eventDao.saveEvent(event);
@@ -180,9 +180,10 @@ public class EventService {
     }
 
     public Event createEvent(HashMap<String, String> allRequestParams) throws ParseException {
-        List<Date> dates = dateValidation.createDateFromForm(allRequestParams);
-        Event newEvent = new Event(allRequestParams.get("description"),allRequestParams.get("title"),
-                dates.get(0),dates.get(1),allRequestParams.get("location"),allRequestParams.get("type") );
+//        List<Date> dates = dateValidation.createDateFromForm(allRequestParams);
+//        dates.get(0),dates.get(1)
+        Event newEvent = new Event(allRequestParams.get("description"),allRequestParams.get("title")
+                ,allRequestParams.get("location"),allRequestParams.get("type") );
         String serialize = allRequestParams.get("serialize");
 
         Map<String, Integer> mapping = new HashMap<String, Integer>() {

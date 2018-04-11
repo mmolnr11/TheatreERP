@@ -24,14 +24,10 @@ public class Event {
     private String description;
     @Column
     private String title;
-    @OneToMany
-    DatesOfEvent datesOfEvent;
-//    @Column
-//    @Temporal(value= TemporalType.TIMESTAMP)
-//    private Date startDateTime;
-//    @Column
-//    @Temporal(value= TemporalType.TIMESTAMP)
-//    private Date endDateTime;
+    @JsonIgnore
+    @OneToMany(mappedBy = "event")
+    List<DatesOfEvent> datesOfEventList;
+
     @Column
     private String location;
     @Column
@@ -40,7 +36,7 @@ public class Event {
     @OneToMany(mappedBy = "event")
     private List<Comment> comments;
     @JsonIgnore
-    @ManyToMany()
+    @ManyToMany
     private List<Employee> employeesToEvent;
     @ElementCollection
     @MapKeyColumn(name="name")
@@ -54,8 +50,6 @@ public class Event {
     public Event(String description, String title, String location, String type) {
         this.description = description;
         this.title = title;
-//        this.startDateTime = startDateTime;
-//        this.endDateTime = endDateTime;
         this.location = location;
         this.type = type;
     }
@@ -83,22 +77,6 @@ public class Event {
     public void setTitle(String title) {
         this.title = title;
     }
-
-//    public Date getStartDateTime() {
-//        return startDateTime;
-//    }
-//
-//    public void setStartDateTime(Date startDateTime) {
-//        this.startDateTime = startDateTime;
-//    }
-//
-//    public Date getEndDateTime() {
-//        return endDateTime;
-//    }
-//
-//    public void setEndDateTime(Date endDateTime) {
-//        this.endDateTime = endDateTime;
-//    }
 
     public String getLocation() {
         return location;
@@ -136,12 +114,12 @@ public class Event {
         this.employeesToEvent = employeesToEvent;
     }
 
-    public DatesOfEvent getDatesOfEvent() {
-        return datesOfEvent;
+    public List<DatesOfEvent> getDatesOfEvent() {
+        return datesOfEventList;
     }
 
-    public void setDatesOfEvent(DatesOfEvent datesOfEvent) {
-        this.datesOfEvent = datesOfEvent;
+    public void setDatesOfEventList(List<DatesOfEvent> datesOfEventList) {
+        this.datesOfEventList = datesOfEventList;
     }
 
     public void getDurationOfEvent() {
