@@ -174,7 +174,7 @@
                     </div>
                     <div th:each="position : ${roles}" class="employees" >
                         <p th:text="${position}"></p>
-                        <label th:for="user"> </label><input th:id="${position}" th:name="${position}" type="number" value="0"/>
+                        <label th:for="user"> </label><input th:id="${position}" th:name="${position}" type="number" value="0" min="0"/>
                     </div>
                 </form>
                 <p id="results"></p>
