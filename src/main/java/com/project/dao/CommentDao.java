@@ -14,4 +14,5 @@ public class CommentDao {
     public void saveComment(Comment comment){
         commentRepository.save(comment);
     }
+    public void deleteCommentByAdmin(Long id){commentRepository.delete(id);}
 }

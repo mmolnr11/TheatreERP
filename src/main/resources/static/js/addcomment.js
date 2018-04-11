@@ -1,5 +1,7 @@
+
+
     $(document).on("click","#addCommentButton",function (){
-        var comment = $( "input" ).val();
+        var comment = $( "#comment" ).val();
         var role = $("#addCommentButton").attr("name");
 //            var date = new Date();
         var eventId = $("#divComment").attr("class");
@@ -18,6 +20,6 @@ debugger;
                 "eventId": eventId
             },
             function(response){
-                alert("Elmentve a komment: " + response);
+                // alert("Elmentve a komment: " + response);
             });
     });

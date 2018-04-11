@@ -16,6 +16,8 @@
     <script src="/js/postevent.js"></script>
     <script src="/js/searchevent.js"></script>
     <script src="/js/changeevent.js"></script>
+    <script src="/js/addcomment.js"></script>
+    <script src="/js/deletecomment.js"></script>
 
 </head>
 
@@ -49,13 +51,13 @@
 
     <main class = "mdl-layout__content">
         <section>
-            <div class = "page-content">Esemeny részletei
+            <div class = "page-content">
                 <form id="update-event" th:object="${event}" method="post">
 
                     <div class="form-group">
-                        <div>
-                            <input id="date" type="date"/>
-                        </div>
+                        <!--<div>-->
+                            <!--<input id="date" type="date"/>-->
+                        <!--</div>-->
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
                             <input th:required="required" title="Cím kezdődjön nagy betűvel"
                                    class="mdl-textfield__input"
@@ -104,15 +106,43 @@
                     </div>
                     <div th:each="position : ${event.getEmployeesInNumbersToEvent()}" >
                         <p th:text="${position.key}"></p>
-                        <label th:for="user"> </label><input th:id="${position.key}" th:name="${position}" type="number" th:value="${position.value}" />
+                        <label th:for="user"> </label><input th:id="${position}" th:name="${position.key}" type="number" th:value="${position.value}" />
                     </div>
                 </form>
+
             </div>
-            <div id="eventErrors??">
+            <div id="divComment" th:class = "${event.getId()}">
+
+                <form id="addComment">
+                    <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class = "mdl-textfield__input" type="text" rows ="3" id ="comment" name="comment"/>
+                        <label class = "mdl-textfield__label" for = "comment">Uj Komment</label>
+                    </div>
+                    <button  th:name="${roleString}" name="" type="button" id="addCommentButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj Komment</button>
+                </form>
+                <p>Korabbi kommentek</p>
+                <div  th:each="comment : ${event.getComments()}">
+                    <tr>
+                        <td th:text="${comment.getDescription()}"></td>
+                        <td th:text="${comment.getUser().getPosition()}"></td>
+                        <td th:text="${comment.getEntryTime()}"></td>
+                        <button id="deleteCommentButton"
+                                type="button"
+                                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                                th:if="${comment.getUser().getPosition()} != ${roleString}"
+                                th:name="${comment.getId()}">Komment törlése</button>
+                        <!--<a th:href="@{'~/admin/comment/' + ${comment.getId()} + '/delete'}"-->
+                                 <!--th:if="${comment.getUser().getPosition()} != ${roleString}"><i class="fa fa-eraser" aria-hidden="true"></i> Komment torlese</a>-->
+                    </tr>
+                </div>
+
+
+            </div>
+            <div id="searchDiv">
                 <ul class="list-group">
                 </ul>
             </div>
-        </section>
+            </section>
     </main>
 </div>
 

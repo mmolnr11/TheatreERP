@@ -13,10 +13,13 @@ $( document ).ready(function() {
     function ajaxPost(){
         debugger;
         var title = $("#update-title").val();
+        var str = $( "#update-event" ).serialize();
+
         var formData = {
             // "startdate": $("#update-startdate").val(),
             // "date": $("#update-date").val(),
             "title": title,
+            "serialize" : str,
             "description": $("#update-description").val(),
             "location": $("#update-location").val(),
             "startDateTime": $("#update-startDateTime").val(),

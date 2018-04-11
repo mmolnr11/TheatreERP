@@ -20,7 +20,7 @@ public class InitializerBean {
     public InitializerBean(CommentDao commentDao, EmployeeDao employeeDao, UserDao userDao, EventDao eventDao, BCryptPasswordEncoder bCryptPasswordEncoder) throws ParseException {
 
 
-        User user1 = new User("Szabo", "Andris", "andras.l.szabo@gmail.com", "pass", "admin");
+        User user1 = new User("Szabo", "Andris", "andras.l.szabo@gmail.com", "pass", "admin", "Admin");
         User user2 = new User("Szabo", "Gyozo", "andras.gyogyo.szabo@gmail.com", "pass", "user", "Berendezo");
         Vilagosito vilagosito = new Vilagosito("Kiss", "Miska",32, "Vilagosito");
         Vilagosito vilagosito2 = new Vilagosito("Nagy", "Elek",32, "Vilagosito");
@@ -56,11 +56,13 @@ public class InitializerBean {
         employees.add(berendezo);
         event1.setEmployeesToEvent(employees);
         event2.setEmployeesToEvent(employees);
-        Comment comment1 = new Comment("andris szep gyerek",user2,event1);
-        Comment comment2 = new Comment("csak sokat cigizik",user1,event1);
+        Comment comment1 = new Comment("andris szep gyerek",user2,event2);
+        Comment comment2 = new Comment("csak sokat cigizik",user1,event2);
+
+//        List<Comment> comments = new ArrayList<>();
 //        comments.add(comment1);
 //        comments.add(comment2);
-//        event1.setComments(comments);
+//        event2.setComments(comments);
 
 
 
