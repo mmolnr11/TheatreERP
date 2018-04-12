@@ -79,48 +79,14 @@
                 </div>
 
 
-
-                <!--<div>-->
-                    <!--<form id="customerForm">-->
-                        <!--<tr>-->
-                            <!--<p th:text="${roleString}">keyvalue</p>-->
-                            <!--<p id="numOfEmployee" th:text="${roleInteger}">num</p>-->
-                            <!--<p id="noValue"></p>-->
-                            <!--<select name="" id="employee">-->
-                                <!--<option value="" selected="true" disabled="disabled">Kerlek valassz egyet</option>-->
-                                <!--<option th:each="employee : ${employees}"-->
-                                        <!--th:if="${employee.getPosition()} == ${roleString}"-->
-                                        <!--th:text="${employee.getName()}" th:value="${employee.getId()}"-->
-                                <!--&gt;</option>-->
-                                <!--&lt;!&ndash;th:value="${employee.getId()}"&ndash;&gt;-->
-                                <!--&lt;!&ndash;th:text="#{${'seedstarter.type.' + employee.getId()}}">Wireframe</option>&ndash;&gt;-->
-                            <!--</select>-->
-                            <!--<a href=""></a>-->
-                            <!--<button type="submit" id="selectEmployee" ><i class="fa fa-plus" aria-hidden="true"></i> Rendelj Hozza</button>-->
-                            <!--<br/>-->
-                        <!--</tr>-->
-                    <!--</form>-->
-
-                <!--</div>-->
-
-
                 <div id="postResultDiv">
                 </div>
 
-                <!--<div class="buttonpara">-->
-                    <!--<div th:each="orderedEmployee : ${event.getEmployeesToEvent()}">-->
-                        <!--<button th:name="${orderedEmployee.getName()}"-->
-                                <!--th:text="${orderedEmployee.getName()}"-->
-                                <!--class="button"-->
-                                <!--th:id="${orderedEmployee.getId()}">-->
-                            <!--nevecske-->
-                        <!--</button>-->
-                    <!--</div>-->
-                <!--</div>-->
 
-                <div id="divComment" th:class = "${event.getId()}">
+
+                <div id="divComment" th:class = "${datesOfEvent.getId()}">
                     <p>Korabbi kommentek</p>
-                    <div  th:each="comment : ${event.getComments()}">
+                    <div  th:each="comment : ${datesOfEvent.getComments()}">
                         <tr>
                             <td th:text="${comment.getDescription()}"></td>
                             <!--<td th:text="${comment.getUser().getName()}"></td>-->
@@ -137,7 +103,7 @@
                         <input class = "mdl-textfield__input" type="text" rows ="3" id ="comment" name="comment"/>
                         <label class = "mdl-textfield__label" for = "comment">Uj Komment</label>
                     </div>
-                    <button  th:name="${roleString}" name="" type="button" id="addCommentButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj Komment</button>
+                    <button  th:name="${roleCorrect}" name="" type="button" id="addCommentButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj Komment</button>
                 </form>
                 <!--<div class = "mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
                 <!--<input class = "mdl-textfield__input" type="text" rows ="3" id ="position" th:value="${user.getPosition()}" name="position"/>-->

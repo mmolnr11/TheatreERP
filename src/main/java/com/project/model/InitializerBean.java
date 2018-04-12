@@ -64,8 +64,8 @@ public class InitializerBean {
         employees.add(berendezo);
         event1.setEmployeesToEvent(employees);
         event2.setEmployeesToEvent(employees);
-        Comment comment1 = new Comment("andris szep gyerek",user2,event2);
-        Comment comment2 = new Comment("csak sokat cigizik",user1,event2);
+        Comment comment1 = new Comment("andris szep gyerek",user2,datesOfEvent);
+        Comment comment2 = new Comment("csak sokat cigizik",user1,datesOfEvent);
 
 //        List<Comment> comments = new ArrayList<>();
 //        comments.add(comment1);
@@ -104,10 +104,10 @@ public class InitializerBean {
 
         userDao.saveUser(user1);
         userDao.saveUser(user2);
-        commentDao.saveComment(comment1);
-        commentDao.saveComment(comment2);
         datesOfEventDao.saveDate(datesOfEvent);
         datesOfEventDao.saveDate(datesOfEvent2);
+        commentDao.saveComment(comment1);
+        commentDao.saveComment(comment2);
 
 
     }

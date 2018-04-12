@@ -32,9 +32,7 @@ public class Event {
     private String location;
     @Column
     private String type;
-    @JsonIgnore
-    @OneToMany(mappedBy = "event")
-    private List<Comment> comments;
+
     @JsonIgnore
     @ManyToMany
     private List<Employee> employeesToEvent;
@@ -98,13 +96,7 @@ public class Event {
         this.employeesInNumbersToEvent = employeesInNumbersToEvent;
     }
 
-    public List<Comment> getComments() {
-        return comments;
-    }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
 
     public List<Employee> getEmployeesToEvent() {
         return employeesToEvent;

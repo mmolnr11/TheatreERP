@@ -4,7 +4,7 @@
         var comment = $( "#comment" ).val();
         var role = $("#addCommentButton").attr("name");
 //            var date = new Date();
-        var eventId = $("#divComment").attr("class");
+        var dateId = $("#divComment").attr("class");
 debugger;
         console.log(comment);
         $( "#divComment" ).append( `<div><tr>
@@ -17,7 +17,7 @@ debugger;
 //                    name: $(this).attr("name"),
                 "comment": comment,
                 "role": role,
-                "eventId": eventId
+                "dateId": dateId
             },
             function(response){
                 // alert("Elmentve a komment: " + response);

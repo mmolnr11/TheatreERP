@@ -119,12 +119,11 @@ public class EventController {
     public String postComment (@RequestParam Map<String,String> allRequestParam) {
         String comment = allRequestParam.get("comment");
         String role = allRequestParam.get("role");
-        System.out.println("roleka " + role);
-        String eventid = allRequestParam.get("eventId");
-        Event event = eventDao.findOne(Long.valueOf(eventid));
+        String dateId = allRequestParam.get("dateId");
+        DatesOfEvent date = datesOfEventDao.findDate(Long.valueOf(dateId));
         User user = userDao.getUserByPosition(role);
 
-        commentDao.saveComment(new Comment(comment,user,event));
+        commentDao.saveComment(new Comment(comment,user,date));
         return comment;
 
     }

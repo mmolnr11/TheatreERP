@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class DatesOfEvent {
@@ -14,6 +15,9 @@ public class DatesOfEvent {
     @JsonIgnore
     @ManyToOne
     private Event event;
+    @JsonIgnore
+    @OneToMany(mappedBy = "datesOfEvent")
+    private List<Comment> comments;
 
     public DatesOfEvent(Event event, Date startDate, Date endDate) {
         this.startDate = startDate;
@@ -46,5 +50,13 @@ public class DatesOfEvent {
 
     public Long getId() {
         return id;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
