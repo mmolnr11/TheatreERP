@@ -20,9 +20,14 @@ public class AdminController {
     @GetMapping(value = "/admin/reports")
     public String reports(Model model){
         List<Employee> employeeList = employeeDao.getAllEmployee();
+        for (Employee employee: employeeList) {
+            System.out.println(employee.getPosition()+ " emp name");
+
+        }
         model.addAttribute("employeeList", employeeList);
         List<String> roles = employeeDao.getEmployeeRoles();
         model.addAttribute("roles", roles);
+
         return "admin-reports";
 
     }
