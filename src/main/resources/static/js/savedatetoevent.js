@@ -25,12 +25,16 @@
 
                 console.log(result);
                 if (Object.keys(result).length !== 0){
-                    console.log(result.startDate)
+                    console.log(result.startDate);
+                    console.log(result.id);
                     var start = new Date(result.startDate);
-                    $("#datesToEvent").append('<div>' + title + " "+
+                    var link = '<a href="admin/event/'+ eventId + "/date/"+ result.id+'">';
+                    // var link = '<a href="admin/event/'+ eventId + "/date/"+ result.id+'">';
+                    $("#datesToEvent").append(link + title + " "+
                         dayOfEvent + " " +
-                        startTime + " "+
-                        endTime + '<div>')
+                        startTime + ":00.0 "+
+                        dayOfEvent + " " +
+                        endTime +":00.0 "+ '</a>')
 
                     // $.each(result, function(i, event){
                     // });

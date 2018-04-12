@@ -10,5 +10,10 @@ public class DatesOfEventDao {
     @Autowired
     DatesOfEventRepository datesOfEventRepository;
 
+    public DatesOfEvent findDate(Long id){
+        DatesOfEvent dates = datesOfEventRepository.findOne(id);
+        return dates;
+    }
+
     public void saveDate(DatesOfEvent datesOfEvent){datesOfEventRepository.save(datesOfEvent);}
 }

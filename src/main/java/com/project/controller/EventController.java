@@ -1,10 +1,7 @@
 package com.project.controller;
 
-import com.project.dao.CommentDao;
-import com.project.dao.EmployeeDao;
-import com.project.dao.EventDao;
+import com.project.dao.*;
 //import com.project.dao.RoleDao;
-import com.project.dao.UserDao;
 import com.project.model.*;
 //import com.project.model.Role;
 import com.project.service.DateValidation;
@@ -34,8 +31,11 @@ public class EventController {
     @Autowired
     EmployeeService employeeService;
 
+
     @Autowired
     CommentDao commentDao;
+    @Autowired
+    DatesOfEventDao datesOfEventDao;
 
 
 
@@ -148,6 +148,21 @@ public class EventController {
         }
         return errorMessages;
 
+    }
+
+    @RequestMapping(value = "admin/event/{eventid}/date/{dateid}")
+    public String eventAtDate(Model model,Principal principal,
+                              @PathVariable("eventid")String eventid,
+                              @PathVariable("dateid")String dateid){
+        Long eventId = Long.valueOf(eventid);
+        Long dateId = Long.valueOf(dateid);
+        Event event = eventDao.findOne(eventId);
+        DatesOfEvent datesOfEvent = datesOfEventDao.findDate(dateId);
+        String roleCorrect = getPrincipalRole(principal);
+        model.addAttribute("event", event);
+        model.addAttribute("roleCorrect", roleCorrect);
+        model.addAttribute("datesOfEvent", datesOfEvent);
+        return "admin-one-date-to-event-view";
     }
 
 }
