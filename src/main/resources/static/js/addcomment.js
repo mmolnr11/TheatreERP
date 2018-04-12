@@ -21,5 +21,6 @@ debugger;
             },
             function(response){
                 // alert("Elmentve a komment: " + response);
+
             });
     });

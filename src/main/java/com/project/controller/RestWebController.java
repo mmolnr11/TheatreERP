@@ -57,14 +57,15 @@ public class RestWebController {
         String eventId = allRequestParam.get("eventId");
         Event event = eventDao.findOne(Long.valueOf(eventId));
         DatesOfEvent dates = dateValidation.dateToEvent(event, dayOfEvent,startTime,endTime);
-        List<DatesOfEvent> datesOfEvents = event.getDatesOfEvent();
-        datesOfEvents.add(dates);
+//        List<DatesOfEvent> datesOfEvents = event.getDatesOfEvent();
+//        datesOfEvents.add(dates);
         datesOfEventDao.saveDate(dates);
-        eventDao.saveEvent(event);
+//        eventDao.saveEvent(event);
         return dates;
 
 
     }
+
 
 //    @RequestMapping(value = "/event/search", method = RequestMethod.POST)
 //    public List<Event> searchAsAdmin(@RequestParam("searchdatestart") String startDate,

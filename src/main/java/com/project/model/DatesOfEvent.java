@@ -1,5 +1,7 @@
 package com.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,6 +11,7 @@ public class DatesOfEvent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date startDate, endDate;
+    @JsonIgnore
     @ManyToOne
     private Event event;
 
