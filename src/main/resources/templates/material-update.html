@@ -55,38 +55,36 @@
                 <form id="update-event" th:object="${event}" method="post">
 
                     <div class="form-group">
-                        <!--<div>-->
-                            <!--<input id="date" type="date"/>-->
-                        <!--</div>-->
+
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
                             <input th:required="required" title="Cím kezdődjön nagy betűvel"
                                    class="mdl-textfield__input"
                                    type="text" id="update-title" th:field= "*{title}"  name="title"/>
-                            <label class="mdl-textfield__label" for="title" >Darab cime</label>
+                            <label class="mdl-textfield__label" for="update-title" >Darab cime</label>
                         </div>
 
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text"
                                    th:value="${event.getDescription()}"
                                    id="update-description" th:field= "*{description}"  name="description"/>
-                            <label class="mdl-textfield__label" for="description">Leiras</label>
+                            <label class="mdl-textfield__label" for="update-description">Leiras</label>
                         </div>
 
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input th:required="required" class="mdl-textfield__input"
                                    th:value="${event.getLocation()}"
                                    type="text" th:field= "*{location}"  id="update-location" name="location"/>
-                            <label class="mdl-textfield__label" for="email">Helyszin</label>
+                            <label class="mdl-textfield__label" for="update-location">Helyszin</label>
                         </div>
 
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <!--pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]"-->
-                            <input  th:required="required"
-                                    title="Időformatum példa 16:20"
-                                    th:value="${event.getStartDateTime()}"
-                                    class="mdl-textfield__input" type="text" th:field= "*{startDateTime}"  id="update-startDateTime" name="startDateTime"/>
-                            <label class="mdl-textfield__label" for="password">Kezdes</label>
-                        </div>
+                        <!--<div class="mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
+                            <!--&lt;!&ndash;pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]"&ndash;&gt;-->
+                            <!--<input  th:required="required"-->
+                                    <!--title="Időformatum példa 16:20"-->
+                                    <!--th:value="${event.getStartDateTime()}"-->
+                                    <!--class="mdl-textfield__input" type="text" th:field= "*{startDateTime}"  id="update-startDateTime" name="startDateTime"/>-->
+                            <!--<label class="mdl-textfield__label" for="update-startDateTime">Kezdes</label>-->
+                        <!--</div>-->
 
                         <!--<div class = "mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
                             <!--<input th:required="required" class = "mdl-textfield__input"-->

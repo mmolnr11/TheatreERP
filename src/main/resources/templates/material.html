@@ -49,19 +49,19 @@
     <main class = "mdl-layout__content">
         <section class = "mdl-layout__tab-panel is-active" id = "scroll-tab-1">
             <div class = "page-content">
-                <div  th:each="event : ${eventList}">
-                    <a th:href="@{'~/admin/event/' + ${event.getId()} + '/addDate'}"
-                       th:text="${event.getTitle()}"></a>
-                    <!--<a th:href="@{'~/event/' + ${event.getId()} + '/addDate'}"></a>-->
-
+                <div class="mdl-data-table" style="width:100%">
+                    <div  th:each="event : ${eventList}">
+                        <a th:href="@{'~/admin/event/' + ${event.getId()} + '/datelist'}"
+                           th:text="${event.getTitle()}"></a>
+                    </div>
 
                 </div>
 
             </div>
-            <div id="searchDiv">
-                <ul class="list-group">
-                </ul>
-            </div>
+            <!--<div id="searchDiv">-->
+                <!--<ul class="list-group">-->
+                <!--</ul>-->
+            <!--</div>-->
 
         </section>
         <section class = "mdl-layout__tab-panel" id = "scroll-tab-2">

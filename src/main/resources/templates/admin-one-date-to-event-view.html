@@ -20,6 +20,7 @@
     <script src="/js/addemployeewithbutton.js"></script>
     <script src="/js/restoreemployewithbutton.js"></script>
     <script src="/js/counter.js"></script>
+    <script src="/js/deletecomment.js"></script>
 
 </head>
 
@@ -89,10 +90,14 @@
                     <div  th:each="comment : ${datesOfEvent.getComments()}">
                         <tr>
                             <td th:text="${comment.getDescription()}"></td>
-                            <!--<td th:text="${comment.getUser().getName()}"></td>-->
+                            <td th:text="${comment.getUser().getPosition()}"></td>
                             <td th:text="${comment.getEntryTime()}"></td>
-
-                            <!--<a href="" th:if="${comment.getUser().getName()} == 'Szabo Andris'"><i class="fa fa-eraser" aria-hidden="true"></i> Komment torlese</a>-->
+                            <button id="deleteCommentButton"
+                                    type="button"
+                                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                                    th:if="${comment.getUser().getPosition()} != ${roleString} "
+                                    th:name="${comment.getId()}">Komment törlése
+                            </button>
                         </tr>
                     </div>
 
@@ -105,10 +110,7 @@
                     </div>
                     <button  th:name="${roleCorrect}" name="" type="button" id="addCommentButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj Komment</button>
                 </form>
-                <!--<div class = "mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
-                <!--<input class = "mdl-textfield__input" type="text" rows ="3" id ="position" th:value="${user.getPosition()}" name="position"/>-->
-                <!--<label class = "mdl-textfield__label" for = "position">Position</label>-->
-                <!--</div>-->
+
             </div>
             <div id="searchDiv">
                 <ul class="list-group">
