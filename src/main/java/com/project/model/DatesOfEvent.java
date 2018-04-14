@@ -6,6 +6,14 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+
+@NamedQuery(name = "DatesOfEvent.getNameQuery",
+        query = "SELECT startDate, endDate " +
+                "from DatesOfEvent d WHERE d.startDate >:startDate and d.endDate <:endDate"
+)
+
+
+
 @Entity
 public class DatesOfEvent {
     @Id
@@ -23,6 +31,10 @@ public class DatesOfEvent {
         this.startDate = startDate;
         this.endDate = endDate;
         this.event = event;
+    }
+    public DatesOfEvent(Date startDate, Date endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public DatesOfEvent() {

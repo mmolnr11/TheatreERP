@@ -30,7 +30,7 @@ public class InitializerBean {
         SimpleDateFormat dateformat2 = new SimpleDateFormat("MM/dd/yyyy HH:mm");
         String strdate1 = "03/04/2018 14:35";
         String strdate2 = "03/04/2018 18:50";
-        String strdate3 = "03/10/2018 13:30";
+        String strdate3 = "03/10/2018 18:30";
         String strdate4 = "03/10/2018 15:20";
         String strdate5 = "03/12/2018 12:20";
         String strdate6 = "03/12/2018 14:40";
@@ -47,15 +47,16 @@ public class InitializerBean {
         Event event2 = new Event("5 berendezo", "Songoku","terem", "eloadas");
         Event event3 = new Event("6 vilagosito", "Pinokkio","terem", "proba");
 
-        List<DatesOfEvent> datesOfEventArrayList = new ArrayList<>();
+//        List<DatesOfEvent> datesOfEventArrayList = new ArrayList<>();
         DatesOfEvent datesOfEvent = new DatesOfEvent( event2,newdate4,newdate5);
         DatesOfEvent datesOfEvent2 = new DatesOfEvent( event2,newdate3,newdate2);
+        DatesOfEvent datesOfEvent3 = new DatesOfEvent( event1,newdate,newdate1);
 
-        datesOfEventArrayList.add(datesOfEvent);
-        datesOfEventArrayList.add(datesOfEvent2);
-
-
-        event2.setDatesOfEventList(datesOfEventArrayList);
+//        datesOfEventArrayList.add(datesOfEvent);
+//        datesOfEventArrayList.add(datesOfEvent2);
+//
+//
+//        event2.setDatesOfEventList(datesOfEventArrayList);
 
 //        berendezo.setWorkingHours(event1.getDurationOfEvent());
 //        berendezo2.setWorkingHours(event1.getDurationOfEvent());
@@ -106,6 +107,7 @@ public class InitializerBean {
         userDao.saveUser(user2);
         datesOfEventDao.saveDate(datesOfEvent);
         datesOfEventDao.saveDate(datesOfEvent2);
+        datesOfEventDao.saveDate(datesOfEvent3);
         commentDao.saveComment(comment1);
         commentDao.saveComment(comment2);
 

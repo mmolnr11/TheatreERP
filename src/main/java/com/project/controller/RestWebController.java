@@ -8,7 +8,9 @@ import com.project.service.UserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -77,15 +79,49 @@ public class RestWebController {
 //
 //    }
 //
-//    @RequestMapping(value = "/user/event/search", method = RequestMethod.POST)
-//    public List<Event> searchAsUser (@RequestParam("searchdatestart") String startDate,
-//                                 @RequestParam("searchdateend") String endDate) throws ParseException {
-//        List<Date> dates = dateValidation.createDateNew(startDate,endDate);
-//        List<Event> eventList =  eventDao.findByDate(dates.get(0),dates.get(1));
-//        return eventList;
-//
-//
-//    }
+    @RequestMapping(value = "/user/event/search", method = RequestMethod.POST)
+    public List<Object[]> searchAsUser (@RequestParam("searchdatestart") String startDate,
+                                 @RequestParam("searchdateend") String endDate) throws ParseException {
+        DatesOfEvent date = dateValidation.createDateNew(startDate,endDate);
+        List<Object[]> dateList =  datesOfEventDao.datesBetween(date.getStartDate(),date.getEndDate());
+        List<Event> talalt = new ArrayList<>();
+        for (Event event: eventDao.allEvent()
+             ) {
+            for (DatesOfEvent meglevodatumegyesemenynel: event.getDatesOfEvent()
+                 ) {
+                for (Object[] times: dateList
+                     ) {
+                    String start = String.valueOf(times[0]);
+                    String end = String.valueOf(times[1]);
+                    Date talaltDatumKezdete = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(start);
+                    Date talaltDatumvege = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(end);
+                    DatesOfEvent datumparAmimegfelelkeresesnek = new DatesOfEvent(talaltDatumKezdete,talaltDatumvege);
+                    Timestamp timestampeleje = new Timestamp(talaltDatumKezdete.getTime());
+                    Timestamp timestampvege = new Timestamp(talaltDatumvege.getTime());
+
+
+                    if( timestampvege.equals(meglevodatumegyesemenynel.getEndDate())
+                            && timestampeleje.equals(meglevodatumegyesemenynel.getStartDate())  ){
+                        talalt.add(event);
+                        System.out.println("egyezes van " + meglevodatumegyesemenynel.getStartDate()
+                                + " " + meglevodatumegyesemenynel.getEndDate()
+                                + " itt  " + event.getTitle()
+                        );
+                    }
+
+                }
+
+            }
+        }
+        for (Event event: talalt
+             ) {
+            System.out.println(event.getTitle() + " hppa");
+
+        }
+        return dateList;
+
+
+    }
 
     @RequestMapping(value = "/event/add-user", method = RequestMethod.POST)
     public List<String> addUserToDb(@RequestParam Map<String,String> allRequestParam){

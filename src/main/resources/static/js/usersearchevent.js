@@ -27,20 +27,33 @@ $( document ).ready(function() {
             url : "/user/event/search",
             method : "POST",
             data : formData,
-            success : function(result) {
+            success : function(timeList) {
                 debugger;
 
-                console.log(result);
-                if (Object.keys(result).length !== 0){
-                    $.each(result, function(i, event){
+                console.log(timeList);
+                if (Object.keys(timeList).length !== 0){
+                    $.each(timeList, function(i, time){
+                        var start = new Date(time[0]);
+                        var end = new Date(time[1]);
+                        $('#searchDiv .list-group').append('<li><a  href="user/even/description"  class="list-group-item">'+ start + end +'</a></li>')
+
+                        // $.each(time, function(i, kk){
+                        //     console.log(kk);
+                        //
+                        //     console.log(start);
+                        //
+                        // });
+                        // alert(time.event.title);
+                        // alert(time.event.title);
+                        // var title = time.event.title;
+                        // var start = time.startDateTime;
                         // var startDate = new Date(event.startDateTime);
                         // var endDate = new Date(event.endDateTime);
-                        var eventId = event.id;
+                        // var eventId = event.id;
                         // var date = "Esemenyek : " + event.title + " " + startDate + " " +
                         //     endDate + " "+ event.description;
                         // var link = "<a href='/event/" + eventId +"/description'>This is the link</a>";
 
-                        // $('#searchDiv .list-group').append('<li><a  href="user/event/'+ eventId + '/description"  class="list-group-item">'+date+'</a></li>')
                     });
                 }
                 else {

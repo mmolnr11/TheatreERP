@@ -14,6 +14,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+
+//
+//@NamedQuery(name = "DatesOfEvent.getNameQuery",
+//        query = "SELECT datesOfEventList " +
+//                "from Event e WHERE e.startDate >:startDate and e.endDate <:endDate"
+//)
+
 @Entity
 public class Event {
 
@@ -27,12 +34,10 @@ public class Event {
     @JsonIgnore
     @OneToMany(mappedBy = "event")
     List<DatesOfEvent> datesOfEventList;
-
     @Column
     private String location;
     @Column
     private String type;
-
     @JsonIgnore
     @ManyToMany
     private List<Employee> employeesToEvent;
