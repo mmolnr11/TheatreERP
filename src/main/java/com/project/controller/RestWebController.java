@@ -41,15 +41,6 @@ public class RestWebController {
     @Autowired
     EventService eventService;
 
-//    @RequestMapping(value = "/getallcustomer", method = RequestMethod.GET)
-
-    //    public Response getResource() {
-    //        Response response = new Response("Done", cust);
-    //        return response;
-    //    }
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
-    long id = 1;
 
     @RequestMapping(value = "/admin/event/addDate",method = RequestMethod.POST)
     public DatesOfEvent addDateToEvent(@RequestParam Map<String,String> allRequestParam) throws ParseException {
@@ -59,66 +50,81 @@ public class RestWebController {
         String eventId = allRequestParam.get("eventId");
         Event event = eventDao.findOne(Long.valueOf(eventId));
         DatesOfEvent dates = dateValidation.dateToEvent(event, dayOfEvent,startTime,endTime);
-//        List<DatesOfEvent> datesOfEvents = event.getDatesOfEvent();
-//        datesOfEvents.add(dates);
+
         datesOfEventDao.saveDate(dates);
-//        eventDao.saveEvent(event);
         return dates;
 
 
     }
 
 
-//    @RequestMapping(value = "/event/search", method = RequestMethod.POST)
-//    public List<Event> searchAsAdmin(@RequestParam("searchdatestart") String startDate,
-//                                 @RequestParam("searchdateend") String endDate) throws ParseException {
-//        List<Date> dates = dateValidation.createDateNew(startDate,endDate);
-//        List<Event> eventList =  eventDao.findByDate(dates.get(0),dates.get(1));
-//        return eventList;
-//
-//
-//    }
-//
     @RequestMapping(value = "/user/event/search", method = RequestMethod.POST)
-    public List<Object[]> searchAsUser (@RequestParam("searchdatestart") String startDate,
+    public List<SearchResult> searchAsUser (@RequestParam("searchdatestart") String startDate,
                                  @RequestParam("searchdateend") String endDate) throws ParseException {
         DatesOfEvent date = dateValidation.createDateNew(startDate,endDate);
-        List<Object[]> dateList =  datesOfEventDao.datesBetween(date.getStartDate(),date.getEndDate());
-        List<Event> talalt = new ArrayList<>();
+        Timestamp timeStampStart = new Timestamp(date.getStartDate()
+                .getTime());
+        Timestamp timeStampEnd = new Timestamp(date.getEndDate()
+                .getTime());
+
+
+//        List<Object[]> dateList =  datesOfEventDao.datesBetween(date.getStartDate(),date.getEndDate());
+
+        List<SearchResult> talalt = new ArrayList<>();
+        Map hashMap = new HashMap<String, DatesOfEvent>();
+
+
         for (Event event: eventDao.allEvent()
              ) {
-            for (DatesOfEvent meglevodatumegyesemenynel: event.getDatesOfEvent()
+            for (DatesOfEvent dateOfAnEvent: event.getDatesOfEvent()
                  ) {
-                for (Object[] times: dateList
-                     ) {
-                    String start = String.valueOf(times[0]);
-                    String end = String.valueOf(times[1]);
-                    Date talaltDatumKezdete = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(start);
-                    Date talaltDatumvege = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(end);
-                    DatesOfEvent datumparAmimegfelelkeresesnek = new DatesOfEvent(talaltDatumKezdete,talaltDatumvege);
-                    Timestamp timestampeleje = new Timestamp(talaltDatumKezdete.getTime());
-                    Timestamp timestampvege = new Timestamp(talaltDatumvege.getTime());
-
-
-                    if( timestampvege.equals(meglevodatumegyesemenynel.getEndDate())
-                            && timestampeleje.equals(meglevodatumegyesemenynel.getStartDate())  ){
-                        talalt.add(event);
-                        System.out.println("egyezes van " + meglevodatumegyesemenynel.getStartDate()
-                                + " " + meglevodatumegyesemenynel.getEndDate()
+                    if( dateOfAnEvent.getStartDate().after(timeStampStart)
+                            &&
+                            dateOfAnEvent.getEndDate().before(timeStampEnd)){
+                        hashMap.put(event.getTitle(),dateOfAnEvent);
+                        SearchResult searchResult =
+                                new SearchResult(event,dateOfAnEvent);
+                        talalt.add(searchResult);
+                        System.out.println("egyezes van " + dateOfAnEvent.getStartDate()
+                                + " " + dateOfAnEvent.getEndDate()
                                 + " itt  " + event.getTitle()
                         );
                     }
 
-                }
-
             }
-        }
-        for (Event event: talalt
-             ) {
-            System.out.println(event.getTitle() + " hppa");
 
         }
-        return dateList;
+
+//        }for (Event event: eventDao.allEvent()
+//             ) {
+//            for (DatesOfEvent meglevodatumegyesemenynel: event.getDatesOfEvent()
+//                 ) {
+//                for (Object[] times: dateList
+//                     ) {
+//                    String start = String.valueOf(times[0]);
+//                    String end = String.valueOf(times[1]);
+//                    Date talaltDatumKezdete = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(start);
+//                    Date talaltDatumvege = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(end);
+//                    DatesOfEvent datumparAmimegfelelkeresesnek = new DatesOfEvent(talaltDatumKezdete,talaltDatumvege);
+//                    Timestamp timestampeleje = new Timestamp(talaltDatumKezdete.getTime());
+//                    Timestamp timestampvege = new Timestamp(talaltDatumvege.getTime());
+//
+//
+//                    if( timestampvege.equals(meglevodatumegyesemenynel.getEndDate())
+//                            && timestampeleje.equals(meglevodatumegyesemenynel.getStartDate())  ){
+//                        talalt.add(event);
+//                        System.out.println("egyezes van " + meglevodatumegyesemenynel.getStartDate()
+//                                + " " + meglevodatumegyesemenynel.getEndDate()
+//                                + " itt  " + event.getTitle()
+//                        );
+//                    }
+//
+//                }
+//
+//            }
+//        }
+
+        return talalt;
 
 
     }

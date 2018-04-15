@@ -16,49 +16,32 @@ $( document ).ready(function() {
         var formData = {
             "searchdatestart": searchdatestart,
             "searchdateend": searchdateend
-            // searchdatestart: searchdatestart,
-            // searchdateend: searchdateend
         };
 
-        console.log(formData);
         $.ajax({
-            // contentType : "application/json",
-            // dataType : 'json',
             url : "/user/event/search",
             method : "POST",
             data : formData,
-            success : function(timeList) {
-                debugger;
+            success : function(searchResult) {
 
-                console.log(timeList);
-                if (Object.keys(timeList).length !== 0){
-                    $.each(timeList, function(i, time){
-                        var start = new Date(time[0]);
-                        var end = new Date(time[1]);
-                        $('#searchDiv .list-group').append('<li><a  href="user/even/description"  class="list-group-item">'+ start + end +'</a></li>')
+                if (Object.keys(searchResult).length !== 0){
+                    console.log(searchResult);
 
-                        // $.each(time, function(i, kk){
-                        //     console.log(kk);
-                        //
-                        //     console.log(start);
-                        //
-                        // });
-                        // alert(time.event.title);
-                        // alert(time.event.title);
-                        // var title = time.event.title;
-                        // var start = time.startDateTime;
-                        // var startDate = new Date(event.startDateTime);
-                        // var endDate = new Date(event.endDateTime);
-                        // var eventId = event.id;
-                        // var date = "Esemenyek : " + event.title + " " + startDate + " " +
-                        //     endDate + " "+ event.description;
-                        // var link = "<a href='/event/" + eventId +"/description'>This is the link</a>";
+                    $.each(searchResult, function(i, time){
+                        var title = time.event.title;
+                        var eventId = time.event.id;
+                        var start = time.datesOfEvent.startDate;
+                        var end = time.datesOfEvent.endDate;
+                        var startDate = new Date(start) ;
+                        var endDate = new Date(end);
+                        var dateId = time.datesOfEvent.id;
+                        $('#searchDiv .list-group').append('<li><a  href="user/event/'+eventId+ "/date/"+ dateId + '"  class="list-group-item">'+ title +" "+ startDate +" " + endDate +'</a></li>')
 
                     });
                 }
                 else {
                     debugger;
-                    alert(Object.keys(result).length);
+                    alert(Object.keys(searchResult).length);
 
                     $('#getResultDiv .list-group').append('<li><h4 class="list-group-item">'+firstname +" "+  lastname +" sikeresen hozzadava"+'</h4></li>');
                 }
