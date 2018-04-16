@@ -26,6 +26,7 @@ public class DatesOfEvent {
     @JsonIgnore
     @OneToMany(mappedBy = "datesOfEvent")
     private List<Comment> comments;
+//    TODO MANYTOMANY WITH EMP
 
     public DatesOfEvent(Event event, Date startDate, Date endDate) {
         this.startDate = startDate;

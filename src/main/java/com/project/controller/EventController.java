@@ -38,7 +38,6 @@ public class EventController {
     DatesOfEventDao datesOfEventDao;
 
 
-
     @GetMapping(value = "/admin/event/{id}/description")
     public String renderEventDetailsPage(Principal principal, Model model, @PathVariable("id") Long id){
         Event event = eventDao.findOne(id);
@@ -51,6 +50,8 @@ public class EventController {
 //        model.addAttribute("roles", )
         return "material-update";
     }
+
+//
 
     @GetMapping(value = "/user/event/{id}/description")
     public String userEventDetailsPage(Principal principal, Model model, @PathVariable("id") Long id){
@@ -79,7 +80,7 @@ public class EventController {
     List<Employee> notYetOrderedEmployees = new ArrayList<Employee>();
     List<Employee> alreadyOrderedEmployees = new ArrayList<Employee>();
 
-
+// TODO DELET THIS
     @GetMapping(value="event/user/{id}/description")
     public String userGetEventDescription(Model model, @PathVariable("id") Long id, Principal principal){
         Event event = eventDao.findOne(id);
@@ -98,7 +99,7 @@ public class EventController {
         return "user-event-detail";
     }
 
-
+// TODO update addEmployee
 
     @RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
     @ResponseBody
@@ -108,12 +109,14 @@ public class EventController {
 //
     }
 
+// TODO HTML for this rout
     @RequestMapping(value = "/restoreEmployee", method = RequestMethod.POST)
     @ResponseBody
     public String restoreEmployee(@RequestParam Map<String,String> allRequestParam){
         String result = eventService.restoreEmployee(allRequestParam);
         return result;
     }
+
     @RequestMapping(value = "/addComment", method = RequestMethod.POST)
     @ResponseBody
     public String postComment (@RequestParam Map<String,String> allRequestParam) {

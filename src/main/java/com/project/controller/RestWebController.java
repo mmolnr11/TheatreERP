@@ -95,6 +95,8 @@ public class RestWebController {
 
         }
 
+//        TODO delet this
+
 //        }for (Event event: eventDao.allEvent()
 //             ) {
 //            for (DatesOfEvent meglevodatumegyesemenynel: event.getDatesOfEvent()

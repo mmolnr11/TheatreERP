@@ -24,7 +24,7 @@ public class UserDetailConfig implements UserDetailsService {
 
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) // TODO add here a comment what this does
     public UserDetails loadUserByUsername(String emailAddress) throws UsernameNotFoundException {
        try {
            User user = userRepository.getUserByEmailAddress(emailAddress);

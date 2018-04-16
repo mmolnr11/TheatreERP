@@ -24,6 +24,7 @@ public class Employee {
     private String secondName;
     @Column(nullable = false)
     private int age;
+//    TODO event dont have date
     @JsonIgnore
     @ManyToMany(mappedBy = "employeesToEvent")
     private List<Event> eventsToEmployee;
