@@ -26,7 +26,7 @@ $( document ).ready(function() {
 
                 if (Object.keys(searchResult).length !== 0){
                     console.log(searchResult);
-
+                    $('#searchDiv .list-group').empty();
                     $.each(searchResult, function(i, time){
                         var title = time.event.title;
                         var eventId = time.event.id;
