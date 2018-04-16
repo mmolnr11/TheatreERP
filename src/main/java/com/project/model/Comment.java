@@ -12,7 +12,7 @@ public class Comment {
     @ManyToOne
     private User user;
     @ManyToOne
-    private Event event;
+    private DatesOfEvent datesOfEvent;
     @Temporal(value= TemporalType.TIMESTAMP)
     private Date entryTime;
 
@@ -20,10 +20,10 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String description, User user, Event event) {
+    public Comment(String description, User user, DatesOfEvent datesOfEvent) {
         this.description = description;
         this.user = user;
-        this.event= event;
+        this.datesOfEvent= datesOfEvent;
         this.entryTime = new Date();
     }
 

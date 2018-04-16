@@ -1,9 +1,6 @@
 package com.project.controller;
 
-import com.project.dao.CommentDao;
-import com.project.dao.EmployeeDao;
-import com.project.dao.EventDao;
-import com.project.dao.UserDao;
+import com.project.dao.*;
 import com.project.model.*;
 import com.project.service.DateValidation;
 import com.project.service.EventService;
@@ -11,7 +8,9 @@ import com.project.service.UserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -23,6 +22,9 @@ public class RestWebController {
 
     @Autowired
     EventDao eventDao;
+
+    @Autowired
+    DatesOfEventDao datesOfEventDao;
 
     @Autowired
     UserDao userDao;
@@ -39,41 +41,90 @@ public class RestWebController {
     @Autowired
     EventService eventService;
 
-//    @RequestMapping(value = "/getallcustomer", method = RequestMethod.GET)
 
-    //    public Response getResource() {
-    //        Response response = new Response("Done", cust);
-    //        return response;
-    //    }
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
-    long id = 1;
+    @RequestMapping(value = "/admin/event/addDate",method = RequestMethod.POST)
+    public DatesOfEvent addDateToEvent(@RequestParam Map<String,String> allRequestParam) throws ParseException {
+        String dayOfEvent = allRequestParam.get("dayOfEvent");
+        String startTime = allRequestParam.get("startTime");
+        String endTime = allRequestParam.get("endTime");
+        String eventId = allRequestParam.get("eventId");
+        Event event = eventDao.findOne(Long.valueOf(eventId));
+        DatesOfEvent dates = dateValidation.dateToEvent(event, dayOfEvent,startTime,endTime);
 
-    @RequestMapping("/greeting")
-    public List<Employee> employee(@RequestParam(value = "name", defaultValue = "World") String name) {
-        List<Employee> myemp = employeeDao.getAllEmployee();
-
-        return myemp;
+        datesOfEventDao.saveDate(dates);
+        return dates;
 
 
     }
 
-    @RequestMapping(value = "/event/search", method = RequestMethod.POST)
-    public List<Event> searchAsAdmin(@RequestParam("searchdatestart") String startDate,
-                                 @RequestParam("searchdateend") String endDate) throws ParseException {
-        List<Date> dates = dateValidation.createDateNew(startDate,endDate);
-        List<Event> eventList =  eventDao.findByDate(dates.get(0),dates.get(1));
-        return eventList;
-
-
-    }
 
     @RequestMapping(value = "/user/event/search", method = RequestMethod.POST)
-    public List<Event> searchAsUser (@RequestParam("searchdatestart") String startDate,
+    public List<SearchResult> searchAsUser (@RequestParam("searchdatestart") String startDate,
                                  @RequestParam("searchdateend") String endDate) throws ParseException {
-        List<Date> dates = dateValidation.createDateNew(startDate,endDate);
-        List<Event> eventList =  eventDao.findByDate(dates.get(0),dates.get(1));
-        return eventList;
+        DatesOfEvent date = dateValidation.createDateNew(startDate,endDate);
+        Timestamp timeStampStart = new Timestamp(date.getStartDate()
+                .getTime());
+        Timestamp timeStampEnd = new Timestamp(date.getEndDate()
+                .getTime());
+
+
+//        List<Object[]> dateList =  datesOfEventDao.datesBetween(date.getStartDate(),date.getEndDate());
+
+        List<SearchResult> talalt = new ArrayList<>();
+        Map hashMap = new HashMap<String, DatesOfEvent>();
+
+
+        for (Event event: eventDao.allEvent()
+             ) {
+            for (DatesOfEvent dateOfAnEvent: event.getDatesOfEvent()
+                 ) {
+                    if( dateOfAnEvent.getStartDate().after(timeStampStart)
+                            &&
+                            dateOfAnEvent.getEndDate().before(timeStampEnd)){
+                        hashMap.put(event.getTitle(),dateOfAnEvent);
+                        SearchResult searchResult =
+                                new SearchResult(event,dateOfAnEvent);
+                        talalt.add(searchResult);
+                        System.out.println("egyezes van " + dateOfAnEvent.getStartDate()
+                                + " " + dateOfAnEvent.getEndDate()
+                                + " itt  " + event.getTitle()
+                        );
+                    }
+
+            }
+
+        }
+
+//        }for (Event event: eventDao.allEvent()
+//             ) {
+//            for (DatesOfEvent meglevodatumegyesemenynel: event.getDatesOfEvent()
+//                 ) {
+//                for (Object[] times: dateList
+//                     ) {
+//                    String start = String.valueOf(times[0]);
+//                    String end = String.valueOf(times[1]);
+//                    Date talaltDatumKezdete = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(start);
+//                    Date talaltDatumvege = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(end);
+//                    DatesOfEvent datumparAmimegfelelkeresesnek = new DatesOfEvent(talaltDatumKezdete,talaltDatumvege);
+//                    Timestamp timestampeleje = new Timestamp(talaltDatumKezdete.getTime());
+//                    Timestamp timestampvege = new Timestamp(talaltDatumvege.getTime());
+//
+//
+//                    if( timestampvege.equals(meglevodatumegyesemenynel.getEndDate())
+//                            && timestampeleje.equals(meglevodatumegyesemenynel.getStartDate())  ){
+//                        talalt.add(event);
+//                        System.out.println("egyezes van " + meglevodatumegyesemenynel.getStartDate()
+//                                + " " + meglevodatumegyesemenynel.getEndDate()
+//                                + " itt  " + event.getTitle()
+//                        );
+//                    }
+//
+//                }
+//
+//            }
+//        }
+
+        return talalt;
 
 
     }

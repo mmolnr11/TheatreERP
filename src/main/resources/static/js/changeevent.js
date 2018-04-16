@@ -22,8 +22,8 @@ $( document ).ready(function() {
             "serialize" : str,
             "description": $("#update-description").val(),
             "location": $("#update-location").val(),
-            "startDateTime": $("#update-startDateTime").val(),
-            "endDateTime": $("#update-endDateTime").val(),
+            // "startDateTime": $("#update-startDateTime").val(),
+            // "endDateTime": $("#update-endDateTime").val(),
             "type": $("#update-type").val(),
             "id": $("#update-id").val()
         };

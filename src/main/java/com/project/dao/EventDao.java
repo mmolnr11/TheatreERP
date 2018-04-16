@@ -36,10 +36,10 @@ public class EventDao {
 //    public List<ThEvent> eventsPerSameDay(String date){
 //        String formattedDate = date.substring(0,9);
 ////    }
-    public List<Event> findByDate(Date start, Date end){
-        List<Event> events = eventRepository.findEventByEndDateTimeBetween(start, end);
-        return events;
-    }
+//    public List<Event> findByDate(Date start, Date end){
+//        List<Event> events = eventRepository.findEventByEndDateTimeBetween(start, end);
+//        return events;
+//    }
 
     public List<Event> allEvent(){
         List<Event> events = eventRepository.findAll();

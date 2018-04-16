@@ -1,11 +1,8 @@
 package com.project.model;
 
 
-import com.project.dao.CommentDao;
-import com.project.dao.EmployeeDao;
-import com.project.dao.EventDao;
+import com.project.dao.*;
 //import com.project.dao.RoleDao;
-import com.project.dao.UserDao;
 //import com.project.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +14,8 @@ import java.util.*;
 
 @Component
 public class InitializerBean {
-    public InitializerBean(CommentDao commentDao, EmployeeDao employeeDao, UserDao userDao, EventDao eventDao, BCryptPasswordEncoder bCryptPasswordEncoder) throws ParseException {
+    public InitializerBean(CommentDao commentDao, DatesOfEventDao datesOfEventDao,
+                           EmployeeDao employeeDao, UserDao userDao, EventDao eventDao, BCryptPasswordEncoder bCryptPasswordEncoder) throws ParseException {
 
 
         User user1 = new User("Szabo", "Andris", "andras.l.szabo@gmail.com", "pass", "admin", "Admin");
@@ -32,7 +30,7 @@ public class InitializerBean {
         SimpleDateFormat dateformat2 = new SimpleDateFormat("MM/dd/yyyy HH:mm");
         String strdate1 = "03/04/2018 14:35";
         String strdate2 = "03/04/2018 18:50";
-        String strdate3 = "03/10/2018 13:30";
+        String strdate3 = "03/10/2018 18:30";
         String strdate4 = "03/10/2018 15:20";
         String strdate5 = "03/12/2018 12:20";
         String strdate6 = "03/12/2018 14:40";
@@ -45,19 +43,30 @@ public class InitializerBean {
         Date newdate5 = dateformat2.parse(strdate6);
 
 
-        Event event1 = new Event("3 vilagosito", "Lion king", newdate, newdate1,"terem", "proba");
-        Event event2 = new Event("5 berendezo", "Songoku", newdate2, newdate3,"terem", "eloadas");
-        Event event3 = new Event("6 vilagosito", "Pinokkio", newdate4,newdate5,"terem", "proba");
+        Event event1 = new Event("3 vilagosito", "Lion king","terem", "proba");
+        Event event2 = new Event("5 berendezo", "Songoku","terem", "eloadas");
+        Event event3 = new Event("6 vilagosito", "Pinokkio","terem", "proba");
 
-        berendezo.setWorkingHours(event1.getDurationOfEvent());
-        berendezo2.setWorkingHours(event1.getDurationOfEvent());
+//        List<DatesOfEvent> datesOfEventArrayList = new ArrayList<>();
+        DatesOfEvent datesOfEvent = new DatesOfEvent( event2,newdate4,newdate5);
+        DatesOfEvent datesOfEvent2 = new DatesOfEvent( event2,newdate3,newdate2);
+        DatesOfEvent datesOfEvent3 = new DatesOfEvent( event1,newdate,newdate1);
+
+//        datesOfEventArrayList.add(datesOfEvent);
+//        datesOfEventArrayList.add(datesOfEvent2);
+//
+//
+//        event2.setDatesOfEventList(datesOfEventArrayList);
+
+//        berendezo.setWorkingHours(event1.getDurationOfEvent());
+//        berendezo2.setWorkingHours(event1.getDurationOfEvent());
         List<Employee> employees = new ArrayList<>();
         employees.add(berendezo2);
         employees.add(berendezo);
         event1.setEmployeesToEvent(employees);
         event2.setEmployeesToEvent(employees);
-        Comment comment1 = new Comment("andris szep gyerek",user2,event2);
-        Comment comment2 = new Comment("csak sokat cigizik",user1,event2);
+        Comment comment1 = new Comment("andris szep gyerek",user2,datesOfEvent);
+        Comment comment2 = new Comment("csak sokat cigizik",user1,datesOfEvent);
 
 //        List<Comment> comments = new ArrayList<>();
 //        comments.add(comment1);
@@ -96,6 +105,9 @@ public class InitializerBean {
 
         userDao.saveUser(user1);
         userDao.saveUser(user2);
+        datesOfEventDao.saveDate(datesOfEvent);
+        datesOfEventDao.saveDate(datesOfEvent2);
+        datesOfEventDao.saveDate(datesOfEvent3);
         commentDao.saveComment(comment1);
         commentDao.saveComment(comment2);
 

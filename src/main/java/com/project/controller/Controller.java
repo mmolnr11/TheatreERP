@@ -52,8 +52,9 @@ public class Controller {
     public String superadmin(Model model) {
         model.addAttribute("event", new Event());
         List<String> roles = employeeDao.getEmployeeRoles();
+        List<Event> eventList = eventDao.allEvent();
         model.addAttribute("roles", roles);
-
+        model.addAttribute("eventList", eventList);
         return "material";
     }
 

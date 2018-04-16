@@ -14,6 +14,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+
+//
+//@NamedQuery(name = "DatesOfEvent.getNameQuery",
+//        query = "SELECT datesOfEventList " +
+//                "from Event e WHERE e.startDate >:startDate and e.endDate <:endDate"
+//)
+
 @Entity
 public class Event {
 
@@ -24,21 +31,15 @@ public class Event {
     private String description;
     @Column
     private String title;
-    @Column
-    @Temporal(value= TemporalType.TIMESTAMP)
-    private Date startDateTime;
-    @Column
-    @Temporal(value= TemporalType.TIMESTAMP)
-    private Date endDateTime;
+    @JsonIgnore
+    @OneToMany(mappedBy = "event")
+    List<DatesOfEvent> datesOfEventList;
     @Column
     private String location;
     @Column
     private String type;
     @JsonIgnore
-    @OneToMany(mappedBy = "event")
-    private List<Comment> comments;
-    @JsonIgnore
-    @ManyToMany()
+    @ManyToMany
     private List<Employee> employeesToEvent;
     @ElementCollection
     @MapKeyColumn(name="name")
@@ -49,11 +50,9 @@ public class Event {
     public Event() {
     }
 
-    public Event(String description, String title, Date startDateTime, Date endDateTime, String location, String type) {
+    public Event(String description, String title, String location, String type) {
         this.description = description;
         this.title = title;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
         this.location = location;
         this.type = type;
     }
@@ -82,22 +81,6 @@ public class Event {
         this.title = title;
     }
 
-    public Date getStartDateTime() {
-        return startDateTime;
-    }
-
-    public void setStartDateTime(Date startDateTime) {
-        this.startDateTime = startDateTime;
-    }
-
-    public Date getEndDateTime() {
-        return endDateTime;
-    }
-
-    public void setEndDateTime(Date endDateTime) {
-        this.endDateTime = endDateTime;
-    }
-
     public String getLocation() {
         return location;
     }
@@ -118,13 +101,7 @@ public class Event {
         this.employeesInNumbersToEvent = employeesInNumbersToEvent;
     }
 
-    public List<Comment> getComments() {
-        return comments;
-    }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
 
     public List<Employee> getEmployeesToEvent() {
         return employeesToEvent;
@@ -134,11 +111,19 @@ public class Event {
         this.employeesToEvent = employeesToEvent;
     }
 
-    public long getDurationOfEvent() {
-        Date startDate = this.getStartDateTime();
-        Date endDate = this.getEndDateTime();
-        long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
-        long minutes = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
-        return minutes;
+    public List<DatesOfEvent> getDatesOfEvent() {
+        return datesOfEventList;
+    }
+
+    public void setDatesOfEventList(List<DatesOfEvent> datesOfEventList) {
+        this.datesOfEventList = datesOfEventList;
+    }
+
+    public void getDurationOfEvent() {
+//        Date startDate = this.getStartDateTime();
+//        Date endDate = this.getEndDateTime();
+//        long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
+//        long minutes = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+//        return minutes;
     }
 }

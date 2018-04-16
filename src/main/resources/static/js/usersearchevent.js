@@ -16,36 +16,32 @@ $( document ).ready(function() {
         var formData = {
             "searchdatestart": searchdatestart,
             "searchdateend": searchdateend
-            // searchdatestart: searchdatestart,
-            // searchdateend: searchdateend
         };
 
-        console.log(formData);
         $.ajax({
-            // contentType : "application/json",
-            // dataType : 'json',
             url : "/user/event/search",
             method : "POST",
             data : formData,
-            success : function(result) {
-                debugger;
+            success : function(searchResult) {
 
-                console.log(result);
-                if (Object.keys(result).length !== 0){
-                    $.each(result, function(i, event){
-                        var startDate = new Date(event.startDateTime);
-                        var endDate = new Date(event.endDateTime);
-                        var eventId = event.id;
-                        var date = "Esemenyek : " + event.title + " " + startDate + " " +
-                            endDate + " "+ event.description;
-                        // var link = "<a href='/event/" + eventId +"/description'>This is the link</a>";
+                if (Object.keys(searchResult).length !== 0){
+                    console.log(searchResult);
+                    $('#searchDiv .list-group').empty();
+                    $.each(searchResult, function(i, time){
+                        var title = time.event.title;
+                        var eventId = time.event.id;
+                        var start = time.datesOfEvent.startDate;
+                        var end = time.datesOfEvent.endDate;
+                        var startDate = new Date(start) ;
+                        var endDate = new Date(end);
+                        var dateId = time.datesOfEvent.id;
+                        $('#searchDiv .list-group').append('<li><a  href="user/event/'+eventId+ "/date/"+ dateId + '"  class="list-group-item">'+ title +" "+ startDate +" " + endDate +'</a></li>')
 
-                        $('#searchDiv .list-group').append('<li><a  href="user/event/'+ eventId + '/description"  class="list-group-item">'+date+'</a></li>')
                     });
                 }
                 else {
                     debugger;
-                    alert(Object.keys(result).length);
+                    alert(Object.keys(searchResult).length);
 
                     $('#getResultDiv .list-group').append('<li><h4 class="list-group-item">'+firstname +" "+  lastname +" sikeresen hozzadava"+'</h4></li>');
                 }
