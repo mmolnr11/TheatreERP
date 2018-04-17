@@ -55,23 +55,20 @@
             </div>
 
 
-            <div th:if="${not #lists.isEmpty(roles)}" class="reports" >
-                <div th:each="role : ${roles}">
-                    <h3 th:text="${role}"></h3>
+            <div>
+                <div>
                     <!--< class="example-container mat-elevation-z8">-->
 
                     <mat-table class="mat-table" id="allWorkingHours">
 
-                        <ng-container >
-                            <mat-header-cell class="admin-rep-head" >Név</mat-header-cell>
-                            <mat-cell class="admin-rep-head">Munka órák</mat-cell>
+                        <ng-container>
+                            <mat-cell>Pozició</mat-cell>
+                            <mat-cell th:text="${employee.getPosition()}">></mat-cell>
                         </ng-container>
-                        <div  th:each="employee:${employeeList}">
-                            <ng-container th:if="${role} == ${employee.getPosition()}">
-                                <mat-cell class="emp-name"><a href="#" th:href="@{'~/admin/' + ${employee.getId()} + '/employeelpage'}" th:text="${employee.getName()}"></a></mat-cell>
-                                <mat-cell th:text="${employee.getWorkingHours()}" class="emp-hours"></mat-cell>
-                            </ng-container>
-                        </div>
+                        <ng-container>
+                            <mat-cell>Név</mat-cell>
+                            <mat-cell th:text="${employee.getName()}">></mat-cell>
+                        </ng-container>
 
 
                     </mat-table>
