@@ -1,0 +1,85 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet"
+          href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css"/>
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js">
+    </script>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css"/>
+
+
+    <link href="//cdn.muicss.com/mui-0.9.38/css/mui.min.css" rel="stylesheet" type="text/css"/>
+    <script src="//cdn.muicss.com/mui-0.9.38/js/mui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/js/adminreports.js"></script>
+
+</head>
+
+<body>
+<!-- The drawer is always open in large screens. The header is always
+   shown, even in small screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+    <header class="mdl-layout__header">
+        <!-- Top row, always visible -->
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">TheatreERP</span>
+            <span class="mdl-layout-title"> A mi kis "Nagy" dobásunk </span><br/>
+            <span class="mdl-layout-title">User felület</span>
+        </div>
+
+        <!-- Tabs -->
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+            <a href="#scroll-tab-1" class="mdl-layout__tab is-active">Reportok</a>
+            <!--<a href = "#scroll-tab-2" class = "mdl-layout__tab">User hozzáadása</a>-->
+            <!--<a href = "#scroll-tab-3" class = "mdl-layout__tab">Esemeny hozzáadása</a>-->
+        </div>
+    </header>
+
+    <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Theatre ERP</span>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/admin">Főoldal</a>
+            <a class="mdl-navigation__link" href="">Hasznalati szabalyzat</a>
+            <a class="mdl-navigation__link" href="">Segitseg</a>
+        </nav>
+    </div>
+
+    <main class="mdl-layout__content">
+        <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
+
+            <div id="searchDiv">
+                <ul class="list-group">
+                </ul>
+            </div>
+
+
+            <div>
+                <div>
+                    <!--< class="example-container mat-elevation-z8">-->
+
+                    <mat-table class="mat-table" id="allWorkingHours">
+
+                        <ng-container>
+                            <mat-cell>Pozició</mat-cell>
+                            <mat-cell th:text="${employee.getPosition()}">></mat-cell>
+                        </ng-container>
+                        <ng-container>
+                            <mat-cell>Név</mat-cell>
+                            <mat-cell th:text="${employee.getName()}">></mat-cell>
+                        </ng-container>
+
+
+                    </mat-table>
+
+                </div>
+            </div>
+            <!--</div>-->
+
+        </section>
+    </main>
+</div>
+
+</body>
+</html>
