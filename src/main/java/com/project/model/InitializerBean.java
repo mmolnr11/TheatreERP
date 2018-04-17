@@ -19,7 +19,7 @@ public class InitializerBean {
 
 
         User user1 = new User("Szabo", "Andris", "andras.l.szabo@gmail.com", "pass", "admin", "Admin");
-        User user2 = new User("Szabo", "Gyozo", "andras.gyogyo.szabo@gmail.com3", "pass", "user", "Berendezo");
+        User user2 = new User("Szabo", "Gyozo", "andras.gyogyo.szabo@gmail.com", "pass", "user", "Berendezo");
         Vilagosito vilagosito = new Vilagosito("Kiss", "Miska",32, "Vilagosito");
         Vilagosito vilagosito2 = new Vilagosito("Nagy", "Elek",32, "Vilagosito");
         Berendezo berendezo = new Berendezo("Berendez", "ELek",32, "Berendezo");
