@@ -14,13 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-
-//
-//@NamedQuery(name = "DatesOfEvent.getNameQuery",
-//        query = "SELECT datesOfEventList " +
-//                "from Event e WHERE e.startDate >:startDate and e.endDate <:endDate"
-//)
-
 @Entity
 public class Event {
 
@@ -44,7 +37,6 @@ public class Event {
     @ElementCollection
     @MapKeyColumn(name="name")
     @Column(name="value")
-//    @CollectionTable(name="example_attributes", joinColumns=@JoinColumn(name="example_id"))
     private Map<String, Integer> employeesInNumbersToEvent;
 
     public Event() {

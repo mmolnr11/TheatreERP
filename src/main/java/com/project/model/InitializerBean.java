@@ -19,7 +19,7 @@ public class InitializerBean {
 
 
         User user1 = new User("Szabo", "Andris", "andras.l.szabo@gmail.com", "pass", "admin", "Admin");
-        User user2 = new User("Szabo", "Gyozo", "andras.gyogyo.szabo@gmail.com3", "pass", "user", "Berendezo");
+        User user2 = new User("Szabo", "Gyozo", "andras.gyogyo.szabo@gmail.com", "pass", "user", "Berendezo");
         Vilagosito vilagosito = new Vilagosito("Kiss", "Miska",32, "Vilagosito");
         Vilagosito vilagosito2 = new Vilagosito("Nagy", "Elek",32, "Vilagosito");
         Berendezo berendezo = new Berendezo("Berendez", "ELek",32, "Berendezo");
@@ -48,9 +48,7 @@ public class InitializerBean {
         Event event3 = new Event("6 vilagosito", "Pinokkio","terem", "proba");
 
 //        List<DatesOfEvent> datesOfEventArrayList = new ArrayList<>();
-        DatesOfEvent datesOfEvent = new DatesOfEvent( event2,newdate4,newdate5);
-        DatesOfEvent datesOfEvent2 = new DatesOfEvent( event2,newdate3,newdate2);
-        DatesOfEvent datesOfEvent3 = new DatesOfEvent( event1,newdate,newdate1);
+
 
 //        datesOfEventArrayList.add(datesOfEvent);
 //        datesOfEventArrayList.add(datesOfEvent2);
@@ -65,8 +63,7 @@ public class InitializerBean {
         employees.add(berendezo);
         event1.setEmployeesToEvent(employees);
         event2.setEmployeesToEvent(employees);
-        Comment comment1 = new Comment("andris szep gyerek",user2,datesOfEvent);
-        Comment comment2 = new Comment("csak sokat cigizik",user1,datesOfEvent);
+
 
 //        List<Comment> comments = new ArrayList<>();
 //        comments.add(comment1);
@@ -86,6 +83,14 @@ public class InitializerBean {
         event2.setEmployeesInNumbersToEvent(hashMap);
         event3.setEmployeesInNumbersToEvent(hashMap);
 
+        DatesOfEvent datesOfEvent = new DatesOfEvent( event2,newdate4,newdate5);
+        datesOfEvent.setNumbersOfEmployeeByPosition(hashMap);
+        DatesOfEvent datesOfEvent2 = new DatesOfEvent( event2,newdate3,newdate2);
+        DatesOfEvent datesOfEvent3 = new DatesOfEvent( event1,newdate,newdate1);
+        Comment comment1 = new Comment("andris szep gyerek",user2,datesOfEvent);
+        Comment comment2 = new Comment("csak sokat cigizik",user1,datesOfEvent);
+
+        
         employeeDao.saveEmployee(vilagosito2);
 
 

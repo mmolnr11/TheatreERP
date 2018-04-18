@@ -3,14 +3,13 @@ package com.project.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
-@NamedQuery(name = "DatesOfEvent.getNameQuery",
-        query = "SELECT startDate, endDate " +
-                "from DatesOfEvent d WHERE d.startDate >:startDate and d.endDate <:endDate"
-)
+//@NamedQuery(name = "DatesOfEvent.getNameQuery",
+//        query = "SELECT startDate, endDate " +
+//                "from DatesOfEvent d WHERE d.startDate >:startDate and d.endDate <:endDate"
+//)
 
 
 
@@ -26,12 +25,20 @@ public class DatesOfEvent {
     @JsonIgnore
     @OneToMany(mappedBy = "datesOfEvent")
     private List<Comment> comments;
-//    TODO MANYTOMANY WITH EMP
+    @ElementCollection
+    @MapKeyColumn(name="name")
+    @Column(name="value")
+//    private Map<String, ArrayList<Employee>> numbersOfEmployeeByPosition ;
+    private Map<String, EmployeeAssigment> numbersOfEmployeeByPosition ;
+
 
     public DatesOfEvent(Event event, Date startDate, Date endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.event = event;
+        this.numbersOfEmployeeByPosition = new HashMap<>();
+
+
     }
     public DatesOfEvent(Date startDate, Date endDate) {
         this.startDate = startDate;
@@ -71,5 +78,24 @@ public class DatesOfEvent {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Map<String, EmployeeAssigment> getNumbersOfEmployeeByPosition() {
+        return numbersOfEmployeeByPosition;
+    }
+
+    public void setNumbersOfEmployeeByPosition(Map<String, Integer> map) {
+
+//        for (String key : map.keySet()) {
+////            System.out.println("keyset "+key);
+//            ArrayList<Employee> employees = new ArrayList<>();
+//            Berendezo berendezo = new Berendezo("Berendezo", "ELek",32, "Berendezo");
+//            employees.add(berendezo);
+//
+//            this.numbersOfEmployeeByPosition.put(key, employees);
+////        }
+//
+//        }
+
     }
 }

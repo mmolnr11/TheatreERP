@@ -80,14 +80,12 @@
                            th:text="${event.getTitle()} + ' ' +
                            ${date.getStartDate()} + ' ' +
                            ${date.getEndDate()}"></a>
-                        <!--<tr>-->
-                            <!--<td ></td>-->
-                            <!--<td th:text=""></td>-->
-                            <!--<td th:text=""></td>-->
-                        <!--</tr>-->
+
                     </div>
 
                 </div>
+
+
 
 
                 <form id="addDates" method="post">
@@ -116,10 +114,6 @@
                     </div>
                     <button  th:name="${event.getId()}" name="" type="button" id="addDateButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Új időpont hozzáadása </button>
                 </form>
-                <!--<div class = "mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
-                <!--<input class = "mdl-textfield__input" type="text" rows ="3" id ="position" th:value="${user.getPosition()}" name="position"/>-->
-                <!--<label class = "mdl-textfield__label" for = "position">Position</label>-->
-                <!--</div>-->
             </div>
             <div id="searchDiv">
                 <ul class="list-group">

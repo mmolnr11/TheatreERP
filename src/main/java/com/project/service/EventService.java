@@ -78,7 +78,6 @@ public class EventService {
         for (Map.Entry<String,Integer> entry : eployeesMap.entrySet()){
             if(entry.getKey().equals(role)){
                 roleCorrect = entry.getKey();
-
                 wantedNumberOfEmployees = entry.getValue();
                 detailsToEmpAssignement.add(roleCorrect);
                 detailsToEmpAssignement.add(wantedNumberOfEmployees);

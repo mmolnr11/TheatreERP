@@ -15,8 +15,6 @@
 
         console.log(formData);
         $.ajax({
-            // contentType : "application/json",
-            // dataType : 'json',
             url : "/admin/event/addDate",
             method : "POST",
             data : formData,
@@ -25,19 +23,14 @@
 
                 console.log(result);
                 if (Object.keys(result).length !== 0){
-                    console.log(result.startDate);
-                    console.log(result.id);
                     var start = new Date(result.startDate);
-                    var link = '<a href="admin/event/'+ eventId + "/date/"+ result.id+'">';
-                    // var link = '<a href="admin/event/'+ eventId + "/date/"+ result.id+'">';
-                    $("#datesToEvent").append(link + title + " "+
-                        dayOfEvent + " " +
+                    // TODO new url needs to be fixed it is
+                    // http://localhost:9000/admin/event/2/admin/event/2/date/2
+                    $("#datesToEvent").append('<a  href="admin/event/'+eventId+ "/date/"+ eventId + '"  ' +
+                        'class="list-group-item">'+ title +" "+ dayOfEvent + " " +
                         startTime + ":00.0 "+
                         dayOfEvent + " " +
-                        endTime +":00.0 "+ '</a>')
-
-                    // $.each(result, function(i, event){
-                    // });
+                        endTime +":00.0 "+ '</a></br>');
                 }
                 else {
                     debugger;
