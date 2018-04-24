@@ -50,12 +50,13 @@ public class EventController {
         String roleCorrect = (String) detailsOfOrderedEmployees.get(0);
         Integer wantedNumberOfEmployees = (Integer) detailsOfOrderedEmployees.get(1);
         List<Employee> notYetOrderedEmployees = eventService.selectingNotOrderedEmployees(event, roleCorrect);
-        int alreadyAssignedEmployees = event.getEmployeesToEvent().size();
-        int actualNumberOfEmployees = wantedNumberOfEmployees - alreadyAssignedEmployees;
+//        int alreadyAssignedEmployees = event.getEmployeesToEvent().size();
+//        int actualNumberOfEmployees = wantedNumberOfEmployees - alreadyAssignedEmployees;
 
         model.addAttribute("event", event);
         model.addAttribute("roleString", roleCorrect);
-        model.addAttribute("roleInteger", actualNumberOfEmployees);
+//        model.addAttribute("roleInteger", actualNumberOfEmployees);
+        model.addAttribute("roleInteger", 32);
         model.addAttribute("employees", notYetOrderedEmployees);
         return "user-event-detail-material";
     }
@@ -81,12 +82,13 @@ public class EventController {
         Integer wantedNumberOfEmployees = (Integer) detailsOfOrderedEmployees.get(1);
 
         List<Employee> notYetOrderedEmployees = eventService.selectingNotOrderedEmployees(event, roleCorrect);
-        int alreadyAssignedEmployees = event.getEmployeesToEvent().size();
-        int actualNumberOfEmployees = wantedNumberOfEmployees - alreadyAssignedEmployees;
+//        int alreadyAssignedEmployees = event.getEmployeesToEvent().size();
+//        int actualNumberOfEmployees = wantedNumberOfEmployees - alreadyAssignedEmployees;
 
         model.addAttribute("event", event);
         model.addAttribute("roleString", roleCorrect);
-        model.addAttribute("roleInteger", actualNumberOfEmployees);
+        model.addAttribute("roleInteger", 45);
+//        model.addAttribute("roleInteger", actualNumberOfEmployees);
         model.addAttribute("employees", notYetOrderedEmployees);
         return "user-event-detail";
     }

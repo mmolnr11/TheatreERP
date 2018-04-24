@@ -17,6 +17,7 @@ import java.util.*;
 public class DatesOfEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "date_id")
     private Long id;
     private Date startDate, endDate;
     @JsonIgnore
@@ -25,20 +26,19 @@ public class DatesOfEvent {
     @JsonIgnore
     @OneToMany(mappedBy = "datesOfEvent")
     private List<Comment> comments;
-    @ElementCollection
-    @MapKeyColumn(name="name")
-    @Column(name="value")
-//    private Map<String, ArrayList<Employee>> numbersOfEmployeeByPosition ;
-    private Map<String, EmployeeAssigment> numbersOfEmployeeByPosition ;
+
+
+    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST},fetch = FetchType.EAGER)
+    @JoinTable(name="EMPLOYEEASSIGNEMENT_TO_DATE", joinColumns={@JoinColumn(name="DATE", referencedColumnName="date_id")},
+    inverseJoinColumns={@JoinColumn(name="EMPLOYEE", referencedColumnName="employee_id")})
+    private List<Employee> employeesOfDates = new ArrayList<>();
+
 
 
     public DatesOfEvent(Event event, Date startDate, Date endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.event = event;
-        this.numbersOfEmployeeByPosition = new HashMap<>();
-
-
     }
     public DatesOfEvent(Date startDate, Date endDate) {
         this.startDate = startDate;
@@ -80,22 +80,31 @@ public class DatesOfEvent {
         this.comments = comments;
     }
 
-    public Map<String, EmployeeAssigment> getNumbersOfEmployeeByPosition() {
-        return numbersOfEmployeeByPosition;
+    public List<Employee> getEmployeesOfDates() {
+        return employeesOfDates;
     }
 
-    public void setNumbersOfEmployeeByPosition(Map<String, Integer> map) {
+    public void setEmployeesOfDates(List<Employee> employeesOfDates) {
+        this.employeesOfDates = employeesOfDates;
+    }
 
-//        for (String key : map.keySet()) {
-////            System.out.println("keyset "+key);
-//            ArrayList<Employee> employees = new ArrayList<>();
-//            Berendezo berendezo = new Berendezo("Berendezo", "ELek",32, "Berendezo");
-//            employees.add(berendezo);
+    public void addEmployee(Employee employee){
+        this.employeesOfDates.add(employee);
+        employee.getDatesToEmployee().add(this);
+    }
+
+    //    public void setNumbersOfEmployeeByPosition(Map<String, Integer> map) {
 //
-//            this.numbersOfEmployeeByPosition.put(key, employees);
+////        for (String key : map.keySet()) {
+//////            System.out.println("keyset "+key);
+////            ArrayList<Employee> employees = new ArrayList<>();
+////            Berendezo berendezo = new Berendezo("Berendezo", "ELek",32, "Berendezo");
+////            employees.add(berendezo);
+////
+////            this.numbersOfEmployeeByPosition.put(key, employees);
+//////        }
+////
 ////        }
 //
-//        }
-
-    }
+//    }
 }
