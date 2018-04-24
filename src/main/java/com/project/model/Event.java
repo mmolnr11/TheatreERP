@@ -31,9 +31,9 @@ public class Event {
     private String location;
     @Column
     private String type;
-    @JsonIgnore
-    @ManyToMany
-    private List<Employee> employeesToEvent;
+//    @JsonIgnore
+//    @ManyToMany
+//    private List<Employee> employeesToEvent;
     @ElementCollection
     @MapKeyColumn(name="name")
     @Column(name="value")
@@ -93,16 +93,6 @@ public class Event {
         this.employeesInNumbersToEvent = employeesInNumbersToEvent;
     }
 
-
-
-    public List<Employee> getEmployeesToEvent() {
-        return employeesToEvent;
-    }
-
-    public void setEmployeesToEvent(List<Employee> employeesToEvent) {
-        this.employeesToEvent = employeesToEvent;
-    }
-
     public List<DatesOfEvent> getDatesOfEvent() {
         return datesOfEventList;
     }
@@ -118,4 +108,12 @@ public class Event {
 //        long minutes = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
 //        return minutes;
     }
+
+//    public List<Employee> getEmployeesToEvent() {
+//        return employeesToEvent;
+//    }
+//
+//    public void setEmployeesToEvent(List<Employee> employeesToEvent) {
+//        this.employeesToEvent = employeesToEvent;
+//    }
 }

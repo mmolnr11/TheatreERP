@@ -99,7 +99,7 @@ public class EventService {
         List<Employee> employees = employeeDao.getEmmployessByRoles(roleCorrect);
 
         notYetOrderedEmployees = employees;
-        alreadyOrderedEmployees = event.getEmployeesToEvent();
+//        alreadyOrderedEmployees = event.getEmployeesToEvent();
         for (int i = 0; i < alreadyOrderedEmployees.size(); i++) {
             for (int j = 0; j < notYetOrderedEmployees.size(); j++) {
                 if (notYetOrderedEmployees.get(j).getId() == alreadyOrderedEmployees.get(i).getId()){
@@ -125,13 +125,11 @@ public class EventService {
                     notYetOrderedEmployees.remove(i);
                 }
             }
-            event.setEmployeesToEvent(alreadyOrderedEmployees);
+//            event.setEmployeesToEvent(alreadyOrderedEmployees);
             eventDao.saveEvent(event);
             return inputEmployee.getName();
-//            Response response = new Response("Done", inputEmployee.getName());
         }
         else {
-//            Response response = new Response("Done", "Kerlek addj hozza valakit");
             return "Kerlek addj hozza valakit";
         }
 
@@ -164,7 +162,7 @@ public class EventService {
         Employee inputEmployee = employeeDao.findEmployee(Long.valueOf(employeeId));
         Event event = eventDao.findOne(Long.valueOf(eventId));
         List<Employee> employees = employeeDao.getAllEmployee();
-        List<Employee> alreadyOrderedEmployees = event.getEmployeesToEvent();
+//        List<Employee> alreadyOrderedEmployees = event.getEmployeesToEvent();
         for (int i = 0; i <employees.size(); i++) {
             if (employees.get(i).getName().equals(name)){
                 notYetOrderedEmployees.add(employees.get(i));
@@ -173,7 +171,7 @@ public class EventService {
         }
 //        removeWorkingHoures(event,inputEmployee);
 
-        event.setEmployeesToEvent(alreadyOrderedEmployees);
+//        event.setEmployeesToEvent(alreadyOrderedEmployees);
         eventDao.saveEvent(event);
         return name;
     }

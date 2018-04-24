@@ -4,7 +4,6 @@ package com.project.model;
 import com.project.dao.*;
 //import com.project.dao.RoleDao;
 //import com.project.repository.RoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,8 @@ import java.util.*;
 
 @Component
 public class InitializerBean {
-    public InitializerBean(CommentDao commentDao, DatesOfEventDao datesOfEventDao,
+    public InitializerBean(CommentDao commentDao,
+                           DatesOfEventDao datesOfEventDao,
                            EmployeeDao employeeDao, UserDao userDao, EventDao eventDao, BCryptPasswordEncoder bCryptPasswordEncoder) throws ParseException {
 
 
@@ -47,31 +47,9 @@ public class InitializerBean {
         Event event2 = new Event("5 berendezo", "Songoku","terem", "eloadas");
         Event event3 = new Event("6 vilagosito", "Pinokkio","terem", "proba");
 
-//        List<DatesOfEvent> datesOfEventArrayList = new ArrayList<>();
-
-
-//        datesOfEventArrayList.add(datesOfEvent);
-//        datesOfEventArrayList.add(datesOfEvent2);
-//
-//
-//        event2.setDatesOfEventList(datesOfEventArrayList);
-
-//        berendezo.setWorkingHours(event1.getDurationOfEvent());
-//        berendezo2.setWorkingHours(event1.getDurationOfEvent());
-        List<Employee> employees = new ArrayList<>();
+        ArrayList<Employee> employees = new ArrayList<>();
         employees.add(berendezo2);
         employees.add(berendezo);
-        event1.setEmployeesToEvent(employees);
-        event2.setEmployeesToEvent(employees);
-
-
-//        List<Comment> comments = new ArrayList<>();
-//        comments.add(comment1);
-//        comments.add(comment2);
-//        event2.setComments(comments);
-
-
-
 
         user1.setPassword(bCryptPasswordEncoder.encode(user1.getPassword()));
         user2.setPassword(bCryptPasswordEncoder.encode(user2.getPassword()));
@@ -83,38 +61,71 @@ public class InitializerBean {
         event2.setEmployeesInNumbersToEvent(hashMap);
         event3.setEmployeesInNumbersToEvent(hashMap);
 
-        DatesOfEvent datesOfEvent = new DatesOfEvent( event2,newdate4,newdate5);
-        datesOfEvent.setNumbersOfEmployeeByPosition(hashMap);
+
+
+        DatesOfEvent datesOfEvent1 = new DatesOfEvent( event2,newdate4,newdate5);
+//        datesOfEvent.setNumbersOfEmployeeByPosition(hashMap);
         DatesOfEvent datesOfEvent2 = new DatesOfEvent( event2,newdate3,newdate2);
         DatesOfEvent datesOfEvent3 = new DatesOfEvent( event1,newdate,newdate1);
-        Comment comment1 = new Comment("andris szep gyerek",user2,datesOfEvent);
-        Comment comment2 = new Comment("csak sokat cigizik",user1,datesOfEvent);
+        Comment comment1 = new Comment("andris szep gyerek",user2,datesOfEvent1);
+        Comment comment2 = new Comment("csak sokat cigizik",user1,datesOfEvent1);
 
-        
-        employeeDao.saveEmployee(vilagosito2);
+        List<Comment> comments = new ArrayList<>();
+        comments.add(comment1);
+        comments.add(comment2);
 
-
-        employeeDao.saveEmployee(vilagosito);
-
-        employeeDao.saveEmployee(berendezo);
-
-        employeeDao.saveEmployee(berendezo2);
-        employeeDao.saveEmployee(berendezo3);
-        employeeDao.saveEmployee(berendezo4);
-
+        List<DatesOfEvent> datesOfEventsList = new ArrayList<>();
+        datesOfEventsList.add(datesOfEvent1);
+        datesOfEventsList.add(datesOfEvent2);
+        datesOfEventsList.add(datesOfEvent3);
 
         eventDao.saveEvent(event1);
         eventDao.saveEvent(event2);
         eventDao.saveEvent(event3);
 
+        datesOfEvent1.setComments(comments);
+
+        datesOfEvent1.addEmployee(berendezo);
+        datesOfEvent1.addEmployee(berendezo2);
+        datesOfEvent1.addEmployee(berendezo3);
+
+//        employeeDao.saveEmployee(vilagosito2);
+//        employeeDao.saveEmployee(vilagosito);
+//        employeeDao.saveEmployee(berendezo);
+//        employeeDao.saveEmployee(berendezo2);
+//        employeeDao.saveEmployee(berendezo3);
+//        employeeDao.saveEmployee(berendezo4);
+
+
+        datesOfEventDao.saveDate(datesOfEvent1);
+        datesOfEventDao.saveDate(datesOfEvent2);
+        datesOfEventDao.saveDate(datesOfEvent3);
+
 //TODO
         userDao.saveUser(user1);
         userDao.saveUser(user2);
-        datesOfEventDao.saveDate(datesOfEvent);
-        datesOfEventDao.saveDate(datesOfEvent2);
-        datesOfEventDao.saveDate(datesOfEvent3);
+
         commentDao.saveComment(comment1);
         commentDao.saveComment(comment2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }
