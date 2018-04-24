@@ -31,8 +31,8 @@
         <!-- Top row, always visible -->
         <div class = "mdl-layout__header-row">
             <!-- Title -->
-            <span class = "mdl-layout-title">TheatreERP</span><br/>
-            <span class = "mdl-layout-title"> A mi kis "Nagy" dobásunk </span><br/>
+            <span class = "mdl-layout-title">TheatreERP<br/></span>
+            <span class = "mdl-layout-title"> A mi kis "Nagy" dobásunk <br/> </span>
             <span class = "mdl-layout-title">User felület</span>
         </div>
 
@@ -110,7 +110,8 @@
                 </div>
 
                 <div class="buttonpara">
-                    <div th:each="assignedEmployee : ${datesOfEvent.getEmployeesOfDates()}">
+                    <div th:each="assignedEmployee : ${datesOfEvent.getEmployeesOfDates()}"
+                         th:if="${assignedEmployee.getPosition()} == ${userRole}">
                         <button th:name="${assignedEmployee.getName()}"
                                 th:text="${assignedEmployee.getName()}"
                                 class="button"

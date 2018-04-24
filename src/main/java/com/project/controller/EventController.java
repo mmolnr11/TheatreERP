@@ -104,7 +104,6 @@ public class EventController {
         int assignedNumberByAdmin = eventService.getOrderedNumberByAdmin(event,userRole);
         int actualNumberAssigned = assignedNumberByAdmin - assignedEmployeesSortedByPosition.size();
 
-
         model.addAttribute("event", event);
         model.addAttribute("actualNumberAssigned", actualNumberAssigned);
         model.addAttribute("userRole", userRole);//TODO change HTML

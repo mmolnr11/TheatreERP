@@ -20,11 +20,11 @@ public class InitializerBean {
 
         User user1 = new User("Szabo", "Andris", "andras.l.szabo@gmail.com", "pass", "admin", "Admin");
         User user2 = new User("Szabo", "Gyozo", "andras.gyogyo.szabo@gmail.com", "pass", "user", "Berendezo");
-        Vilagosito vilagosito = new Vilagosito("Kiss", "Miska",32, "Vilagosito");
-        Vilagosito vilagosito2 = new Vilagosito("Nagy", "Elek",32, "Vilagosito");
+        Vilagosito vilagosito = new Vilagosito("Vilagosito", "Miska",32, "Vilagosito");
+        Vilagosito vilagosito2 = new Vilagosito("Vilagosito", "Elek",32, "Vilagosito");
         Berendezo berendezo = new Berendezo("Berendez", "ELek",32, "Berendezo");
-        Berendezo berendezo3 = new Berendezo("Csuka", "Monika",32, "Berendezo");
-        Berendezo berendezo4 = new Berendezo("Stohl", "Andras",32, "Berendezo");
+        Berendezo berendezo3 = new Berendezo("BerendezCsuka", "Monika",32, "Berendezo");
+        Berendezo berendezo4 = new Berendezo("BerendezőStohl", "Andras",32, "Berendezo");
         Berendezo berendezo2 = new Berendezo("Megrendez", "Nelli",32, "Berendezo");
 
         SimpleDateFormat dateformat2 = new SimpleDateFormat("MM/dd/yyyy HH:mm");
@@ -87,14 +87,17 @@ public class InitializerBean {
 
         datesOfEvent1.addEmployee(berendezo);
         datesOfEvent1.addEmployee(berendezo2);
+        datesOfEvent1.addEmployee(vilagosito);
+        datesOfEvent1.addEmployee(vilagosito2);
+
 //        datesOfEvent1.addEmployee(berendezo3);
 
 //        employeeDao.saveEmployee(vilagosito2);
 //        employeeDao.saveEmployee(vilagosito);
 //        employeeDao.saveEmployee(berendezo);
 //        employeeDao.saveEmployee(berendezo2);
-//        employeeDao.saveEmployee(berendezo3);
-//        employeeDao.saveEmployee(berendezo4);
+        employeeDao.saveEmployee(berendezo3);
+        employeeDao.saveEmployee(berendezo4);
 
 
         datesOfEventDao.saveDate(datesOfEvent1);

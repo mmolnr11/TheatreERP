@@ -21,13 +21,12 @@ public class EmployeeDao {
         employeeRepository.save(employee);
     }
     public Employee findEmployee(Long id){return employeeRepository.findOne(id);};
+    //TODO renaming roles vs position
     public List<String> getEmployeeRoles (){
       return employeeRepository.getEmployeePositions();
     }
     public List<Employee> getEmmployessByRoles(String role){
         return employeeRepository.findAllByPosition(role);
     }
-//
-//  public Employee findByName(String name) {return employeeRepository.findByName(name);}
 
 }

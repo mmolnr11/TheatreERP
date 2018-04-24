@@ -76,35 +76,19 @@ public class RestWebController {
     }
 
 
+    @RequestMapping(value = "/admin/event/search", method = RequestMethod.POST)
+    public List<SearchResult> searchAsAdmin (@RequestParam("searchdatestart") String startDate,
+                                            @RequestParam("searchdateend") String endDate) throws ParseException {
+        List<SearchResult> dates = dateValidation.getDatesBetweenStartAndEnd(startDate, endDate);
+        return dates;
+    }
+
+
     @RequestMapping(value = "/user/event/search", method = RequestMethod.POST)
     public List<SearchResult> searchAsUser (@RequestParam("searchdatestart") String startDate,
-                                 @RequestParam("searchdateend") String endDate) throws ParseException {
-        DatesOfEvent date = dateValidation.createDateNew(startDate,endDate);
-        Timestamp timeStampStart = new Timestamp(date.getStartDate()
-                .getTime());
-        Timestamp timeStampEnd = new Timestamp(date.getEndDate()
-                .getTime());
-
-        List<SearchResult> talalt = new ArrayList<>();
-        Map hashMap = new HashMap<String, DatesOfEvent>();
-
-
-        for (Event event: eventDao.allEvent()
-             ) {
-            for (DatesOfEvent dateOfAnEvent: event.getDatesOfEvent()
-                 ) {
-                    if( dateOfAnEvent.getStartDate().after(timeStampStart)
-                            &&
-                            dateOfAnEvent.getEndDate().before(timeStampEnd)){
-                        hashMap.put(event.getTitle(),dateOfAnEvent);
-                        SearchResult searchResult =
-                                new SearchResult(event,dateOfAnEvent);
-                        talalt.add(searchResult);
-                    }
-            }
-        }
-
-        return talalt;
+                                            @RequestParam("searchdateend") String endDate) throws ParseException {
+        List<SearchResult> dates = dateValidation.getDatesBetweenStartAndEnd(startDate, endDate);
+        return dates;
     }
 
     @RequestMapping(value = "/event/add-user", method = RequestMethod.POST)
