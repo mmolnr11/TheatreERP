@@ -107,7 +107,7 @@ public class InitializerBean {
         eventDao.saveEvent(event2);
         eventDao.saveEvent(event3);
 
-
+//TODO
         userDao.saveUser(user1);
         userDao.saveUser(user2);
         datesOfEventDao.saveDate(datesOfEvent);
