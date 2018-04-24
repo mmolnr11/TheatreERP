@@ -68,46 +68,8 @@ public class EventController {
 
     }
 
-
-
     List<Employee> notYetOrderedEmployees = new ArrayList<Employee>();
     List<Employee> alreadyOrderedEmployees = new ArrayList<Employee>();
-
-// TODO DELET THIS
-    @GetMapping(value="event/user/{id}/description")
-    public String userGetEventDescription(Model model, @PathVariable("id") Long id, Principal principal){
-        Event event = eventDao.findOne(id);
-        List detailsOfOrderedEmployees = eventService.gettingDesiredEmpNumberToOneEvent(event,principal);
-        String roleCorrect = (String) detailsOfOrderedEmployees.get(0);
-        Integer wantedNumberOfEmployees = (Integer) detailsOfOrderedEmployees.get(1);
-
-        List<Employee> notYetOrderedEmployees = eventService.selectingNotOrderedEmployees(event, roleCorrect);
-//        int alreadyAssignedEmployees = event.getEmployeesToEvent().size();
-//        int actualNumberOfEmployees = wantedNumberOfEmployees - alreadyAssignedEmployees;
-
-        model.addAttribute("event", event);
-        model.addAttribute("roleString", roleCorrect);
-        model.addAttribute("roleInteger", 45);
-//        model.addAttribute("roleInteger", actualNumberOfEmployees);
-        model.addAttribute("employees", notYetOrderedEmployees);
-        return "user-event-detail";
-    }
-
-
-
-// TODO HTML for this rout
-
-
-
-    @RequestMapping(value = "admin/event/{id}/datelist")
-    public String addDateToEvent (Model model, @PathVariable("id") String id){
-        Long eventId = Long.valueOf(id);
-        Event event = eventDao.findOne(eventId);
-        model.addAttribute("event", event);
-        return "admin-datelist-to-event";
-    }
-
-
 
     @RequestMapping(value = "admin/event/{eventid}/date/{dateid}")
     public String eventAtDate(Model model,Principal principal,
@@ -123,5 +85,66 @@ public class EventController {
         model.addAttribute("datesOfEvent", datesOfEvent);
         return "admin-one-date-to-event-view";
     }
+
+
+
+    @RequestMapping(value = "user/event/{eventid}/date/{dateid}")
+    public String userViewAssignedEmployeeToDate(Model model,Principal principal,
+                                                 @PathVariable("eventid")String eventid,
+                                                 @PathVariable("dateid")String dateid){
+        Long eventId = Long.valueOf(eventid);
+        Long dateId = Long.valueOf(dateid);
+        Event event = eventDao.findOne(eventId);
+        DatesOfEvent datesOfEvent = datesOfEventDao.findDate(dateId);
+        String userRole = getPrincipalRole(principal);
+
+        List<Employee> assignedEmployeesSortedByPosition = eventService.getAssignedEmployeesToDate(userRole,datesOfEvent);
+        List<Employee> allEmployeesByPosition = employeeDao.getEmmployessByRoles(userRole);
+        List<Employee> notYetAssignedEmployees = eventService.getNotYetAssigned(assignedEmployeesSortedByPosition,allEmployeesByPosition);
+        int assignedNumberByAdmin = eventService.getOrderedNumberByAdmin(event,userRole);
+        int actualNumberAssigned = assignedNumberByAdmin - assignedEmployeesSortedByPosition.size();
+
+
+        model.addAttribute("event", event);
+        model.addAttribute("actualNumberAssigned", actualNumberAssigned);
+        model.addAttribute("userRole", userRole);//TODO change HTML
+        model.addAttribute("datesOfEvent", datesOfEvent);
+        model.addAttribute("notYetAssignedEmployees", notYetAssignedEmployees);
+
+        return "user-event-detail-material";
+
+
+    }
+
+    @RequestMapping(value = "admin/event/{id}/datelist")
+    public String addDateToEvent (Model model, @PathVariable("id") String id){
+        Long eventId = Long.valueOf(id);
+        Event event = eventDao.findOne(eventId);
+        model.addAttribute("event", event);
+        return "admin-datelist-to-event";
+    }
+
+
+
+    //// TODO DELET THIS
+//    @GetMapping(value="event/user/{id}/description")
+//    public String userGetEventDescription(Model model, @PathVariable("id") Long id, Principal principal){
+//        Event event = eventDao.findOne(id);
+//        List detailsOfOrderedEmployees = eventService.gettingDesiredEmpNumberToOneEvent(event,principal);
+//        String roleCorrect = (String) detailsOfOrderedEmployees.get(0);
+//        Integer wantedNumberOfEmployees = (Integer) detailsOfOrderedEmployees.get(1);
+//
+//        List<Employee> notYetOrderedEmployees = eventService.selectingNotOrderedEmployees(event, roleCorrect);
+////        int alreadyAssignedEmployees = event.getEmployeesToEvent().size();
+////        int actualNumberOfEmployees = wantedNumberOfEmployees - alreadyAssignedEmployees;
+//
+//        model.addAttribute("event", event);
+//        model.addAttribute("roleString", roleCorrect);
+//        model.addAttribute("roleInteger", 45);
+////        model.addAttribute("roleInteger", actualNumberOfEmployees);
+//        model.addAttribute("employees", notYetOrderedEmployees);
+//        return "user-event-detail";
+//    }
+
 
 }

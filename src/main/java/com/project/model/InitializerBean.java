@@ -87,7 +87,7 @@ public class InitializerBean {
 
         datesOfEvent1.addEmployee(berendezo);
         datesOfEvent1.addEmployee(berendezo2);
-        datesOfEvent1.addEmployee(berendezo3);
+//        datesOfEvent1.addEmployee(berendezo3);
 
 //        employeeDao.saveEmployee(vilagosito2);
 //        employeeDao.saveEmployee(vilagosito);

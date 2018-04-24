@@ -31,7 +31,7 @@
         <!-- Top row, always visible -->
         <div class = "mdl-layout__header-row">
             <!-- Title -->
-            <span class = "mdl-layout-title">TheatreERP</span>
+            <span class = "mdl-layout-title">TheatreERP</span><br/>
             <span class = "mdl-layout-title"> A mi kis "Nagy" dobásunk </span><br/>
             <span class = "mdl-layout-title">User felület</span>
         </div>
@@ -74,24 +74,24 @@
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <p>Kezdes</p>
-                    <p th:text="${event.getStartDateTime()}"></p>
+                    <p th:text="${datesOfEvent.getStartDate()}"></p>
                 </div>
 
                 <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <p>Vege</p>
-                    <p th:text="${event.getEndDateTime()}"></p>
+                    <p th:text="${datesOfEvent.getEndDate()}"></p>
                 </div>
 
                 <div>
-                    <form id="customerForm">
+                    <form id="assigneEmployeeForm">
                         <tr>
-                            <p th:text="${roleString}">keyvalue</p>
-                            <p id="numOfEmployee" th:text="${roleInteger}">num</p>
+                            <p th:text="${userRole}">keyvalue</p>
+                            <p id="numOfEmployee" th:text="${actualNumberAssigned}">num</p>
                             <p id="noValue"></p>
                             <select name="" id="employee">
                                 <option value="" selected="true" disabled="disabled">Kerlek valassz egyet</option>
-                                <option th:each="employee : ${employees}"
-                                        th:if="${employee.getPosition()} == ${roleString}"
+                                <option th:each="employee : ${notYetAssignedEmployees}"
+                                        th:if="${employee.getPosition()} == ${userRole}"
                                         th:text="${employee.getName()}" th:value="${employee.getId()}"
                                 ></option>
                                 <!--th:value="${employee.getId()}"-->
@@ -110,19 +110,19 @@
                 </div>
 
                 <div class="buttonpara">
-                    <div th:each="orderedEmployee : ${event.getEmployeesToEvent()}">
-                        <button th:name="${orderedEmployee.getName()}"
-                                th:text="${orderedEmployee.getName()}"
+                    <div th:each="assignedEmployee : ${datesOfEvent.getEmployeesOfDates()}">
+                        <button th:name="${assignedEmployee.getName()}"
+                                th:text="${assignedEmployee.getName()}"
                                 class="button"
-                                th:id="${orderedEmployee.getId()}">
+                                th:id="${assignedEmployee.getId()}">
                             nevecske
                         </button>
                     </div>
                 </div>
 
-                <div id="divComment" th:class = "${event.getId()}">
+                <div id="divComment" th:class = "${datesOfEvent.getId()}">
                     <p>Korabbi kommentek</p>
-                    <div  th:each="comment : ${event.getComments()}">
+                    <div  th:each="comment : ${datesOfEvent.getComments()}">
                         <tr>
                             <td th:text="${comment.getDescription()}"></td>
                             <!--<td th:text="${comment.getUser().getName()}"></td>-->
@@ -139,7 +139,7 @@
                         <input class = "mdl-textfield__input" type="text" rows ="3" id ="comment" name="comment"/>
                         <label class = "mdl-textfield__label" for = "comment">Uj Komment</label>
                     </div>
-                    <button  th:name="${roleString}" name="" type="button" id="addCommentButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj Komment</button>
+                    <button  th:name="${userRole}" name="" type="button" id="addCommentButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj Komment</button>
                 </form>
                     <!--<div class = "mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
                     <!--<input class = "mdl-textfield__input" type="text" rows ="3" id ="position" th:value="${user.getPosition()}" name="position"/>-->

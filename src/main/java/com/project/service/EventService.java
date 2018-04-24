@@ -1,8 +1,10 @@
 package com.project.service;
 
+import com.project.dao.DatesOfEventDao;
 import com.project.dao.EmployeeDao;
 import com.project.dao.EventDao;
 import com.project.dao.UserDao;
+import com.project.model.DatesOfEvent;
 import com.project.model.Employee;
 import com.project.model.Event;
 import com.project.model.User;
@@ -21,6 +23,9 @@ public class EventService {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    DatesOfEventDao datesOfEventDao;
 
     @Autowired
     EventDao eventDao;
@@ -112,21 +117,22 @@ public class EventService {
 
     public String addingEmployeeToEvent(Map<String, String> allRequestParam) {
         String stringId = allRequestParam.get("employeeId");
-        String eventid = allRequestParam.get("eventId");
-        Event event = eventDao.findOne(Long.valueOf(eventid));
+        String dateId = allRequestParam.get("dateId");
+        DatesOfEvent date = datesOfEventDao.findDate(Long.valueOf(dateId));
 
         if (!stringId.equals("")){
             Long id = Long.valueOf(stringId);
             Employee inputEmployee = employeeDao.findEmployee(id);
+            date.addEmployee(inputEmployee);
 //            addWorkingHoures(event, inputEmployee);
-            for (int i = 0; i <notYetOrderedEmployees.size(); i++) {
-                if (notYetOrderedEmployees.get(i).getId() == inputEmployee.getId()){
-                    alreadyOrderedEmployees.add(notYetOrderedEmployees.get(i));
-                    notYetOrderedEmployees.remove(i);
-                }
-            }
+//            for (int i = 0; i <notYetOrderedEmployees.size(); i++) {
+//                if (notYetOrderedEmployees.get(i).getId() == inputEmployee.getId()){
+//                    alreadyOrderedEmployees.add(notYetOrderedEmployees.get(i));
+//                    notYetOrderedEmployees.remove(i);
+//                }
+//            }
 //            event.setEmployeesToEvent(alreadyOrderedEmployees);
-            eventDao.saveEvent(event);
+            datesOfEventDao.saveDate(date);
             return inputEmployee.getName();
         }
         else {
@@ -158,21 +164,22 @@ public class EventService {
     public String restoreEmployee(Map<String, String> allRequestParam) {
         String name = allRequestParam.get("name");
         String employeeId = allRequestParam.get("empId");
-        String eventId = allRequestParam.get("eventId");
+        String eventId = allRequestParam.get("dateId");
         Employee inputEmployee = employeeDao.findEmployee(Long.valueOf(employeeId));
-        Event event = eventDao.findOne(Long.valueOf(eventId));
-        List<Employee> employees = employeeDao.getAllEmployee();
+        DatesOfEvent date = datesOfEventDao.findDate(Long.valueOf(eventId));
+        date.removeEmployee(inputEmployee);
+//        List<Employee> employees = employeeDao.getAllEmployee();
 //        List<Employee> alreadyOrderedEmployees = event.getEmployeesToEvent();
-        for (int i = 0; i <employees.size(); i++) {
-            if (employees.get(i).getName().equals(name)){
-                notYetOrderedEmployees.add(employees.get(i));
-                alreadyOrderedEmployees.remove(employees.get(i));
-            }
-        }
+//        for (int i = 0; i <employees.size(); i++) {
+//            if (employees.get(i).getName().equals(name)){
+//                notYetOrderedEmployees.add(employees.get(i));
+//                alreadyOrderedEmployees.remove(employees.get(i));
+//            }
+//        }
 //        removeWorkingHoures(event,inputEmployee);
 
 //        event.setEmployeesToEvent(alreadyOrderedEmployees);
-        eventDao.saveEvent(event);
+        datesOfEventDao.saveDate(date);
         return name;
     }
 
@@ -231,5 +238,44 @@ public class EventService {
         event.setEmployeesInNumbersToEvent(alreadyAssignedNumbersToEvent);
         eventDao.saveEvent(event);
         return event;
+    }
+
+    public List<Employee> getAssignedEmployeesToDate(String positionOfUser,DatesOfEvent datesOfEvent) {
+        List<Employee> allAlreadyAssignedEmployees = datesOfEvent.getEmployeesOfDates();
+        List<Employee> employeesSortedByPosition = new ArrayList<>();
+        for (Employee emp: allAlreadyAssignedEmployees
+             ) {
+            if (emp.getPosition().equals(positionOfUser)) {
+                employeesSortedByPosition.add(emp);
+            }
+        }
+        return employeesSortedByPosition;
+    }
+
+
+    public int getOrderedNumberByAdmin(Event event, String roleCorrect) {
+        Map<String, Integer> map = event.getEmployeesInNumbersToEvent();
+        int assignedNumber = 0;
+        for (Map.Entry<String, Integer> entry : map.entrySet())
+        {
+            if(entry.getKey().equals(roleCorrect)){
+                assignedNumber = entry.getValue();
+            }
+        }
+        return assignedNumber;
+    }
+
+    public List<Employee> getNotYetAssigned(List<Employee> alreadyAssignedToDateSorted, List<Employee> allEmployeesByPosition) {
+        List<Employee> notAssignedEmployees = allEmployeesByPosition;
+
+
+        for (int i = 0; i < allEmployeesByPosition.size(); i++) {
+            for (int j = 0; j < alreadyAssignedToDateSorted.size(); j++) {
+                if (allEmployeesByPosition.get(i).getName().equals(alreadyAssignedToDateSorted.get(j).getName())){
+                    notAssignedEmployees.remove(allEmployeesByPosition.get(i));
+                }
+            }
+        }
+        return notAssignedEmployees;
     }
 }

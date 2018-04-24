@@ -93,6 +93,11 @@ public class DatesOfEvent {
         employee.getDatesToEmployee().add(this);
     }
 
+    public void removeEmployee(Employee employee) {
+        this.employeesOfDates.remove(employee);
+        employee.getDatesToEmployee().remove(this);
+    }
+
     //    public void setNumbersOfEmployeeByPosition(Map<String, Integer> map) {
 //
 ////        for (String key : map.keySet()) {
