@@ -1,6 +1,6 @@
 $( document ).ready(function() {
     $("#selectEmployee").click(function () {
-        debugger;
+
         var addButton = $("#selectEmployee");
         var selectedEmployee = $("#employee option:selected");
         var $numOfEmployee = $("#numOfEmployee");
@@ -19,6 +19,7 @@ $( document ).ready(function() {
             $numOfEmployee.hide();
             $("#noValue").text("Létszám elérve");
             $("#noValue").show();
+            $("#extraEmployee").show();
 
 
         }

@@ -15,6 +15,9 @@ $( document ).ready(function() {
     	var userDropdown = $("#employee");
     	var selectedUserId = userDropdown.val();
         var dateId = $("#divComment").attr("class");
+        var $numOfEmployee = $("#numOfEmployee");
+        var newVal = parseInt($numOfEmployee.text());
+        var addButton = $("#selectEmployee");
     	var formData = {
     		'employeeId' : selectedUserId,
 			'dateId' : dateId
@@ -29,6 +32,9 @@ $( document ).ready(function() {
 				if(Object.keys(result).length !== 0){
                     userDropdown.find('option[value='+ selectedUserId +']').remove();
                     userDropdown.find('option:first').attr('selected', 'selected');
+                    if(newVal< 0){
+                    	addButton.hide();
+					}
 
 				}else{
 					$("#postResultDiv").html("<strong>Error</strong>");
