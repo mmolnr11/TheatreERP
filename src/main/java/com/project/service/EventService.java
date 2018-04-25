@@ -51,28 +51,6 @@ public class EventService {
         return Character.isLowerCase(word.charAt(0));
     };
 
-    public Event updateEvent(Event oldEvent, Event newEvent){
-        oldEvent.setTitle(newEvent.getTitle());
-        oldEvent.setDescription(newEvent.getDescription());
-//        oldEvent.setStartDateTime(newEvent.getStartDateTime());
-//        oldEvent.setEndDateTime(newEvent.getEndDateTime());
-        return oldEvent;
-    };
-
-//    public Event createEvent(List<Date> dates, HashMap<String,String> allRequestParams){
-//        Event newEvent = new Event(allRequestParams.get("description"),allRequestParams.get("title"),
-//                dates.get(0),dates.get(1),allRequestParams.get("location"),allRequestParams.get("type") );
-//        List<String> roles = employeeDao.getEmployeeRoles();
-//
-//        HashMap<String,Integer > hmap = new HashMap<String, Integer>();
-//
-//        for (int i = 0; i < roles.size(); i++) {
-//            hmap.put(roles.get(i),Integer.valueOf(allRequestParams.get(roles.get(i))));
-//        }
-//        newEvent.setEmployeesInNumbersToEvent(hmap);
-//        return newEvent;
-//    }
-
     public List gettingDesiredEmpNumberToOneEvent(Event event, Principal principal) {
 
         Map<String, Integer> eployeesMap =event.getEmployeesInNumbersToEvent();
@@ -97,24 +75,6 @@ public class EventService {
 
     }
 
-    List<Employee> notYetOrderedEmployees = new ArrayList<Employee>();
-    List<Employee> alreadyOrderedEmployees = new ArrayList<Employee>();
-
-    public List<Employee> selectingNotOrderedEmployees(Event event, String roleCorrect){
-        List<Employee> employees = employeeDao.getEmmployessByRoles(roleCorrect);
-
-        notYetOrderedEmployees = employees;
-//        alreadyOrderedEmployees = event.getEmployeesToEvent();
-        for (int i = 0; i < alreadyOrderedEmployees.size(); i++) {
-            for (int j = 0; j < notYetOrderedEmployees.size(); j++) {
-                if (notYetOrderedEmployees.get(j).getId() == alreadyOrderedEmployees.get(i).getId()){
-                    notYetOrderedEmployees.remove(j);
-                }
-            }
-        }
-        return notYetOrderedEmployees;
-    }
-
     public String addingEmployeeToEvent(Map<String, String> allRequestParam) {
         String stringId = allRequestParam.get("employeeId");
         String dateId = allRequestParam.get("dateId");
@@ -124,14 +84,6 @@ public class EventService {
             Long id = Long.valueOf(stringId);
             Employee inputEmployee = employeeDao.findEmployee(id);
             date.addEmployee(inputEmployee);
-//            addWorkingHoures(event, inputEmployee);
-//            for (int i = 0; i <notYetOrderedEmployees.size(); i++) {
-//                if (notYetOrderedEmployees.get(i).getId() == inputEmployee.getId()){
-//                    alreadyOrderedEmployees.add(notYetOrderedEmployees.get(i));
-//                    notYetOrderedEmployees.remove(i);
-//                }
-//            }
-//            event.setEmployeesToEvent(alreadyOrderedEmployees);
             datesOfEventDao.saveDate(date);
             return inputEmployee.getName();
         }
@@ -140,26 +92,6 @@ public class EventService {
         }
 
     }
-//    private void addWorkingHoures(Event event, Employee employee) {
-//        long minutes = getDurationOfEvent(event);
-//        employee.setWorkingHours(minutes);
-//        employeeDao.saveEmployee(employee);
-//
-//    }
-//    private long getDurationOfEvent(Event event) {
-//        Date startDate = event.getStartDateTime();
-//        Date endDate = event.getEndDateTime();
-//        long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
-//        long minutes = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
-//        return minutes;
-//    }
-
-//    private void removeWorkingHoures(Event event, Employee employee) {
-//        long minutes = getDurationOfEvent(event);
-//        employee.decreaseWorkingHours(minutes);
-//        employeeDao.saveEmployee(employee);
-//
-//    }
 
     public String restoreEmployee(Map<String, String> allRequestParam) {
         String name = allRequestParam.get("name");
@@ -168,24 +100,11 @@ public class EventService {
         Employee inputEmployee = employeeDao.findEmployee(Long.valueOf(employeeId));
         DatesOfEvent date = datesOfEventDao.findDate(Long.valueOf(eventId));
         date.removeEmployee(inputEmployee);
-//        List<Employee> employees = employeeDao.getAllEmployee();
-//        List<Employee> alreadyOrderedEmployees = event.getEmployeesToEvent();
-//        for (int i = 0; i <employees.size(); i++) {
-//            if (employees.get(i).getName().equals(name)){
-//                notYetOrderedEmployees.add(employees.get(i));
-//                alreadyOrderedEmployees.remove(employees.get(i));
-//            }
-//        }
-//        removeWorkingHoures(event,inputEmployee);
-
-//        event.setEmployeesToEvent(alreadyOrderedEmployees);
         datesOfEventDao.saveDate(date);
         return name;
     }
 
     public Event createEvent(HashMap<String, String> allRequestParams) throws ParseException {
-//        List<Date> dates = dateValidation.createDateFromForm(allRequestParams);
-//        dates.get(0),dates.get(1)
         Event newEvent = new Event(allRequestParams.get("description"),allRequestParams.get("title")
                 ,allRequestParams.get("location"),allRequestParams.get("type") );
         String serialize = allRequestParams.get("serialize");
@@ -208,9 +127,6 @@ public class EventService {
         return newEvent;
     }
     public Event updateEvent(HashMap<String, String> allRequestParams) throws ParseException {
-//        List<Date> dates = dateValidation.createDateFromForm(allRequestParams);
-//        Event newEvent = new Event(allRequestParams.get("description"),allRequestParams.get("title"),
-//                dates.get(0),dates.get(1),allRequestParams.get("location"),allRequestParams.get("type") );
         String serialize = allRequestParams.get("serialize");
 
         Long id = Long.valueOf(allRequestParams.get("id"));

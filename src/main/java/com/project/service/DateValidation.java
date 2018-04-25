@@ -68,33 +68,6 @@ public class DateValidation {
         Date start = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(formattedDate1);
         Date end = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(formattedDate2);
         DatesOfEvent datesOfEvent = new DatesOfEvent(event, start,end);
-//        List<Date> list = new ArrayList<>();
-//        list.add(start);
-//        list.add(end);
         return datesOfEvent;
-    }
-
-    public void createDateFromForm(HashMap<String, String> allRequestParams) throws ParseException {
-//        String eventDay = allRequestParams.get("date");
-//        String startTime = allRequestParams.get("startDateTime");
-//        Date newDate1 = new SimpleDateFormat("yyyy-MM-dd").parse(eventDay);
-////        Date newDate1 = new SimpleDateFormat("MM/dd/yyyy").parse(eventDay);
-//
-//        String formattedDate1 = new SimpleDateFormat("yyyy/MM/dd "+ startTime).format(newDate1);
-//
-//        Date eventStart = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(formattedDate1);
-////        Date eventStart = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(formattedDate1);
-//
-//
-//        String endTime = allRequestParams.get("endDateTime");
-//        Date newDate2 = new SimpleDateFormat("yyyy-MM-dd").parse(eventDay);
-//
-//        String formattedDate2 = new SimpleDateFormat("yyyy/MM/dd "+ endTime).format(newDate2);
-//
-//        Date eventEnd = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(formattedDate2);
-//        List<Date> list = new ArrayList<>();
-//        list.add(eventStart);
-//        list.add(eventEnd);
-//        return list;
     }
 }

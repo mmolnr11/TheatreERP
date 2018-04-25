@@ -41,26 +41,6 @@ public class EventController {
         return "material-update";
     }
 
-//
-
-    @GetMapping(value = "/user/event/{id}/description")
-    public String userEventDetailsPage(Principal principal, Model model, @PathVariable("id") Long id){
-        Event event = eventDao.findOne(id);
-        List detailsOfOrderedEmployees = eventService.gettingDesiredEmpNumberToOneEvent(event,principal);
-        String roleCorrect = (String) detailsOfOrderedEmployees.get(0);
-        Integer wantedNumberOfEmployees = (Integer) detailsOfOrderedEmployees.get(1);
-        List<Employee> notYetOrderedEmployees = eventService.selectingNotOrderedEmployees(event, roleCorrect);
-//        int alreadyAssignedEmployees = event.getEmployeesToEvent().size();
-//        int actualNumberOfEmployees = wantedNumberOfEmployees - alreadyAssignedEmployees;
-
-        model.addAttribute("event", event);
-        model.addAttribute("roleString", roleCorrect);
-//        model.addAttribute("roleInteger", actualNumberOfEmployees);
-        model.addAttribute("roleInteger", 32);
-        model.addAttribute("employees", notYetOrderedEmployees);
-        return "user-event-detail-material";
-    }
-
 
     public String getPrincipalRole(Principal principal){
         User user = userDao.getUserByEmailAddress(principal.getName());
