@@ -14,13 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-
-//
-//@NamedQuery(name = "DatesOfEvent.getNameQuery",
-//        query = "SELECT datesOfEventList " +
-//                "from Event e WHERE e.startDate >:startDate and e.endDate <:endDate"
-//)
-
 @Entity
 public class Event {
 
@@ -38,13 +31,12 @@ public class Event {
     private String location;
     @Column
     private String type;
-    @JsonIgnore
-    @ManyToMany
-    private List<Employee> employeesToEvent;
+//    @JsonIgnore
+//    @ManyToMany
+//    private List<Employee> employeesToEvent;
     @ElementCollection
     @MapKeyColumn(name="name")
     @Column(name="value")
-//    @CollectionTable(name="example_attributes", joinColumns=@JoinColumn(name="example_id"))
     private Map<String, Integer> employeesInNumbersToEvent;
 
     public Event() {
@@ -101,16 +93,6 @@ public class Event {
         this.employeesInNumbersToEvent = employeesInNumbersToEvent;
     }
 
-
-
-    public List<Employee> getEmployeesToEvent() {
-        return employeesToEvent;
-    }
-
-    public void setEmployeesToEvent(List<Employee> employeesToEvent) {
-        this.employeesToEvent = employeesToEvent;
-    }
-
     public List<DatesOfEvent> getDatesOfEvent() {
         return datesOfEventList;
     }
@@ -126,4 +108,12 @@ public class Event {
 //        long minutes = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
 //        return minutes;
     }
+
+//    public List<Employee> getEmployeesToEvent() {
+//        return employeesToEvent;
+//    }
+//
+//    public void setEmployeesToEvent(List<Employee> employeesToEvent) {
+//        this.employeesToEvent = employeesToEvent;
+//    }
 }

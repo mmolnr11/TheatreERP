@@ -3,14 +3,13 @@ package com.project.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
-@NamedQuery(name = "DatesOfEvent.getNameQuery",
-        query = "SELECT startDate, endDate " +
-                "from DatesOfEvent d WHERE d.startDate >:startDate and d.endDate <:endDate"
-)
+//@NamedQuery(name = "DatesOfEvent.getNameQuery",
+//        query = "SELECT startDate, endDate " +
+//                "from DatesOfEvent d WHERE d.startDate >:startDate and d.endDate <:endDate"
+//)
 
 
 
@@ -18,6 +17,7 @@ import java.util.List;
 public class DatesOfEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "date_id")
     private Long id;
     private Date startDate, endDate;
     @JsonIgnore
@@ -26,7 +26,14 @@ public class DatesOfEvent {
     @JsonIgnore
     @OneToMany(mappedBy = "datesOfEvent")
     private List<Comment> comments;
-//    TODO MANYTOMANY WITH EMP
+
+
+    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST},fetch = FetchType.EAGER)
+    @JoinTable(name="EMPLOYEEASSIGNEMENT_TO_DATE", joinColumns={@JoinColumn(name="DATE", referencedColumnName="date_id")},
+    inverseJoinColumns={@JoinColumn(name="EMPLOYEE", referencedColumnName="employee_id")})
+    private List<Employee> employeesOfDates = new ArrayList<>();
+
+
 
     public DatesOfEvent(Event event, Date startDate, Date endDate) {
         this.startDate = startDate;
@@ -72,4 +79,37 @@ public class DatesOfEvent {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
+    public List<Employee> getEmployeesOfDates() {
+        return employeesOfDates;
+    }
+
+    public void setEmployeesOfDates(List<Employee> employeesOfDates) {
+        this.employeesOfDates = employeesOfDates;
+    }
+
+    public void addEmployee(Employee employee){
+        this.employeesOfDates.add(employee);
+        employee.getDatesToEmployee().add(this);
+    }
+
+    public void removeEmployee(Employee employee) {
+        this.employeesOfDates.remove(employee);
+        employee.getDatesToEmployee().remove(this);
+    }
+
+    //    public void setNumbersOfEmployeeByPosition(Map<String, Integer> map) {
+//
+////        for (String key : map.keySet()) {
+//////            System.out.println("keyset "+key);
+////            ArrayList<Employee> employees = new ArrayList<>();
+////            Berendezo berendezo = new Berendezo("Berendezo", "ELek",32, "Berendezo");
+////            employees.add(berendezo);
+////
+////            this.numbersOfEmployeeByPosition.put(key, employees);
+//////        }
+////
+////        }
+//
+//    }
 }

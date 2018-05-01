@@ -7,7 +7,7 @@ $( document ).ready(function() {
         var newVal = parseInt($numOfEmployee.text());
         newVal = newVal +1;
         $numOfEmployee.text( newVal );
-        var eventId = $("#divComment").attr("class");
+        var dateId = $("#divComment").attr("class");
         var addButton = $("#selectEmployee");
 
 
@@ -18,7 +18,7 @@ $( document ).ready(function() {
                 name: $(this).attr("name"),
 //                    "name": $(this).attr("name"),
                 "empId": $(this).attr("id"),
-                "eventId": eventId
+                "dateId": dateId
             },
             function(response){
                    // alert("Name: " + response);

@@ -13,19 +13,14 @@ $( document ).ready(function() {
     function ajaxPost(){
         debugger;
         var str = $( "#save-event" ).serialize();
-        $( "#results" ).text( str );
         console.log(str);
 
         var title = $("#title").val();
         var formData = {
-            // "timepickerdate": $("#timepickerdate").val(),
             "serialize" : str,
-            // "date": $("#date").val(),
             "title": title,
             "description": $("#description").val(),
             "location": $("#location").val(),
-            // "startDateTime": $("#startDateTime").val(),
-            // "endDateTime": $("#endDateTime").val(),
             "type": $("#type").val()
         };
 
@@ -46,7 +41,6 @@ $( document ).ready(function() {
                 }
                 else {
                     debugger;
-                    // alert(Object.keys(result).length);
                     $('#eventErrors .list-group').append('<li><h4 class="list-group-item">'+title + " sikeresen hozzadava"+'</h4></li>');
                 }
             },

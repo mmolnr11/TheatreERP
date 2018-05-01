@@ -4,7 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("Vilagosito ")
+@DiscriminatorValue("Vilagosito")
 public class Vilagosito extends Employee{
     public Vilagosito(String firstName, String secondName, int age,String position) {
         super(firstName, secondName, age, position);

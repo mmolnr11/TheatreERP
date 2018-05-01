@@ -4,7 +4,7 @@ $( document ).ready(function() {
 	var url = window.location;
 	
 	// SUBMIT FORM
-    $("#customerForm").submit(function(event) {
+    $("#assigneEmployeeForm").submit(function(event) {
 		// Prevent the form from submitting via the browser.
 		event.preventDefault();
 		ajaxPost();
@@ -14,28 +14,27 @@ $( document ).ready(function() {
     function ajaxPost(){
     	var userDropdown = $("#employee");
     	var selectedUserId = userDropdown.val();
-        var eventId = $("#divComment").attr("class");
+        var dateId = $("#divComment").attr("class");
+        var $numOfEmployee = $("#numOfEmployee");
+        var newVal = parseInt($numOfEmployee.text());
+        var addButton = $("#selectEmployee");
     	var formData = {
     		'employeeId' : selectedUserId,
-			'eventId' : eventId
-    	}
+			'dateId' : dateId
+    	};
     	
-    	// DO POST            console.log(result)
         console.log(formData);
         $.ajax({
             url : "/addEmployee",
             method : "POST",
-            // contentType : "application/json",
             data : formData,
-			// data : JSON.stringify(formData),
-			// dataType : 'json',
 			success : function(result) {
 				if(Object.keys(result).length !== 0){
-					// $("#postResultDiv").html(
-					// 	"<strong>" + "Post Successfully! Customer's Info: FirstName = "
-					// 		+ result.data + "</strong>");
                     userDropdown.find('option[value='+ selectedUserId +']').remove();
                     userDropdown.find('option:first').attr('selected', 'selected');
+                    if(newVal< 0){
+                    	addButton.hide();
+					}
 
 				}else{
 					$("#postResultDiv").html("<strong>Error</strong>");

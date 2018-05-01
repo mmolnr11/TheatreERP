@@ -31,23 +31,18 @@ $( document ).ready(function() {
         // DO POST            console.log(result)
         console.log(formData);
         $.ajax({
-            url : "/event/change",
+            url : "/admin/event/change",
             method : "POST",
             data : formData,
 
             success : function(result) {
                 if (Object.keys(result).length !== 0){
-                    $.each(result, function(i, string){
-                        var error = "Hiba " + i + ": " + string ;
-                        $('#getResultDiv .list-group').append('<li><h4 class="list-group-item">'+error+'</h4></li>')
-                    });
+                    alert(result.title + " megváltoztatva");
+                    // $.each(result, function(i, string){
+                    //     var error = "Hiba " + i + ": " + string ;
+                    //     $('#getResultDiv .list-group').append('<li><h4 class="list-group-item">'+error+'</h4></li>')
+                    // });
                     console.log(result)
-                    // }else {
-                    //
-                    // }
-                    alert("malacka");
-
-                    console.log(result);
                 }
                 else {
                     debugger;

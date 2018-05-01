@@ -3,6 +3,7 @@ package com.project.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NamedQueries(
@@ -17,6 +18,7 @@ import java.util.List;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "employee_id")
     private long id;
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -24,10 +26,10 @@ public class Employee {
     private String secondName;
     @Column(nullable = false)
     private int age;
-//    TODO event dont have date
+////    TODO event dont have date
     @JsonIgnore
-    @ManyToMany(mappedBy = "employeesToEvent")
-    private List<Event> eventsToEmployee;
+    @ManyToMany(mappedBy = "employeesOfDates",cascade = CascadeType.PERSIST)
+    private List<DatesOfEvent> datesToEmployee = new ArrayList<>();
 
     private String position;
 
@@ -102,12 +104,12 @@ public class Employee {
         return getFirstName()+ " " + getSecondName();
     }
 
-    public List<Event> getEventsToEmployee() {
-        return eventsToEmployee;
+    public List<DatesOfEvent> getDatesToEmployee() {
+        return datesToEmployee;
     }
 
-    public void setEventsToEmployee(List<Event> eventsToEmployee) {
-        this.eventsToEmployee = eventsToEmployee;
+    public void setDatesToEmployee(List<DatesOfEvent> datesToEmployee) {
+        this.datesToEmployee = datesToEmployee;
     }
 
 

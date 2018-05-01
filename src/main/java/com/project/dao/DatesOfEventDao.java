@@ -17,9 +17,9 @@ public class DatesOfEventDao {
         DatesOfEvent dates = datesOfEventRepository.findOne(id);
         return dates;
     }
-    public List<Object[]> datesBetween (Date start, Date end){
-        return datesOfEventRepository.getNameQuery(start,end);
-    };
+//    public List<Object[]> datesBetween (Date start, Date end){
+//        return datesOfEventRepository.getNameQuery(start,end);
+//    };
 
     public void saveDate(DatesOfEvent datesOfEvent){datesOfEventRepository.save(datesOfEvent);}
 }

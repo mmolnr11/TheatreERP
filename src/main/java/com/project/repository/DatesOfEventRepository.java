@@ -12,8 +12,8 @@ public interface DatesOfEventRepository extends JpaRepository<DatesOfEvent, Long
     DatesOfEvent findOne(Long aLong);
 
 
-    List<Object[]> getNameQuery(@Param("startDate") Date start,
-                              @Param("endDate") Date end);
+//    List<Object[]> getNameQuery(@Param("startDate") Date start,
+//                              @Param("endDate") Date end);
 
 //    DatesOfEvent getDatesOfEventByStartDateAfterAndEndDateBefore(@Param("roomId") Long id);
 }
