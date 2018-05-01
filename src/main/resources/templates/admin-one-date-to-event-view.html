@@ -1,0 +1,126 @@
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel = "stylesheet"
+          href = "https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css" />
+    <script src = "https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js">
+    </script>
+    <link rel = "stylesheet"
+          href = "https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+
+    <link href="//cdn.muicss.com/mui-0.9.38/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-0.9.38/js/mui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/js/postuser.js"></script>
+    <script src="/js/postevent.js"></script>
+    <script src="/js/usersearchevent.js"></script>
+    <script src="/js/changeevent.js"></script>
+    <script src="/js/addcomment.js"></script>
+    <script src="/js/addemployeewithbutton.js"></script>
+    <script src="/js/restoreemployewithbutton.js"></script>
+    <script src="/js/counter.js"></script>
+    <script src="/js/deletecomment.js"></script>
+
+</head>
+
+<body>
+<!-- The drawer is always open in large screens. The header is always
+   shown, even in small screens. -->
+<div class = "mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+    <header class = "mdl-layout__header">
+        <!-- Top row, always visible -->
+        <div class = "mdl-layout__header-row">
+            <!-- Title -->
+            <span class = "mdl-layout-title">TheatreERP</span>
+            <span class = "mdl-layout-title"> A mi kis "Nagy" dobásunk </span><br/>
+            <span class = "mdl-layout-title">Admin felület</span>
+        </div>
+
+        <!-- Tabs -->
+        <div class = "mdl-layout__tab-bar mdl-js-ripple-effect">
+            <a href = "#scroll-tab-1" class = "mdl-layout__tab is-active">Esemény keresése</a>
+            <!--<a href = "#scroll-tab-2" class = "mdl-layout__tab">User hozzáadása</a>-->
+            <!--<a href = "#scroll-tab-3" class = "mdl-layout__tab">Esemeny hozzáadása</a>-->
+        </div>
+    </header>
+
+    <div class = "mdl-layout__drawer">
+        <span class = "mdl-layout-title">Theatre ERP</span>
+        <nav class = "mdl-navigation">
+            <a class = "mdl-navigation__link" href = "">Hasznalati szabalyzat</a>
+            <a class = "mdl-navigation__link" href = "">Segitseg</a>
+            <a class = "mdl-navigation__link" href = "/logout">Kijelentkezés</a>
+        </nav>
+    </div>
+
+    <main class = "mdl-layout__content">
+        <section class = "mdl-layout__tab-panel is-active" id = "scroll-tab-1">
+            <div class="form-group">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                    <p>Darab cime</p>
+                    <p id = "title" th:text="${event.getTitle()}"></p>
+                    <!--<label class="mdl-textfield__label" for="title" ></label>-->
+                    <!--<input class="mdl-textfield__input" type="text" id="firstname"  th:value="${event.getTitle()}" name="title"/>-->
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <p>Leiras</p>
+                    <p th:text="${event.getDescription()}"></p>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <p>Helyszin</p>
+                    <p th:text="${event.getLocation()}"></p>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <p>Start</p>
+                    <p th:text="${datesOfEvent.getStartDate()}"></p>
+                    <p th:text="${datesOfEvent.getEndDate()}"></p>
+                </div>
+
+
+                <div id="postResultDiv">
+                </div>
+
+
+
+                <div id="divComment" th:class = "${datesOfEvent.getId()}">
+                    <p>Korabbi kommentek</p>
+                    <div  th:each="comment : ${datesOfEvent.getComments()}">
+                        <tr>
+                            <td th:text="${comment.getDescription()}"></td>
+                            <td th:text="${comment.getUser().getPosition()}"></td>
+                            <td th:text="${comment.getEntryTime()}"></td>
+                            <button id="deleteCommentButton"
+                                    type="button"
+                                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                                    th:if="${comment.getUser().getPosition()} != ${roleString} "
+                                    th:name="${comment.getId()}">Komment törlése
+                            </button>
+                        </tr>
+                    </div>
+
+                </div>
+
+                <form id="addComment">
+                    <div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class = "mdl-textfield__input" type="text" rows ="3" id ="comment" name="comment"/>
+                        <label class = "mdl-textfield__label" for = "comment">Uj Komment</label>
+                    </div>
+                    <button  th:name="${roleCorrect}" name="" type="button" id="addCommentButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Uj Komment</button>
+                </form>
+
+            </div>
+            <div id="searchDiv">
+                <ul class="list-group">
+                </ul>
+            </div>
+
+        </section>
+    </main>
+</div>
+
+</body>
+</html>
